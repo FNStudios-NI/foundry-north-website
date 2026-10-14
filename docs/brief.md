@@ -29,10 +29,11 @@ In:
 - (master's) Phone first: designed for a phone screen first.
 - (master's) Words drafted from his July voice rules and page words, approved by him line by line.
 - (master's) Nothing faked: trust from what is true and public ("built by filmmakers, fifteen years of craft"); no testimonials, no client names or logos, nothing the digest marks private.
-Total: about 1¼ build days and about 1½ hours of his. His answers made the whole smaller than the master's recommendations: "not live" alone took off about half a build day and 20 minutes of his hands.
+- Going live (moved in at the facts step, 14 Oct 2026 08:29, his letter "B"): the finished page at foundrynorthstudios.co.uk and `www.`, replacing today's error page, seen first on the private preview; the switch is his act. About half a build day and 20 to 30 minutes of his hands.
+Total before going live moved in: about 1¼ build days and about 1½ hours of his; with it, about 1¾ build days and about 2 hours of his. His answers made the whole smaller than the master's recommendations: "not live" alone took off about half a build day and 20 minutes of his hands.
 
 Out:
-- Going live, and any change to the domain, its email or the job scout's portal.
+- Any change to the domain's email, the portal, `pick.` or anything but the bare address and `www.`.
 - More pages, or a page for each buyer.
 - A contact form, and a booking tool.
 - Making the film itself.
@@ -42,7 +43,6 @@ Out:
 - (master's) Client stories and testimonials.
 
 Later:
-- Going live at foundrynorthstudios.co.uk, with him pointing the domain.
 - His film dropped into its space.
 - A contact form, tried for real once live.
 - A page aimed at one buyer for a particular outreach push.
@@ -53,7 +53,7 @@ Later:
 
 The forks, his letters in order (14 Oct 2026):
 - How big: one page (his letter "a" of a one page, b three pages, c a page for each buyer).
-- Live or not: finished but not live; going live is a separate later step on his word (his letter "b" of a live at the address, b finished but not live; the master had recommended a).
+- Live or not: finished but not live; going live is a separate later step on his word (his letter "b" of a live at the address, b finished but not live; the master had recommended a). Superseded at the facts step by his letter "B": going live is in.
 - Who the page speaks to first: neither by name; the top talks about the result, and two short sections below say "for founders" and "for organisations" (his letter "C" of a the founder first, b the organisation first, c neither by name; the master had recommended a).
 - The one way to get in touch: an email button; a form is for the later going-live step (his letter "A" of a an email button, b a short form, c both).
 - Film on the page: none in this era, with a designed-in placeholder for a film he will make soon (his letter "A" of a no film, b a silent loop at the top, c a film to press play on). His words: "Have a placeholder for a film, as we will make one of the next couple of days."
@@ -77,6 +77,10 @@ Being read and talked through (14 Oct 2026, read on Pandora about 05:50). Each f
 - Footage exists: six clips and five "for web" sequences of 21 May 2026 in `Advisor-website\Videos for website v1\`, not viewed. Checked: listed. Not used in this era (Scope: no film).
 - The July page words are `Advisor-website\pages.md`; its email button was a placeholder, `rhys@foundrynorth.studio`, "to confirm". Checked: lines 263 and 298 read. The brand voice file is not in the zip; the digest quotes it (§ 7).
 - Fonts: the brand's first choice (Neue Montreal) is a paid face with no licence held; Inter and IBM Plex Mono are free. Documented: the digest § 8.
+- Hosting for going live (read after going live moved in, about 08:30): Cloudflare Pages is a current product; for a domain already on Cloudflare, adding a custom domain to a Pages project adds its CNAME record automatically, apex included. The docs do not say what happens to existing A records on the same name, and warn that CAA records can block the certificate. Documented: developers.cloudflare.com/pages/configuration/custom-domains/. Whether Pages accepts the bare address over today's proxied A records is ❓, to be tried before the plan is signed (it needs his Cloudflare sign-in).
+- CAA records: this machine's `nslookup` cannot query them ("unknown query type: CAA"); not yet read.
+- No Node, npm or wrangler on Pandora (Cloudflare's own upload tool needs Node; installing is his act). Checked: `which`. A Pages project can instead build from a folder of a GitHub repository, connected once in the Cloudflare dashboard (his act; it gives Cloudflare read access to the repository). Documented in Cloudflare's Pages docs; not tried.
+- Today's error page is Cloudflare's own (Server: cloudflare, served from London), 525. Checked: `curl -I`, 07:30 UTC.
 
 ## Design
 Not ruled yet. References he has named (rulings 3 and 4 of 14 Oct 2026 02:47): a design he likes, https://land-book.com/websites/95602-kvant-executive-search ; a company like his, https://foundercontentengine.com/
