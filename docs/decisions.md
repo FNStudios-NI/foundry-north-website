@@ -28,3 +28,24 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 | 4 | The job scout is read at the facts step, read-only, not now. | Discovery starts at the problem; facts are step 3. | Read it sooner if a question needs it. |
 
 Supersedes: none. Unsure and Parked lines settled: the digest's contradiction 4 (the domain), by ruling 2.
+
+## 2026-10-14 02:58 — Discovery step 1, the problem, ruled (the planning master)
+Page: no page (talked through in the chat).
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | What hurts: with no website there is no authority when someone looks the business up before a deal, and social and cold outreach have nowhere to land. | "we don't have any authority if people go looking before signing the deal. if we do social or cold outreach i would like them to see something impressive and clear once they click on." | Asked what goes wrong today with no website. | A new ruling. |
+| 2 | The people looking are both founders and people inside organisations. | c — no words added | The files name two buyers (the digest's contradiction 6); the page must work for either. | A new ruling. |
+| 3 | "Fixed" is a visitor reassured, with one clear way to get in touch; no booking tool. | b — no words added | Cold visitors have no conversation to go back to; a booking tool is more than a placeholder needs. | A new ruling; a booking button can be added later. |
+| 4 | The problem as read back to him, now `docs/brief.md` § The problem. | "yes" | The step ends in his ruling before scope begins. | A new ruling. |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | Which of the two buyers the page speaks to first is left open and asked at scope: he answered "c" without naming one. | It decides the words, which are scope and design, not the problem. | Ask it sooner. |
+| 2 | Left out of the problem as answers, each for its own step: what the offer is called ("mini studios" against "your engine"), and whether the site goes live at the address in this era. | The problem holds what hurts, not solutions. | Move either into the problem on his word. |
+
+Supersedes: none. Unsure and Parked lines settled: the digest's contradiction 6 (who the buyer is), in part, by ruling 2: both; which first is open.
