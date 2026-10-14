@@ -51,3 +51,28 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 Supersedes: none. Unsure and Parked lines settled: the digest's contradiction 6 (who the buyer is), in part, by ruling 2: both; which first is open.
 - **03:06 — Rhys:** The sharing question, asked in the chat (will this project's record ever be shared, copied or made public: a never, b yes): his letter "a", no words added. The brief's Shared line now reads never; the digest stays in the tree. Undo: a new ruling, and the digest leaves the tree first.
 - **03:07 — the planning master:** My call: the brief's Held apart line reads none for now. The website's own folder will be public, so it is named on that line when the design rules where it sits. Undo: change the line.
+
+## 2026-10-14 05:51 — Discovery step 2, scope, ruled (the planning master)
+Page: no page (talked through in the chat). The whole scope is `docs/brief.md` § Scope.
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | One scrolling page. | a — no words added | One strong page reassures in under a minute; it can grow later. | A new ruling; the page grows into more pages later. |
+| 2 | Finished but not live: the era ends at a private preview address; going live is a later step on his word. | b — no words added (the master had recommended a) | His call; nothing in this era touches the domain, its email or the portal. | A new ruling, or the later going-live step. |
+| 3 | The top of the page names neither buyer; it leads with the result, with "for founders" and "for organisations" sections below. | C — no words added (the master had recommended a) | Nobody is turned away at the top. | A new ruling; the words change at the look. |
+| 4 | The one way to get in touch is an email button. | A — no words added | Nothing to set up or break; a form can only be half tested before going live. | A new ruling; a form is on the later list. |
+| 5 | No film in this era; a designed-in placeholder for his film. | A — "Have a placeholder for a film, as we will make one of the next couple of days." | The page is not held up waiting for footage. | Drop the film into its space. |
+| 6 | No price on the page. | A — no words added | He prices each deal himself; one number would be wrong for one of two buyers. | A new ruling. |
+| 7 | Search basics only, with the link preview. | A — "A this is the 1st instance, the rest can come later" | Visitors arrive by a link or by his name. | A new ruling; the full plan is on the later list. |
+| 8 | The whole scope as read back, the master's marked lines included. | "Yes" | The step ends in his ruling before facts begin. | A new ruling. |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | Sizes are build days and his hours, estimated before the facts; they are re-priced on the plan page. | No dates before the facts stage (`pages.md`). | None needed. |
+| 2 | Which email address the button uses is a facts question (three appear in his files). | It is a fact of his set-up, not a scope choice. | Ask it sooner. |
+
+Supersedes: none. Unsure and Parked lines settled: the digest's contradictions 5 (a price on the page) and 7 (search); contradiction 6 (who the buyer is) settled by ruling 3: both, neither named first.
