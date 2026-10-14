@@ -1,0 +1,26 @@
+<For the agent: open this for Rhys on the machine where he will type. If the act changes, write a new file and put "REPLACED, DO NOT RUN" as this one's first line. Delete this line.>
+
+<WHAT THIS IS>  -  your act, about <N> minutes, on <which machine>
+==========================================================================
+
+What it unlocks: <one plain line>
+Why you and not me: <one plain line>
+
+
+STEP 1 - <where: which window, on which machine>
+Why: <one plain line>
+
+<one command, with the full program path>   # end
+
+Pass: you see "<the exact line>".
+
+
+STEP 2 - <where>
+Why: <one plain line>
+
+<one command, with the full program path>   # end
+
+Pass: you see "<the exact line>".
+
+
+If anything looks different from a Pass line, stop and tell me what it says.

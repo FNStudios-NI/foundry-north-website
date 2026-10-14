@@ -1,0 +1,495 @@
+<meta charset="utf-8">
+<title>tide-times · Review · run 3 · the forks</title>
+<!--
+  A SAMPLE REVIEW PAGE: the forks page of a made-up run of a made-up project, copied from the blank
+  (docs/blanks/page.html) and filled as pages.md § The review page says. No real person, machine or project.
+  The page check allows it, and a test in test_page_check.py says so.
+-->
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+/* The read-back bar sits at the bottom; a box being typed in scrolls clear of it. */
+:root { scroll-padding-bottom: 10rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 12px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+/* Phone width: the letters sit beside the button, and the bar is never more than a fifth of the screen;
+   anything below them (the copy-by-hand box) scrolls inside the bar. */
+@media (max-width: 34rem) {
+  .readback { box-sizing: border-box; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); max-height: 20vh; max-height: 20dvh; overflow-y: auto; }
+  .readback button { padding: 10px 12px; max-width: 9rem; }
+  .readback > .fallback, .readback > small { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>tide-times</div>
+      <div><b>Stage</b>Review · run 3, the forks · about 12 minutes · 4 questions</div>
+      <div><b>Sheet</b>the review, its own link</div>
+    </div>
+    <h1>Three forks from run 3 that could affect you later</h1>
+    <p>The pieces are my decisions; your pass is over the forks. Each fork is a choice I made during the run that could shape your later work, explained by its area, its problem, the chain around it, and its cause and effect, with its own picture. Three letters and a score, then one button.</p>
+  </header>
+
+  <!-- It works, first: each done-when line of the plan, tried, from the run record's "It works" (pages.md § The review page). -->
+  <section class="item stack" id="works">
+    <h2>It works</h2>
+    <ul>
+      <li>The page shows today's tide times for your harbour: pass. Tried on your phone at 07:10.</li>
+      <li>The page still shows times with the feed switched off: pass. Tried with the feed blocked.</li>
+      <li>A friend opens the same link and picks another harbour: fail. The picker reset on their phone; it is fork 2.</li>
+    </ul>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The run as a whole: does what you signed for work.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>A run can land every piece while the thing itself does not work.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>the plan's done-when lines → each one tried → this list</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>A fail here comes back as a fork below, or as a piece of the next plan.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Each done-when line of the plan is tried, and each try is marked pass or fail.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The plan's done-when lines</text><text class="d-s" x="34" y="50">three, as you signed them</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">each one tried</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Pass or fail</text><text class="d-s" x="34" y="134">two pass, one fails</text>
+      </svg>
+      <figcaption>How to read it: the arrow runs from each line of the plan to its try.</figcaption>
+    </figure>
+  </section>
+
+  <!-- The four measures, above everything, from the run record (pages.md § The review page). -->
+  <section class="stack">
+    <h2>Run 3 in four measures</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Measure</th><th>Run 3</th></tr></thead>
+        <tbody>
+          <tr><td>Finished tasks per hour of your attention</td><td>about 12: 9 tasks kept, in about 45 minutes of yours (the sitting, two answers, this page)</td></tr>
+          <tr><td>Surprises after you left</td><td>2: the tide feed went down (fork 1) · one checker refused a piece, fixed and checked again</td></tr>
+          <tr><td>Share of the plan finished</td><td>9 of the 10 tasks you signed</td></tr>
+          <tr><td>Enjoyment, 1 to 5</td><td>yours to give: question 4, at the end</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Worked out from the run record, never estimated.</p>
+  </section>
+
+  <section class="back stack">
+    <h2>What I took from your message</h2>
+    <ul>
+      <li>You signed the plan with ten tasks, and key point 4 marked b: tell you and show you on your phone. I did, when the feed went down.</li>
+      <li>"Keep it to one page I can send to friends": fork 2 is where that choice shows.</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <section class="stack">
+    <h2>How this review works</h2>
+    <p class="likeness"><b>Think of it as</b> the edit review after a shoot: you do not re-watch every take, you look at the cuts that change the story. A <b>fork</b> is one of those cuts: a choice that could have gone another way.</p>
+    <figure>
+      <svg viewBox="0 0 340 330" role="img" aria-label="Your signature starts the run; the run builds nine pieces and makes three forks; this page shows the forks; your letters set the next run.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your signature</text><text class="d-s" x="34" y="50">the plan: ten tasks</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">go</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The run, without you</text><text class="d-s" x="34" y="134">9 pieces built, checked, kept</text>
+        <line class="d-a" x1="170" y1="146" x2="170" y2="176" marker-end="url(#ar)"/><text class="d-l" x="180" y="166">3 forks</text>
+        <rect class="d-box" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">This page</text><text class="d-s" x="34" y="218">each fork, with what I turned down</text>
+        <line class="d-ah" x1="170" y1="230" x2="170" y2="260" marker-end="url(#arh)"/><text class="d-l" x="180" y="250">you tap</text>
+        <rect class="d-his" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Your letters</text><text class="d-s" x="34" y="302">keep a fork, or turn it another way</text>
+      </svg>
+      <figcaption>How to read it: grey steps ran by themselves, green steps are your own hand.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack" id="f1">
+    <h2>Fork 1. Where the tide times come from</h2>
+    <p class="tag">A key point nobody saw coming · after you left</p>
+    <p>The free tide feed went down twice during the run. I chose to save a copy of the tide tables each night and have the page read the copy, not the feed. <span class="fact checked">checked</span> the run record, both outages logged</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The data: where the page gets its tide times.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>When the feed is down, a page that reads it directly shows nothing at all.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>the free feed (outside us) → the nightly copy → the page → your phone</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If the feed is down at night, the copy keeps yesterday's times and the page says so; the page never goes blank.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 330" role="img" aria-label="The free feed, outside us, is copied each night; the page reads the copy; your phone reads the page, even when the feed is down.">
+        <rect class="d-out" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The free tide feed</text><text class="d-s" x="34" y="50">outside us; down twice this run</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">copied each night</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The nightly copy</text><text class="d-s" x="34" y="134">what I chose; kept on the work machine</text>
+        <line class="d-a" x1="170" y1="146" x2="170" y2="176" marker-end="url(#ar)"/><text class="d-l" x="180" y="166">feed down: last copy</text>
+        <rect class="d-box" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">The page</text><text class="d-s" x="34" y="218">times, and a note when a day old</text>
+        <line class="d-ah" x1="170" y1="230" x2="170" y2="260" marker-end="url(#arh)"/><text class="d-l" x="180" y="250">you open it</text>
+        <rect class="d-his" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Your phone</text><text class="d-s" x="34" y="302">works while the feed is down</text>
+      </svg>
+      <figcaption>How to read it: each arrow runs from a cause to its effect; the dashed box is outside our system, green is your own hand.</figcaption>
+    </figure>
+    <section class="q" data-q="1">
+      <fieldset>
+        <legend>1. Keep the nightly copy, or turn it another way</legend>
+        <label class="opt"><input type="radio" name="q1" value="a"><span><b>a.</b> Keep the nightly copy (what I chose)
+          <dl><dt>Gains</dt><dd>the page works when the feed is down</dd><dt>Costs you</dt><dd>nothing</dd><dt>Risk</dt><dd>times can be up to a day old if the feed corrects itself</dd><dt>Later</dt><dd>a new harbour is one line in a list; nothing to pay</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span><b>b.</b> Read the feed live, each time the page opens
+          <dl><dt>Gains</dt><dd>always the feed's latest times</dd><dt>Costs you</dt><dd>nothing of your time; about an hour of agent time to change</dd><dt>Risk</dt><dd>a blank page whenever the feed is down, as it was twice this run</dd><dt>Later</dt><dd>every new harbour leans harder on a free feed that may start to limit us</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="c"><span><b>c.</b> A paid feed with more harbours
+          <dl><dt>Gains</dt><dd>more harbours, and a feed that promises to stay up</dd><dt>Costs you</dt><dd>a monthly bill, and signing up is your act: about 15 minutes</dd><dt>Risk</dt><dd>the bill grows with use</dd><dt>Later</dt><dd>the project depends on a paid service for good</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> The feed's outages are the cause; the copy is what stops them reaching your phone.</p>
+        <p>If a: nothing changes · If b: a card in the next run takes the copy out · If c: I write the sign-up as your act, and nothing changes until you do it.</p>
+      </div>
+      <label class="box">Note for question 1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack" id="f2">
+    <h2>Fork 2. One link for every harbour</h2>
+    <p>I built one page with a harbour picker that remembers your last choice, instead of one page per harbour. <span class="fact checked">checked</span> your words at the sign-off</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Sharing: how you and your friends reach the page.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>You asked for one page you can send to friends; more harbours would otherwise mean more links.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>the harbour list → the one page and its picker → the link you send → a friend's phone</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If you send the link, a friend lands on the picker and taps their harbour once; after that, their phone remembers it.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="The harbour list fills one page with a picker; you share its one link; a friend's phone, outside us, starts on the picker.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The harbour list</text><text class="d-s" x="34" y="50">one line per harbour</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">fills</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">One page, one picker</text><text class="d-s" x="34" y="134">what I chose; it remembers your pick</text>
+        <line class="d-ah" x1="120" y1="146" x2="90" y2="176" marker-end="url(#arh)"/>
+        <line class="d-a" x1="220" y1="146" x2="250" y2="176" marker-end="url(#ar)"/><text class="d-l" x="170" y="170" text-anchor="middle">link</text>
+        <rect class="d-his" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">You share it</text><text class="d-s" x="30" y="218">one link for all</text>
+        <rect class="d-out" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">A friend</text><text class="d-s" x="190" y="218">taps their harbour</text>
+      </svg>
+      <figcaption>How to read it: the list fills the page, and its one link goes from your hand (green) to a friend's phone (dashed, outside our system).</figcaption>
+    </figure>
+    <section class="q" data-q="2">
+      <fieldset>
+        <legend>2. Keep one link, or turn it another way</legend>
+        <label class="opt"><input type="radio" name="q2" value="a"><span><b>a.</b> One page with a picker (what I chose)
+          <dl><dt>Gains</dt><dd>one link to keep and to share</dd><dt>Costs you</dt><dd>nothing</dd><dt>Risk</dt><dd>a friend taps once more, the first time</dd><dt>Later</dt><dd>a new harbour appears for everyone at once</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q2" value="b"><span><b>b.</b> One link per harbour
+          <dl><dt>Gains</dt><dd>you can send a friend the link to their own harbour</dd><dt>Costs you</dt><dd>nothing of your time; about half a build day</dd><dt>Risk</dt><dd>a link breaks if a harbour is renamed</dd><dt>Later</dt><dd>every new harbour is one more page to keep and check</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It is the one page you asked for; the cost is one tap per friend, once.</p>
+        <p>If a: nothing changes · If b: a card in the next run makes a page per harbour, and the picker stays as the front page.</p>
+      </div>
+      <label class="box">Note for question 2<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack" id="f3">
+    <h2>Fork 3. Which clock the times are in</h2>
+    <p>I show every time in the harbour's own local time, with "harbour time" written beside it, not in your phone's time. <span class="fact guessed">guessed</span> that you mostly look while you are at the harbour, from the plan's notes</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>What the times on the page mean.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>A tide time is only useful in the clock of the place it happens; mixed clocks give a wrong time that looks right.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>the harbour's clock → the times on the page → you, at the harbour or planning from away</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If you are at the harbour, the times match your watch; if you plan from another time zone, you add the difference yourself.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="The harbour's clock sets the times on the page; at the harbour they match your watch; planning from away, you add the difference.">
+        <rect class="d-out" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The harbour's clock</text><text class="d-s" x="34" y="50">where the tide happens</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">sets</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Harbour time, labelled</text><text class="d-s" x="34" y="134">what I chose, on every time shown</text>
+        <line class="d-ah" x1="120" y1="146" x2="90" y2="176" marker-end="url(#arh)"/>
+        <line class="d-a" x1="220" y1="146" x2="250" y2="176" marker-end="url(#ar)"/><text class="d-l" x="170" y="170" text-anchor="middle">effect</text>
+        <rect class="d-his" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">At the harbour</text><text class="d-s" x="30" y="218">matches your watch</text>
+        <rect class="d-out" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">Planning away</text><text class="d-s" x="190" y="218">add the difference</text>
+      </svg>
+      <figcaption>How to read it: the harbour's clock (dashed, outside our system) sets the times; the two boxes below are what follows, depending on where you stand.</figcaption>
+    </figure>
+    <section class="q" data-q="3">
+      <fieldset>
+        <legend>3. Keep harbour time, or turn it another way</legend>
+        <label class="opt"><input type="radio" name="q3" value="a"><span><b>a.</b> Harbour time, labelled (what I chose)
+          <dl><dt>Gains</dt><dd>the times match the clock where the tide happens</dd><dt>Costs you</dt><dd>nothing</dd><dt>Risk</dt><dd>planning from another time zone, you do the sum yourself</dd><dt>Later</dt><dd>a harbour in another country works with no change</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q3" value="b"><span><b>b.</b> Your phone's own time
+          <dl><dt>Gains</dt><dd>no sums when you plan from away</dd><dt>Costs you</dt><dd>nothing of your time; about an hour of agent time</dd><dt>Risk</dt><dd>just after travelling, the times look wrong at the harbour until your phone catches up</dd><dt>Later</dt><dd>every harbour's times move whenever your phone's clock does</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> A tide happens in the harbour's clock; the label says so on every line.</p>
+        <p>If a: nothing changes · If b: a card in the next run switches every time to your phone's clock.</p>
+      </div>
+      <label class="box">Note for question 3<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <!-- The pieces: the master's decisions, one line each with its undo; no question is asked of them. -->
+  <section class="stack">
+    <h2>The nine pieces, my decisions</h2>
+    <p class="muted">Built, checked and kept during the run. Nothing is asked of them; name any in a note box and I take it out in one step.</p>
+    <ul>
+      <li>The nightly copy of the tide tables. Undo: one step, by me.</li>
+      <li>The harbour picker that remembers your pick. Undo: one step, by me.</li>
+      <li>The day's tide chart. Undo: one step, by me.</li>
+      <li>The "next high tide" line at the top. Undo: one step, by me.</li>
+      <li>The note when the times are a day old. Undo: one step, by me.</li>
+      <li>The "harbour time" label. Undo: one step, by me.</li>
+      <li>The dark colours for night use. Undo: one step, by me.</li>
+      <li>The home-screen shortcut. Undo: one step, by me.</li>
+      <li>The harbour list, one line per harbour. Undo: one step, by me.</li>
+    </ul>
+  </section>
+
+  <section class="item stack" id="score">
+    <h2>Your score for run 3</h2>
+    <p>The fourth measure is yours alone: how much you enjoyed this run, from 1 to 5.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The run as a whole: the fourth of the four measures.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The other three are counted from the record; whether the run was worth your time is in no record.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>your score → the run's closing entry → the next run's plan</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>A low score with a line on why becomes a change the next plan puts to you.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Your score is written into the run's closing entry and read when the next run is planned.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your score, 1 to 5</text><text class="d-s" x="34" y="50">and a line on why</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">read by</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The next run's plan</text><text class="d-s" x="34" y="134">beside the other three measures</text>
+      </svg>
+      <figcaption>How to read it: your words, in green, are what the next plan reads.</figcaption>
+    </figure>
+    <section class="q" data-q="4">
+      <fieldset>
+        <legend>4. Enjoyment of run 3, from 1 to 5?</legend>
+        <label class="opt"><input type="radio" name="q4" value="1"><span><b>1.</b> Not at all</span></label>
+        <label class="opt"><input type="radio" name="q4" value="2"><span><b>2.</b> A little</span></label>
+        <label class="opt"><input type="radio" name="q4" value="3"><span><b>3.</b> Middling</span></label>
+        <label class="opt"><input type="radio" name="q4" value="4"><span><b>4.</b> Mostly</span></label>
+        <label class="opt"><input type="radio" name="q4" value="5"><span><b>5.</b> Very much</span></label>
+      </fieldset>
+      <label class="box">Note for question 4: a line on why<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it.</p>
+    <ul>
+      <li>The nine pieces stay in, as my decisions. Undo: name any, and I take it out in one step.</li>
+      <li>The checker's refusal is counted as a surprise, though it was fixed the same hour. Undo: tell me to count only what reached you.</li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted">
+      <li>docs/runs/3/run.md (the run record) and docs/runs/3/plan-signed.md</li>
+      <li>docs/decisions.md, the plan's sign-off</li>
+    </ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="tide-times · Review · run 3 · the forks">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters and notes, to copy by hand"></textarea>
+    <small class="muted">Kept in this browser if the page reloads.</small>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+// His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
+// reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+  var key = 'page · ' + back.getAttribute('data-sheet');
+
+  function field(q, sel) { return q.querySelector(sel); }
+  function save() {
+    var kept = {};
+    qs.forEach(function (q) {
+      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+    });
+    try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var kept;
+    try { kept = JSON.parse(window.localStorage.getItem(key) || '{}') || {}; } catch (e) { return; }
+    qs.forEach(function (q) {
+      var k = kept[q.getAttribute('data-q')];
+      if (!k) return;
+      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      if (w && k.words) w.value = k.words;
+      if (t && k.note) t.value = k.note;
+    });
+  }
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var words = q.querySelector('textarea[data-words]');
+    if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
+    var c = q.querySelector('input[type=radio]:checked');
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('section.q input, section.q textarea').forEach(function (el) {
+    el.addEventListener('input', function () { update(); save(); });
+    el.addEventListener('change', function () { update(); save(); });
+  });
+  restore();
+  update();
+})();
+</script>

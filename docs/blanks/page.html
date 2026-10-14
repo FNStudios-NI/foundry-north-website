@@ -1,0 +1,449 @@
+<meta charset="utf-8">
+<title>&lt;project&gt; · &lt;stage&gt; · sheet &lt;n&gt;</title>
+<!--
+  THE BLANK PAGE — copy this file for every page the project makes (discovery, plan, review).
+
+  What it is for: one sheet he reads on his phone and answers by tapping letters and typing notes.
+  The rules for what goes on a page, each with its why, are in pages.md at the project's root. Read that first.
+  Why a blank: the first trial's pages came out with no pictures and nowhere for his words, because the shape
+  lived only in prose. A form already holding the note boxes, the picture and the copy button keeps the shape.
+
+  How to fill it:
+  1. Copy it to docs/pages/<yyyy-mm-dd>-<stage>-sheet-<n>.html. Every sheet is a new page with its own link.
+  2. Replace every place marked <like this>. In the source they are written &lt;like this&gt; so the browser shows
+     the angle brackets; search for "&lt;" to find them all. Delete any block this page does not need.
+  3. Items: every thing the page explains (a piece, a fork, the evidence under a question) is its own
+     <section class="item"> block, the way a pilot's manual explains a part (pages.md rule 31). To add one,
+     copy a whole item block: fill its four parts (data-part="area", "problem", "links", "effect") and draw
+     its own picture in its <figure>, never one picture for many items. Its arrows use the arrow heads defined
+     once in the first picture (#ar, #arh), so keep that picture.
+     A piece on a plan page is a plan item: it keeps data-piece, data-mark, data-lane and data-touches on its
+     <section> and its three more parts (data-part="mark", "lane", "cost"), as the first item block has them.
+     Any other item deletes those attributes and those three parts. This markup is fixed: plan_check reads it.
+  4. Questions: copy a <section class="q"> block into the item block of the evidence it asks about. Give it
+     the next number in data-q, and give its letters name="q<number>". A question that wants his words
+     has a box marked data-words instead of letters.
+     Every question keeps its note box (data-note). The read-back at the end finds every question by itself:
+     no change to the script is needed when you add or remove one.
+  5. Three sections are already here and stay: "What I took from your message", "Calls I'm making" and
+     "Where this comes from". A page deletes one only with a comment in its place saying why, so a gap
+     is visible, not silent (pages.md rules 3, 17, 21).
+  6. Open the copy in a browser, pick a letter, type a note, press the button and paste: both should arrive.
+     Reload the page: the letter and the note are still there. They are kept in this browser's local
+     storage under the page's data-sheet; if the browser refuses storage, the page works as before.
+  7. Run python tools/page_check.py <the page> --project . and python tools/people_check.py before
+     publishing. A REFUSE is a stop (pages.md rule 30).
+
+  Publish rules (what the page host accepts, and what reads well on his phone):
+  - The first line is <meta charset="utf-8">: without it a plain page server's page shows "·" as other characters.
+  - No doctype, html, head or body tags. The page is that line, a title, one style block, the content, and one script.
+  - Every colour is a token in :root, with a dark set under prefers-color-scheme. No colour is written anywhere else.
+    The diagram uses currentColor and the tokens, so it reads in light and in dark.
+  - Diagram text is never below 11 px at the drawing's own width: keep the viewBox about 340 wide, and
+    no text class smaller than the ones below (pages.md rule 29).
+  - Phone width first: one narrow column; anything wide (a table) scrolls inside its own wrapper.
+  - Every box and button has a label; the read-back is announced as it changes.
+-->
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+/* The read-back bar sits at the bottom; a box being typed in scrolls clear of it. */
+:root { scroll-padding-bottom: 10rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 12px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+/* Phone width: the letters sit beside the button, and the bar is never more than a fifth of the screen;
+   anything below them (the copy-by-hand box) scrolls inside the bar. */
+@media (max-width: 34rem) {
+  .readback { box-sizing: border-box; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); max-height: 20vh; max-height: 20dvh; overflow-y: auto; }
+  .readback button { padding: 10px 12px; max-width: 9rem; }
+  .readback > .fallback, .readback > small { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>&lt;project&gt;</div>
+      <div><b>Stage</b>&lt;Stage&gt; · &lt;n&gt; of 6 · about &lt;N&gt; minutes · &lt;q&gt; questions</div>
+      <div><b>Sheet</b>&lt;n&gt;, its own link</div>
+    </div>
+    <h1>&lt;What this sheet is about, in plain words&gt;</h1>
+    <p>&lt;One or two lines: what this sheet shows, and what it asks of him.&gt;</p>
+  </header>
+
+  <!-- His last answers, written back, whether he pasted the last sheet's letters or typed in the terminal.
+       On the first sheet there is nothing to take yet: replace this block with a comment saying so. -->
+  <section class="back stack">
+    <h2>What I took from your message</h2>
+    <ul>
+      <li>&lt;1: his letter on sheet n−1, and what it set in motion&gt;</li>
+      <li>&lt;2: his words, as he wrote them&gt;</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <!-- Only when his last answer grew or shrank the whole project a lot. Otherwise delete. -->
+  <section class="stack">
+    <h2>&lt;Your last answer made this about three times bigger&gt;</h2>
+    <p>&lt;What grew, in one line, and the paths it opens: all of it, a first slice, or the small version first.&gt;</p>
+  </section>
+
+  <!-- The mechanism as a picture, before any question. Replace the boxes; keep the classes:
+       d-box a step that runs by itself · d-his his own hand (second colour) · d-out outside the system (dashed). -->
+  <section class="stack">
+    <h2>&lt;How it works&gt;</h2>
+    <p class="likeness"><b>Think of it as</b> &lt;an everyday likeness, such as a hired edit suite&gt;. &lt;Its proper name, explained once.&gt;</p>
+    <figure>
+      <svg viewBox="0 0 340 330" role="img" aria-label="&lt;The picture in one sentence, for a screen reader&gt;">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">&lt;Step one&gt;</text><text class="d-s" x="34" y="50">&lt;what it does, in a few words&gt;</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">&lt;what passes&gt;</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">&lt;Step two&gt;</text><text class="d-s" x="34" y="134">&lt;what it does&gt;</text>
+        <line class="d-ah" x1="170" y1="146" x2="170" y2="176" marker-end="url(#arh)"/><text class="d-l" x="180" y="166">&lt;he taps&gt;</text>
+        <rect class="d-his" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">&lt;His step&gt;</text><text class="d-s" x="34" y="218">&lt;what only his hand does&gt;</text>
+        <line class="d-a" x1="170" y1="230" x2="170" y2="260" marker-end="url(#ar)"/><text class="d-l" x="180" y="250">&lt;goes out&gt;</text>
+        <rect class="d-out" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">&lt;Outside step&gt;</text><text class="d-s" x="34" y="302">&lt;happens outside our system&gt;</text>
+      </svg>
+      <figcaption>&lt;How to read it: grey steps run by themselves, green steps are your own taps, the dashed step happens outside the system.&gt;</figcaption>
+    </figure>
+  </section>
+
+  <!-- Sizes: scope and plan pages only. Otherwise delete. -->
+  <section class="stack">
+    <h2>How big each piece is</h2>
+    <p class="muted">Small, medium or large. A build day is one worker for one day. &lt;The biggest unknown, named.&gt; &lt;No calendar dates before the facts stage.&gt;</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Piece</th><th>Size</th><th>Build days</th><th>Your hours</th></tr></thead>
+        <tbody><tr><td>&lt;piece&gt;</td><td>&lt;S / M / L&gt;</td><td>&lt;n&gt;</td><td>&lt;n&gt;</td></tr></tbody>
+        <tfoot><tr><td>Total</td><td></td><td>&lt;n&gt;</td><td>&lt;n&gt;</td></tr></tfoot>
+      </table>
+    </div>
+    <p>&lt;One line: your last answer grew (or shrank) the whole from about n to about n build days.&gt;</p>
+  </section>
+
+  <!-- Plan pages only: the budget and the hard stop, as default numbers he may change when he signs
+       (pages.md, The plan page). At first the plan's own estimate of his week and the planned end plus 50%.
+       Otherwise delete. -->
+  <section class="stack">
+    <h2>Budget and hard stop</h2>
+    <dl class="parts">
+      <div data-budget><dt>Budget</dt><dd>&lt;n&gt;% of your week, the plan's own estimate. When it is spent, the piece in hand finishes and nothing new starts.</dd></div>
+      <div data-hard-stop><dt>Hard stop</dt><dd>The planned end plus &lt;50&gt;%: about &lt;n&gt; running hours from go.</dd></div>
+    </dl>
+    <p class="muted">These are the defaults. To change either, write the new number in a note when you sign; otherwise they stand.</p>
+  </section>
+
+  <!-- Plan pages only: what was tried before he signs, so that nothing after his signature is an act or a door
+       nobody tried. It holds the permission probe's answers (tracks.md rule 19), one for each class of act the
+       plan needs, and each command of his own acts with what was seen: its dry-run, or its refusal looked for.
+       An untried one is marked ❓. plan_check reads the element marked data-acts-tried. Otherwise delete. -->
+  <section class="stack">
+    <h2>Tried before you sign</h2>
+    <dl class="parts" data-acts-tried>
+      <div><dt>The permission probe</dt><dd>&lt;each class of act the plan needs, and whether it would be allowed: start a worker · commit · push a branch · run a check tool · merge · undo&gt;</dd></div>
+      <div><dt>Your own acts</dt><dd>&lt;each command you will run, and what was seen: its dry-run, or its refusal looked for; ❓ on one not tried&gt;</dd></div>
+    </dl>
+  </section>
+
+  <!-- An item block, holding a letter question: the evidence explained first, then the question right under it.
+       Every item has all four parts and its own picture (pages.md rule 31): copy the whole block for the next.
+       On a plan page a piece is a plan item, as this one is: its mark, lane and cost. On any other item, delete
+       data-piece, data-mark, data-lane and data-touches and the three parts marked mark, lane and cost. -->
+  <section class="item stack" data-piece="&lt;n&gt;" data-mark="&lt;proven | documented | assumed | risk&gt;" data-lane="&lt;light | standard | full&gt;" data-touches="&lt;paths, space-separated&gt;">
+    <h2>&lt;The item: the evidence this question asks about&gt;</h2>
+    <p>&lt;What is true now, in plain words.&gt; <span class="fact checked">checked</span> &lt;source: read off the machine today&gt; · <span class="fact guessed">guessed</span> &lt;source: an old note&gt;</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>&lt;one of: ✅ proven · 📄 documented · ❓ assumed · ⚠ known risk&gt;: &lt;its evidence: where it was seen working, the docs it rests on, or what happens if it fails&gt;</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>&lt;the part of the project it belongs to&gt;</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>&lt;what goes wrong without it&gt;</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>&lt;what feeds it&gt; → this → &lt;what it feeds&gt;</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>&lt;if this happens, then that follows&gt;</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>&lt;light · standard · full&gt;: &lt;the checks it climbs&gt;</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About &lt;n&gt;% of your week.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="&lt;This item in one sentence: what feeds it, what it does, and what it causes&gt;">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">&lt;What feeds it&gt;</text><text class="d-s" x="34" y="50">&lt;the link before it in the chain&gt;</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">&lt;cause&gt;</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">&lt;This item&gt;</text><text class="d-s" x="34" y="134">&lt;the problem it solves&gt;</text>
+        <line class="d-ah" x1="120" y1="146" x2="90" y2="176" marker-end="url(#arh)"/>
+        <line class="d-a" x1="220" y1="146" x2="250" y2="176" marker-end="url(#ar)"/><text class="d-l" x="170" y="170" text-anchor="middle">&lt;effect&gt;</text>
+        <rect class="d-his" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">&lt;Your step&gt;</text><text class="d-s" x="30" y="218">&lt;asked of you&gt;</text>
+        <rect class="d-out" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">&lt;Outside&gt;</text><text class="d-s" x="190" y="218">&lt;what it changes&gt;</text>
+      </svg>
+      <figcaption>&lt;How to read it: each arrow runs from a cause to its effect; green is your own hand, the dashed box is outside the system.&gt;</figcaption>
+    </figure>
+    <section class="q" data-q="1">
+      <fieldset>
+        <legend>1. &lt;The question&gt;</legend>
+        <label class="opt"><input type="radio" name="q1" value="a"><span><b>a.</b> &lt;Option a&gt;
+          <dl><dt>Gains</dt><dd>&lt;what it gains&gt;</dd><dt>Costs you</dt><dd>&lt;what it costs him&gt;</dd><dt>Risk</dt><dd>&lt;what it risks&gt;</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span><b>b.</b> &lt;Option b&gt;
+          <dl><dt>Gains</dt><dd>&lt;what it gains&gt;</dd><dt>Costs you</dt><dd>&lt;what it costs him&gt;</dd><dt>Risk</dt><dd>&lt;what it risks&gt;</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: &lt;one of the letters above, never a mix&gt;.</b> &lt;Why, with its cause and effect.&gt;</p>
+        <p>If a: &lt;what it sets in motion&gt; · If b: &lt;what it sets in motion&gt;</p>
+      </div>
+      <label class="box">Note for question 1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <!-- A second item block, holding a question that wants his words: a text box, not letters. -->
+  <section class="item stack">
+    <h2>&lt;The item: the evidence for the second question&gt;</h2>
+    <p>&lt;Why this is his to say in his own words.&gt;</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>&lt;the part of the project it belongs to&gt;</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>&lt;what goes wrong without his words&gt;</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>&lt;his words&gt; → this → &lt;what they feed&gt;</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>&lt;what his answer sets in motion&gt;</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="&lt;His words, and what they set in motion, in one sentence&gt;">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">&lt;Your words&gt;</text><text class="d-s" x="34" y="50">&lt;the cause: what you write below&gt;</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">&lt;sets&gt;</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">&lt;What it sets&gt;</text><text class="d-s" x="34" y="134">&lt;the effect it has&gt;</text>
+      </svg>
+      <figcaption>&lt;How to read it: your words, in green, cause what the arrow points to.&gt;</figcaption>
+    </figure>
+    <section class="q" data-q="2">
+      <h3>2. &lt;The question, such as: what would count as success?&gt;</h3>
+      <label class="box">Your words<textarea data-words placeholder="<A prompt for his answer>"></textarea></label>
+      <label class="box">Note for question 2<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <!-- Anything he must send to someone else gets its own copy button. Otherwise delete. -->
+  <section class="stack">
+    <h2>&lt;What we need from the other person&gt;</h2>
+    <p class="muted">This is yours to send. The button copies the list as it stands.</p>
+    <ul id="forward">
+      <li>&lt;the first thing needed&gt;</li>
+      <li>&lt;the second thing needed&gt;</li>
+    </ul>
+    <button type="button" data-copy="forward" data-label="Copy the list to send">Copy the list to send</button>
+    <textarea class="fallback" readonly hidden aria-label="The list, to copy by hand"></textarea>
+  </section>
+
+  <!-- Always kept. With no calls on this sheet, its one line says "None on this sheet." -->
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it; all of them come back to you at the plan sign-off.</p>
+    <ul>
+      <li>&lt;The call.&gt; Undo: &lt;how it is undone&gt;.</li>
+    </ul>
+  </section>
+
+  <!-- Always kept, at the very end. -->
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted"><li>&lt;the file or page this sheet was built from&gt;</li></ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="&lt;project&gt; · &lt;stage&gt; · sheet &lt;n&gt;">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters and notes, to copy by hand"></textarea>
+    <small class="muted">Kept in this browser if the page reloads.</small>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+// His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
+// reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+  var key = 'page · ' + back.getAttribute('data-sheet');
+
+  function field(q, sel) { return q.querySelector(sel); }
+  function save() {
+    var kept = {};
+    qs.forEach(function (q) {
+      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+    });
+    try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var kept;
+    try { kept = JSON.parse(window.localStorage.getItem(key) || '{}') || {}; } catch (e) { return; }
+    qs.forEach(function (q) {
+      var k = kept[q.getAttribute('data-q')];
+      if (!k) return;
+      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      if (w && k.words) w.value = k.words;
+      if (t && k.note) t.value = k.note;
+    });
+  }
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var words = q.querySelector('textarea[data-words]');
+    if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
+    var c = q.querySelector('input[type=radio]:checked');
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('section.q input, section.q textarea').forEach(function (el) {
+    el.addEventListener('input', function () { update(); save(); });
+    el.addEventListener('change', function () { update(); save(); });
+  });
+  restore();
+  update();
+})();
+</script>

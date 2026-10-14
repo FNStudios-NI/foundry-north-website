@@ -1,0 +1,349 @@
+<meta charset="utf-8">
+<title>Family archive · Plan · sheet 5</title>
+<!-- A fixture for page_check.py: a plan page made from docs/blanks/page.html that passes every check. -->
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 11px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>Family archive</div>
+      <div><b>Stage</b>Plan · 6 of 6</div>
+      <div><b>Time</b>about 10 minutes · 2 questions</div>
+      <div><b>Sheet</b>5, its own link</div>
+    </div>
+    <h1>The plan: what gets built, in what order, and your part in it</h1>
+    <p>This sheet shows how the archive will work, how big each piece is, and when it could be ready. It asks you to pick a path and to say what would count as success.</p>
+  </header>
+
+  <section class="back stack">
+    <h2>What I took from your message</h2>
+    <ul>
+      <li>1: the scans stay on the laptop, never on a hosted service.</li>
+      <li>2: "the boxes in the loft first, the albums later", as you wrote it.</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <section class="stack">
+    <h2>How it works</h2>
+    <p class="likeness"><b>Think of it as</b> a darkroom with a contact sheet. A scan goes in, gets a name and a date guess, and lands on one page of thumbnails you can mark.</p>
+    <figure>
+      <svg viewBox="0 0 340 330" role="img" aria-label="Scans are named and sorted by themselves, you mark the ones to keep, and the kept ones are copied to the backup drive.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Name the scans</text><text class="d-s" x="34" y="50">a name and a year guess for each</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">named scans</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Contact sheet</text><text class="d-s" x="34" y="134">one page of thumbnails</text>
+        <line class="d-ah" x1="170" y1="146" x2="170" y2="176" marker-end="url(#arh)"/><text class="d-l" x="180" y="166">you tap</text>
+        <rect class="d-his" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">Keep or drop</text><text class="d-s" x="34" y="218">only your hand marks these</text>
+        <line class="d-a" x1="170" y1="230" x2="170" y2="260" marker-end="url(#ar)"/><text class="d-l" x="180" y="250">kept ones</text>
+        <rect class="d-out" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Backup drive</text><text class="d-s" x="34" y="302">outside our system</text>
+      </svg>
+      <figcaption>How to read it: grey steps run by themselves, green steps are your own taps, the dashed step happens outside the system.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stack">
+    <h2>How big each piece is</h2>
+    <p class="muted">Small, medium or large. A build day is one worker for one day. The biggest unknown is how faded the oldest prints are.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Piece</th><th>Size</th><th>Build days</th><th>Your hours</th></tr></thead>
+        <tbody>
+          <tr><td>Naming and sorting</td><td>M</td><td>2</td><td>1</td></tr>
+          <tr><td>The contact sheet</td><td>S</td><td>1</td><td>½</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td></td><td>3</td><td>1½</td></tr></tfoot>
+      </table>
+    </div>
+    <p>With two workers side by side, the first slice could be ready around 20 October. That rests on the facts sheet: the laptop has room for the scans.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Budget and hard stop</h2>
+    <dl class="parts">
+      <div data-budget><dt>Budget</dt><dd>10% of your week. When it is spent, the piece in hand finishes and nothing new starts.</dd></div>
+      <div data-hard-stop><dt>Hard stop</dt><dd>The planned end plus 50%: about 4½ running hours from go.</dd></div>
+    </dl>
+    <p class="muted">These are the defaults. To change either, write the new number in a note when you sign; otherwise they stand.</p>
+  </section>
+
+  <section class="item stack" id="path">
+    <h2>Two paths</h2>
+    <p>Path a builds both pieces before you see anything. Path b gives you the contact sheet first, with names added a day later.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The order of the build: which piece you see first.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>A naming mistake found late means renaming every scan twice.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The facts sheet (the laptop has room) → this → your first sitting marking scans.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If the contact sheet comes first, you mark scans a day sooner, and a naming mistake shows on the first day.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="The facts sheet feeds the order of the build, which sets your first sitting and what reaches the backup drive.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The facts sheet</text><text class="d-s" x="34" y="50">the laptop has room</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">room checked</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Order of the build</text><text class="d-s" x="34" y="134">which piece you see first</text>
+        <line class="d-ah" x1="120" y1="146" x2="90" y2="176" marker-end="url(#arh)"/>
+        <line class="d-a" x1="220" y1="146" x2="250" y2="176" marker-end="url(#ar)"/><text class="d-l" x="170" y="170" text-anchor="middle">sets</text>
+        <rect class="d-his" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">You mark</text><text class="d-s" x="30" y="218">a first sitting</text>
+        <rect class="d-out" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">Backup drive</text><text class="d-s" x="190" y="218">gets kept scans</text>
+      </svg>
+      <figcaption>How to read it: each arrow runs from a cause to its effect; green is your own hand, the dashed box is outside the system.</figcaption>
+    </figure>
+    <section class="q" data-q="1">
+      <fieldset>
+        <legend>1. Which path?</legend>
+        <label class="opt"><input type="radio" name="q1" value="a"><span><b>a.</b> Both pieces, then one reveal
+          <dl><dt>Gains</dt><dd>one finished thing</dd><dt>Costs you</dt><dd>1½ hours, at the end</dd><dt>Risk</dt><dd>a naming mistake shows only at the end</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span><b>b.</b> The contact sheet first
+          <dl><dt>Gains</dt><dd>you mark scans a day sooner</dd><dt>Costs you</dt><dd>1½ hours, in two sittings</dd><dt>Risk</dt><dd>the first sheet has plain file names</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: b.</b> You see real scans sooner, and a naming mistake shows on the first day.</p>
+        <p>If a: both pieces are built, then shown together · If b: the contact sheet is built first, names follow</p>
+      </div>
+      <label class="box">Note for question 1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack" id="done">
+    <h2>What counts as done</h2>
+    <p>This one is yours to say in your own words.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The finish line for the whole archive.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>With no finish line, the build has no point where it stops.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your words → this → the review, where the work is held against them.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If success is every loft box scanned and marked, the albums wait for a later plan.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Your words set the finish line the review holds the work against.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your words</text><text class="d-s" x="34" y="50">what counts as success</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">sets</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The finish line</text><text class="d-s" x="34" y="134">the review holds the work to it</text>
+      </svg>
+      <figcaption>How to read it: your words, in green, cause what the arrow points to.</figcaption>
+    </figure>
+    <section class="q" data-q="2">
+      <h3>2. What would count as success?</h3>
+      <label class="box">Your words<textarea data-words placeholder="For example: every loft box scanned and marked"></textarea></label>
+      <label class="box">Note for question 2<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack" id="piece-1" data-piece="1" data-mark="proven" data-lane="standard" data-touches="tools/name_scans.py tools/tests/test_name_scans.py">
+    <h2>Piece 1. Naming and sorting</h2>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>✅ proven: a test batch of ten scans was named on the laptop during the facts sheet.</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>The scans: what each file is called.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Scans straight off the scanner have numbers for names, so nothing can be found by year.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The scanner → this → the contact sheet.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a year guess is wrong, the scan sorts into the wrong year until you mark it.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>Standard: one worker, then an inspector and the scripts.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 3% of your week.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Scans from the scanner are named and sorted, then shown on the contact sheet.">
+        <rect class="d-out" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The scanner</text><text class="d-s" x="34" y="50">numbered files</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">raw scans</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Naming and sorting</text><text class="d-s" x="34" y="134">a name and a year guess each</text>
+      </svg>
+      <figcaption>How to read it: the dashed box is outside the system; the arrow runs from cause to effect.</figcaption>
+    </figure>
+  </section>
+
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it; all of them come back to you at the plan sign-off.</p>
+    <ul>
+      <li>Scans are named by year first. Undo: say so in a note, and they are renamed in one pass.</li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted"><li>The facts sheet, and your message after sheet 4.</li></ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="Family archive · Plan · sheet 5">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters and notes, to copy by hand"></textarea>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var words = q.querySelector('textarea[data-words]');
+    if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
+    var c = q.querySelector('input[type=radio]:checked');
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('input, textarea').forEach(function (el) {
+    el.addEventListener('input', update);
+    el.addEventListener('change', update);
+  });
+  update();
+})();
+</script>

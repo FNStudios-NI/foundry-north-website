@@ -1,0 +1,359 @@
+<title>Trial sheet 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow reading column framed like a drawing sheet; the diagram first, then sizes, paths and team, each question under its evidence with a note box. */
+:root {
+  --bg: #f3f5f6;
+  --sheet: #ffffff;
+  --ink: #18242b;
+  --muted: #5b6b74;
+  --line: #cfd8dd;
+  --accent: #1f5f8b;
+  --accent-soft: #e3eef6;
+  --pick: #0f7a55;
+  --warn: #a5520f;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1518; --sheet: #172126; --ink: #e2eaee; --muted: #93a5ae; --line: #2c3a41;
+  --accent: #6fb3e0; --accent-soft: #1c3342; --pick: #4fc496; --warn: #f0a35e; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1518; --sheet: #172126; --ink: #e2eaee; --muted: #93a5ae; --line: #2c3a41;
+  --accent: #6fb3e0; --accent-soft: #1c3342; --pick: #4fc496; --warn: #f0a35e; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+.wrap { max-width: 44rem; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h1 { font-size: 2.6rem; font-weight: 700; }
+h2 { font-size: 1.7rem; font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+p { margin: 0; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); font-family: var(--mono); font-size: .75rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: .65rem; }
+
+.parts { display: grid; border-top: 1px solid var(--line); }
+.part { display: grid; grid-template-columns: 3.4rem 1fr; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.part .n { font-family: var(--mono); color: var(--accent); font-size: .85rem; padding-top: 2px; }
+.part div { min-width: 0; }
+.part strong { font-weight: 600; }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 30rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .88rem; color: var(--muted); }
+.d-band { fill: currentColor; fill-opacity: .045; }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .45; }
+.d-user { fill: var(--accent-soft); stroke: var(--pick); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .45; stroke-dasharray: 4 3; }
+.d-t { fill: currentColor; font-family: var(--body); font-size: 13px; font-weight: 600; }
+.d-s { fill: currentColor; fill-opacity: .72; font-family: var(--body); font-size: 11px; }
+.d-h { fill: currentColor; fill-opacity: .62; font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; }
+.d-a { stroke: currentColor; stroke-width: 1.4; fill: none; }
+.d-aj { stroke: var(--pick); stroke-width: 2; fill: none; }
+.d-l { fill: currentColor; fill-opacity: .75; font-family: var(--mono); font-size: 10px; }
+.d-own { fill: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: 500; }
+.d-mk { fill: currentColor; }
+.d-mkj { fill: var(--pick); }
+.d-dot { fill: var(--pick); }
+.d-axis { stroke: currentColor; stroke-opacity: .4; stroke-width: 1; }
+
+.tablewrap { overflow-x: auto; border-top: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; white-space: nowrap; }
+td.num { white-space: nowrap; font-family: var(--mono); font-size: .85rem; }
+td small { display: block; color: var(--muted); font-size: .82rem; line-height: 1.45; margin-top: 2px; }
+tfoot td { font-weight: 600; border-bottom: 2px solid var(--ink); }
+.size { font-family: var(--mono); font-weight: 500; padding: 0 6px; border: 1px solid currentColor; font-size: .75rem; }
+.size.s { color: var(--pick); }
+.size.m { color: var(--accent); }
+.size.l { color: var(--warn); }
+
+.desk { display: grid; gap: 4px; padding: 12px 14px; background: var(--sheet); border: 1px solid var(--line); }
+.desk .tag { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.desk h3 { font-family: var(--mono); font-size: 1.05rem; font-weight: 500; color: var(--accent); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+.q legend { font-family: var(--display); font-size: 1.3rem; font-weight: 600; padding: 0; margin-bottom: 4px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; align-items: start; }
+.opt:has(input:checked) { border-color: var(--pick); background: var(--accent-soft); }
+.opt input { margin-top: 5px; accent-color: var(--pick); }
+.opt input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.opt span { min-width: 0; }
+.opt small { display: block; color: var(--muted); font-size: .88rem; line-height: 1.5; margin-top: 2px; }
+.rec { font-size: .92rem; padding: 10px 12px; background: var(--accent-soft); }
+.rec b { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); display: block; }
+.note { display: grid; gap: 4px; }
+.note label { font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.4rem; font: inherit; font-size: .95rem; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.readback code { font-family: var(--mono); font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.readback small { display: block; color: var(--muted); font-size: .78rem; }
+button { font: 600 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 10px 16px; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.small { font-size: .85rem; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>trial-one</div>
+      <div><b>Stage</b>Discovery · sheet 4</div>
+      <div><b>Date</b>5 Oct 2026</div>
+      <div><b>Status</b>Nothing built</div>
+    </div>
+    <h1>One morning, the size of it, and the team</h1>
+    <p>Your five points are in the decisions file. This sheet shows how one morning works, how big each piece is, two paths, and the desks I'd set up. There are three questions at the end, each with a note box.</p>
+  </header>
+
+  <section class="stack">
+    <h2>Your correction: what it removes</h2>
+    <p>The app is a web page on the home server that the user opens from a home-screen shortcut, the way an earlier project works. I read that project's own record to see how that's done there. Its page runs on the home server behind its own address, sits on the home screen with an icon, sends phone notifications, and has a sign-in door.</p>
+    <div class="parts">
+      <div class="part"><span class="n">OUT</span><div>Any Android app, app store or installable package.</div></div>
+      <div class="part"><span class="n">OUT</span><div>Phone-only extras a web page can't do: rich vibration, a number badge on the icon, colours taken from their wallpaper.</div></div>
+      <div class="part"><span class="n">OUT</span><div>The choice I'd parked for the plan, on how the user's phone reaches the page when they're out. The earlier project's route is the answer. Giving the page its own address is still opening something to the internet, so that step stays yours.</div></div>
+      <div class="part"><span class="n">KEPT</span><div>The home-screen icon and the morning notification. The earlier project already proved both on your phone.</div></div>
+      <div class="part"><span class="n">ADDED</span><div>A sign-in door. The page holds the user's details on an address the internet can reach, so it needs one. The earlier project's door is the pattern.</div></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2>One morning, from the scan to "Applied"</h2>
+    <figure>
+      <svg viewBox="0 0 360 830" role="img" aria-label="One morning: the home server collects, cleans, judges and drafts packs before 06:30; the user gets an email and a notification, opens the page from their home screen, says yes to a job, finds its pack ready, applies on the employer's own site, then taps Applied. Each step is marked with the desk that owns it.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arj" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-mkj" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+
+        <rect class="d-band" x="0" y="0" width="360" height="298"/>
+        <text class="d-h" x="10" y="18">THE HOME SERVER · 05:00–06:30 · WHILE THEY SLEEP</text>
+        <rect class="d-box" x="20" y="34" width="256" height="46"/>
+        <text class="d-t" x="32" y="53">Collect</text><text class="d-s" x="32" y="70">Reed, Adzuna, Indeed, local boards and more</text>
+        <text class="d-own" x="292" y="61">scout</text>
+        <line class="d-a" x1="148" y1="80" x2="148" y2="100" marker-end="url(#ar)"/><text class="d-l" x="158" y="94">new listings</text>
+        <rect class="d-box" x="20" y="102" width="256" height="46"/>
+        <text class="d-t" x="32" y="121">Clean</text><text class="d-s" x="32" y="138">drop repeats, stale ads, already seen</text>
+        <text class="d-own" x="292" y="129">scout</text>
+        <line class="d-a" x1="148" y1="148" x2="148" y2="168" marker-end="url(#ar)"/><text class="d-l" x="158" y="162">unique jobs</text>
+        <rect class="d-box" x="20" y="170" width="256" height="46"/>
+        <text class="d-t" x="32" y="189">Judge</text><text class="d-s" x="32" y="206">score, two lists, one line on why</text>
+        <text class="d-own" x="292" y="197">scout</text>
+        <line class="d-a" x1="148" y1="216" x2="148" y2="236" marker-end="url(#ar)"/><text class="d-l" x="158" y="230">top matches</text>
+        <rect class="d-box" x="20" y="238" width="256" height="46"/>
+        <text class="d-t" x="32" y="257">Tailor</text><text class="d-s" x="32" y="274">draft a CV and letter for each</text>
+        <text class="d-own" x="292" y="265">packs</text>
+
+        <rect class="d-band" x="0" y="302" width="360" height="104"/>
+        <text class="d-h" x="10" y="320">06:30 · THE USER'S PHONE</text>
+        <line class="d-a" x1="148" y1="284" x2="148" y2="334" marker-end="url(#ar)"/><text class="d-l" x="158" y="306">sends</text>
+        <rect class="d-box" x="20" y="336" width="256" height="46"/>
+        <text class="d-t" x="32" y="355">Email nudge + notification</text><text class="d-s" x="32" y="372">a taste: the best job, how many new</text>
+        <text class="d-own" x="292" y="363">scout</text>
+
+        <rect class="d-band" x="0" y="410" width="360" height="226"/>
+        <text class="d-h" x="10" y="428">THE PAGE · ON THE HOME SERVER, FROM THEIR HOME SCREEN</text>
+        <line class="d-aj" x1="148" y1="382" x2="148" y2="442" marker-end="url(#arj)"/><text class="d-l" x="158" y="404">taps the icon</text>
+        <rect class="d-box" x="20" y="444" width="256" height="46"/>
+        <text class="d-t" x="32" y="463">Today: one to three jobs</text><text class="d-s" x="32" y="480">each with one line on why it fits</text>
+        <text class="d-own" x="292" y="471">app</text>
+        <line class="d-a" x1="148" y1="490" x2="148" y2="510" marker-end="url(#ar)"/>
+        <rect class="d-user" x="20" y="512" width="256" height="46"/>
+        <text class="d-t" x="32" y="531">Yes · Not now · No</text><text class="d-s" x="32" y="548">one tap each, and each can be undone</text>
+        <text class="d-own" x="292" y="539">app</text>
+        <line class="d-aj" x1="148" y1="558" x2="148" y2="578" marker-end="url(#arj)"/><text class="d-l" x="158" y="572">yes</text>
+        <rect class="d-user" x="20" y="580" width="256" height="46"/>
+        <text class="d-t" x="32" y="599">The pack, already made</text><text class="d-s" x="32" y="616">CV, letter, link, plus one true line</text>
+        <text class="d-own" x="292" y="607">app + packs</text>
+
+        <rect class="d-band" x="0" y="640" width="360" height="94"/>
+        <text class="d-h" x="10" y="658">THE EMPLOYER'S OWN SITE · OUTSIDE OUR SYSTEM</text>
+        <line class="d-aj" x1="148" y1="626" x2="148" y2="672" marker-end="url(#arj)"/><text class="d-l" x="158" y="636">opens the link</text>
+        <rect class="d-out" x="20" y="674" width="256" height="46"/>
+        <text class="d-t" x="32" y="693">The user applies</text><text class="d-s" x="32" y="710">uploads the pack and submits</text>
+        <text class="d-own" x="292" y="701">the user</text>
+
+        <rect class="d-band" x="0" y="738" width="360" height="92"/>
+        <text class="d-h" x="10" y="756">BACK IN THE PAGE</text>
+        <line class="d-aj" x1="148" y1="720" x2="148" y2="770" marker-end="url(#arj)"/><text class="d-l" x="158" y="742">comes back</text>
+        <rect class="d-user" x="20" y="772" width="256" height="46"/>
+        <text class="d-t" x="32" y="791">The user taps Applied</text><text class="d-s" x="32" y="808">the total goes up, the tracker saves it</text>
+        <text class="d-own" x="292" y="799">app</text>
+      </svg>
+      <figcaption>Grey steps run on their own on the home server before the user wakes. Green steps are the user's own taps. The dashed step happens on the employer's website: nothing ever goes out in the user's name without them. The blue word on the right of each step is the desk that would own it.</figcaption>
+    </figure>
+    <p class="small">One thing the research flags here: getting the same nudge by email and by notification every day trains people to ignore both. At the design stage I'll propose how they differ, for example the notification only when there's a strong match.</p>
+  </section>
+
+  <section class="stack">
+    <h2>How big each piece is</h2>
+    <p class="muted">A build day is one worker for one day. Several run at once, overnight on the work machine, so the calendar time is shorter than the total. These are estimates. The biggest unknown is job sites that block programs, which could add days to the scan.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Piece</th><th>Size</th><th>Build days</th><th>Your hours</th></tr></thead>
+        <tbody>
+          <tr><td>Refreshed master CV<small>You read it. The user sends what it is missing.</small></td><td><span class="size s">S</span></td><td class="num">½</td><td class="num">½</td></tr>
+          <tr><td>Morning scan: first four sources<small>Reed, Adzuna, Indeed and a local jobs board. You sign up for two free job-site keys and approve the setup on the home server.</small></td><td><span class="size m">M</span></td><td class="num">2</td><td class="num">1</td></tr>
+          <tr><td>Morning scan: the rest<small>gov.uk Find a Job, the civil service, councils, local employers' career pages. Nothing for you to do.</small></td><td><span class="size m">M</span></td><td class="num">2</td><td class="num">0</td></tr>
+          <tr><td>Two lists and the judge<small>You check its picks on a real morning and set up the AI's access, because money is yours.</small></td><td><span class="size m">M</span></td><td class="num">1½</td><td class="num">1</td></tr>
+          <tr><td>Morning email<small>You create the email account it sends from.</small></td><td><span class="size s">S</span></td><td class="num">½</td><td class="num">½</td></tr>
+          <tr><td>Ready packs<small>A tailored CV, letter and link, checked so nothing is invented. You read the first five before the user sees any.</small></td><td><span class="size m">M</span></td><td class="num">2</td><td class="num">1</td></tr>
+          <tr><td>The page: design<small>Directions, screens, motion, sound. You judge two or three directions and the key moments.</small></td><td><span class="size l">L</span></td><td class="num">3</td><td class="num">2</td></tr>
+          <tr><td>The page: build<small>Today's jobs, Yes / Not now / No, favourites, archive, sign-in, home-screen icon, notification. You approve its address and sign-in on the home server, plus one test on the user's phone.</small></td><td><span class="size l">L</span></td><td class="num">4½</td><td class="num">1½</td></tr>
+          <tr><td>Tracker inside the page<small>Nothing for you to do.</small></td><td><span class="size s">S</span></td><td class="num">½</td><td class="num">0</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td></td><td class="num">16½</td><td class="num">7½</td></tr></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2>Two paths</h2>
+    <figure>
+      <svg viewBox="0 0 360 180" role="img" aria-label="Timeline: path A builds everything from 7 to 23 October and the user starts on 23 October. Path B delivers slice 1 by 10 October so the user starts then, and the page arrives around 23 October.">
+        <text class="d-t" x="8" y="49">A</text>
+        <text class="d-t" x="8" y="111">B</text>
+        <rect class="d-band" x="70" y="24" width="29" height="104"/>
+        <text class="d-h" x="72" y="18">DISCOVERY</text>
+        <rect class="d-box" x="99" y="34" width="236" height="20"/>
+        <text class="d-s" x="108" y="48">build everything</text>
+        <circle class="d-dot" cx="335" cy="44" r="5"/>
+        <text class="d-l" x="335" y="72" text-anchor="end">the user starts</text>
+        <rect class="d-user" x="99" y="96" width="45" height="20"/>
+        <text class="d-s" x="104" y="110">slice 1</text>
+        <rect class="d-box" x="144" y="96" width="191" height="20"/>
+        <text class="d-s" x="152" y="110">slice 2: the page, the rest</text>
+        <circle class="d-dot" cx="144" cy="106" r="5"/>
+        <text class="d-l" x="144" y="134">the user starts</text>
+        <circle class="d-dot" cx="335" cy="106" r="5"/>
+        <text class="d-l" x="335" y="134" text-anchor="end">page arrives</text>
+        <line class="d-axis" x1="70" y1="150" x2="350" y2="150"/>
+        <line class="d-axis" x1="70" y1="146" x2="70" y2="154"/><text class="d-l" x="70" y="168" text-anchor="middle">5 Oct</text>
+        <line class="d-axis" x1="144" y1="146" x2="144" y2="154"/><text class="d-l" x="144" y="168" text-anchor="middle">10 Oct</text>
+        <line class="d-axis" x1="247" y1="146" x2="247" y2="154"/><text class="d-l" x="247" y="168" text-anchor="middle">17 Oct</text>
+        <line class="d-axis" x1="349" y1="146" x2="349" y2="154"/><text class="d-l" x="342" y="168" text-anchor="middle">24 Oct</text>
+      </svg>
+      <figcaption>Both paths finish around the same date. The difference is whether the user has something useful for the two weeks in between. The dates assume you sign the plan by Wednesday 7 October.</figcaption>
+    </figure>
+    <div class="parts">
+      <div class="part"><span class="n">A</span><div><strong>All of it, in one go.</strong> All 16½ build days, about two and a half weeks of calendar. The user starts around 23 October with the finished page. Your 7½ hours spread across the whole build.</div></div>
+      <div class="part"><span class="n">B</span><div><strong>Slice 1 by Saturday 10 October, then the rest.</strong> Slice 1 is the refreshed CV, the morning email from the first four sources, the judge with its two lists, and a ready pack for each top match, attached to the email. That's about 6½ build days run side by side, and about 4 of your hours, front-loaded this week. Slice 2 is the page (designed, then revealed finished as you ruled), the remaining sources and the tracker, around 23 October.</div></div>
+    </div>
+
+    <div class="q">
+      <fieldset>
+        <legend>1. Which path?</legend>
+        <label class="opt"><input type="radio" name="q1" id="q1a" value="a"><span><b>a.</b> All of it, in one go.<small>Gains: one finished reveal, and nothing temporary gets built. Costs: the user keeps sending the old CV for about two and a half weeks. Risks: we only find out whether the scan turns up good local jobs at the very end.</small></span></label>
+        <label class="opt"><input type="radio" name="q1" id="q1b" value="b"><span><b>b.</b> Slice 1 by Saturday, then the rest.<small>Gains: a better CV and real matches within days, and two weeks of real mornings to tune the judge before the page is built. Costs: about 4 of your hours this week. Until the page arrives, the email carries a bit more than the nudge you ruled, because it has nowhere else to point. Risks: a rough first email could shape the user's first impression, so you read the first one before they get it.</small></span></label>
+      </fieldset>
+      <p class="rec"><b>My recommendation</b>b. It finishes on the same date, but the user gets help two weeks sooner, and the judge learns from real mornings before the page shows its picks. The fuller email is temporary: when the page lands, it shrinks to the nudge.</p>
+      <div class="note"><label for="n1">Note for question 1</label><textarea id="n1" placeholder="Anything to add or change (optional)"></textarea></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2>The team</h2>
+    <p>I stay with you on the brief and the design. I run the plan, merge work once it's been checked, and never build. Under me, I'd set up three desks. Each owns one part of the morning above, and each can work at the same time as the others without touching the same files.</p>
+    <div class="desk"><span class="tag">Owns the grey steps</span><h3>scout</h3><p>Everything that runs each morning on the home server: the collectors, the cleaner, the judge, the store of jobs, and the email and notification senders. It hands the other desks one fixed thing: today's jobs, with scores and reasons, in a shape that doesn't change without your say.</p></div>
+    <div class="desk"><span class="tag">Owns the writing</span><h3>packs</h3><p>The master CV, every tailored CV and cover letter, the check that nothing is invented, and the one true line. It hands the others a pack (CV and letter as PDF and Word) for any job. Its first job is the refreshed master CV.</p></div>
+    <div class="desk"><span class="tag">Owns what the user sees</span><h3>app</h3><p>The UI and UX desk you asked for. It owns the page, from design, look, motion and sound to the home-screen icon, sign-in and how notifications appear. The four research pages move here. It builds against the other two desks' fixed shapes, using stand-in data, so it can start before they finish.</p></div>
+    <p><strong>Why packs isn't part of scout.</strong> Scout is plumbing: it's judged by whether it ran at 6:30 and found real jobs. Packs is writing: it's judged by reading the result and asking whether it would get the user an interview. They need different checks and they fail in different ways. And the packs desk can start on the CV today, before scout exists.</p>
+    <h3>Desk or short-lived helper?</h3>
+    <div class="parts">
+      <div class="part"><span class="n">DESK</span><div>For work that lasts longer than one job, has to remember what's been tried and what broke, owns something others build on, and needs looking after once it's live. Job sites change and collectors break. Packs get better as replies come in. The design keeps evolving. A desk keeps its own instructions, its own mailbox from me, and plans its own work.</div></div>
+      <div class="part"><span class="n">HELPER</span><div>For one bounded job that ends in a file and needs no memory: today's four research pages, reading what the home server runs, surveying which local job sites allow programs, checking a worker's result, pricing what the AI will cost. Helpers are cheap, start fresh and can't drift. A whole desk for a one-off job is dead weight.</div></div>
+    </div>
+
+    <div class="q">
+      <fieldset>
+        <legend>2. Which team?</legend>
+        <label class="opt"><input type="radio" name="q2" id="q2a" value="a"><span><b>a.</b> Three desks: scout, packs and app.<small>Gains: the three can work side by side, each judged by the right test, and the CV can start straight away. Costs: three folders for me to coordinate. Risks: low. The fixed shapes between them are what keep them apart.</small></span></label>
+        <label class="opt"><input type="radio" name="q2" id="q2b" value="b"><span><b>b.</b> Two desks: scout also does packs, plus app.<small>Gains: one folder fewer. Costs: the writing gets checked like plumbing. Risks: pack quality, which is your success measure, has no owner of its own.</small></span></label>
+        <label class="opt"><input type="radio" name="q2" id="q2c" value="c"><span><b>c.</b> One desk for everything.<small>Gains: the simplest setup. Costs: one queue, so the design waits behind the scan. Risks: path B's dates slip, because nothing runs side by side.</small></span></label>
+      </fieldset>
+      <p class="rec"><b>My recommendation</b>a. Each desk has a job no other desk has, which is the test for giving it a folder. Three desks plus one checker also fits your cap of four agents at once.</p>
+      <div class="note"><label for="n2">Note for question 2</label><textarea id="n2" placeholder="Anything to add or change (optional)"></textarea></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <h2>The facts I still need</h2>
+    <p>Before the plan, I need to read what the home server actually runs: its system, Python, disk space, memory, and how the earlier project's page and address are set up there. This laptop already has a saved SSH connection to it (SSH is a secure remote connection).</p>
+    <div class="q">
+      <fieldset>
+        <legend>3. May I run read-only checks on the home server over SSH?</legend>
+        <label class="opt"><input type="radio" name="q3" id="q3a" value="a"><span><b>a.</b> Yes, read-only, now.<small>Gains: the facts in minutes, with none of your time. Costs: nothing. Risks: very low. Only commands that read, each one listed in the record.</small></span></label>
+        <label class="opt"><input type="radio" name="q3" id="q3b" value="b"><span><b>b.</b> No, do it in a separate session with me watching.<small>Gains: you see every command. Costs: about 20 minutes of your time.</small></span></label>
+      </fieldset>
+      <p class="rec"><b>My recommendation</b>a. Reading changes nothing, and the sizes above get firmer once I know what's already there.</p>
+      <div class="note"><label for="n3">Note for question 3, and how do I reach the work machine?</label><textarea id="n3" placeholder="For example: the name it is saved under"></textarea></div>
+    </div>
+  </section>
+
+  <div class="readback" aria-live="polite">
+    <div><span class="muted">Your letters:</span> <code id="letters">1? 2? 3?</code><small id="notecount">No notes yet</small></div>
+    <button type="button" id="copy">Copy my letters and notes</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var out = document.getElementById('letters');
+  var count = document.getElementById('notecount');
+  var btn = document.getElementById('copy');
+  var qs = [1, 2, 3];
+  function letters() {
+    return qs.map(function (n) {
+      var c = document.querySelector('input[name="q' + n + '"]:checked');
+      return n + (c ? c.value : '?');
+    }).join(' ');
+  }
+  function notes() {
+    return qs.map(function (n) {
+      var t = document.getElementById('n' + n).value.trim();
+      return t ? 'Note ' + n + ': ' + t : '';
+    }).filter(Boolean);
+  }
+  function full() {
+    return ['Sheet 4: ' + letters()].concat(notes()).join('\n');
+  }
+  function update() {
+    out.textContent = letters();
+    var k = notes().length;
+    count.textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+  document.querySelectorAll('input[type=radio], textarea').forEach(function (el) {
+    el.addEventListener('input', update);
+    el.addEventListener('change', update);
+  });
+  btn.addEventListener('click', function () {
+    var text = full();
+    function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copy my letters and notes'; }, 1800); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0'; ta.style.width = '1px'; ta.style.height = '1px'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done(ok ? 'Copied' : 'Copy failed: long-press to select');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback);
+    } catch (e) { fallback(); }
+  });
+  update();
+})();
+</script>
