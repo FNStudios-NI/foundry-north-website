@@ -76,3 +76,4 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 | 2 | Which email address the button uses is a facts question (three appear in his files). | It is a fact of his set-up, not a scope choice. | Ask it sooner. |
 
 Supersedes: none. Unsure and Parked lines settled: the digest's contradictions 5 (a price on the page) and 7 (search); contradiction 6 (who the buyer is) settled by ruling 3: both, neither named first.
+- **08:29 — Rhys:** Scope changed at the facts step: going live moves into this era. Asked, after the fact that the bare address and www answer Cloudflare error 525 today (a keep finished but not live, b bring going live back in): his letter "B", no words added. The era ends with the finished page at foundrynorthstudios.co.uk, seen first on the private preview; the switch is his act. Supersedes ruling 2 of this entry. Undo: a new ruling; the page stays on the preview.
