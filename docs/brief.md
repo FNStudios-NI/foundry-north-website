@@ -1,6 +1,6 @@
 # Brief — foundry-north-website
-Shared: never | yes — <his words>   <not asked yet: the sharing question is asked in the chat before the first page>
-Held apart: <folders that may be public, or none>
+Shared: never
+Held apart: none
 
 ## The problem
 Ruled 14 Oct 2026 02:58 ("yes" to the read-back).

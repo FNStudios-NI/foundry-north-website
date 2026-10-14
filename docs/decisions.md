@@ -49,3 +49,5 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 | 2 | Left out of the problem as answers, each for its own step: what the offer is called ("mini studios" against "your engine"), and whether the site goes live at the address in this era. | The problem holds what hurts, not solutions. | Move either into the problem on his word. |
 
 Supersedes: none. Unsure and Parked lines settled: the digest's contradiction 6 (who the buyer is), in part, by ruling 2: both; which first is open.
+- **03:06 — Rhys:** The sharing question, asked in the chat (will this project's record ever be shared, copied or made public: a never, b yes): his letter "a", no words added. The brief's Shared line now reads never; the digest stays in the tree. Undo: a new ruling, and the digest leaves the tree first.
+- **03:07 — the planning master:** My call: the brief's Held apart line reads none for now. The website's own folder will be public, so it is named on that line when the design rules where it sits. Undo: change the line.
