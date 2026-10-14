@@ -62,8 +62,21 @@ The forks, his letters in order (14 Oct 2026):
 
 
 ## Facts
-- The website's address is `foundrynorthstudios.co.uk`; he holds the domain (his ruling 2 of 14 Oct 2026 02:47). How the domain is set up today is still to be read off the real machines at the facts step.
+Being read and talked through (14 Oct 2026, read on Pandora about 05:50). Each fact is marked checked (read off a real machine or service today) or documented (read in a file, not re-checked), with its source.
+
+- The website's address is `foundrynorthstudios.co.uk`; he holds the domain (his ruling 2 of 14 Oct 2026 02:47).
 - The record is online in a private repository (his ruling 1 of 14 Oct 2026 02:47).
+- The domain's DNS is on Cloudflare (name servers angelina and jaime.ns.cloudflare.com). Checked: `nslookup` against 1.1.1.1.
+- Its email is Zoho (MX mx.zoho.eu, mx2, mx3), with an SPF record naming Zoho and IONOS. Checked: the same lookup.
+- The bare address and `www.` both resolve through Cloudflare and both answer **error 525** (Cloudflare cannot make a secure connection to whatever sits behind them): anyone who types the address today sees an error page. Checked: `curl`. What sits behind them is not known (a guess: an old host, perhaps IONOS, from the SPF record).
+- `portal.` answers 200 with the client workspace page (saved 2026-07-28); `pick.` answers 404 "There is nothing at this link." Checked: the same `curl`. Neither is touched in this era (Scope: Out).
+- The portal and Studio OS's page run on Hephaestus behind cloudflared; the job scout planned its own tunnel and address there (proposed `jobs.`), never Studio OS's. Documented: job-scout `docs/brief.md`, lines 55 to 80.
+- A private preview can reach his phone with no account and no domain change: Pandora already serves pages "tailnet only" through Tailscale Serve (`/pages`, `/letters`, ports 8443 and 10000), and his iPhone 15 Pro Max is on the same tailnet, active. Checked: `tailscale status` and `tailscale serve status`.
+- The two website folders are unpacked outside the project, at `C:\Users\3070s\AiEngineering\laptop-inbox\2026-10-13\website-folders\unpacked-2026-10-14\` (355 files: `15Website\` and `Advisor-website\`). Checked: listed.
+- No logo file is in the zip: the logos sit only on the laptop, in the brand folder the digest names (§ 8), and predate the current colours. Checked: no file named logo in the unpacked folders.
+- Footage exists: six clips and five "for web" sequences of 21 May 2026 in `Advisor-website\Videos for website v1\`, not viewed. Checked: listed. Not used in this era (Scope: no film).
+- The July page words are `Advisor-website\pages.md`; its email button was a placeholder, `rhys@foundrynorth.studio`, "to confirm". Checked: lines 263 and 298 read. The brand voice file is not in the zip; the digest quotes it (§ 7).
+- Fonts: the brand's first choice (Neue Montreal) is a paid face with no licence held; Inter and IBM Plex Mono are free. Documented: the digest § 8.
 
 ## Design
 Not ruled yet. References he has named (rulings 3 and 4 of 14 Oct 2026 02:47): a design he likes, https://land-book.com/websites/95602-kvant-executive-search ; a company like his, https://foundercontentengine.com/
