@@ -26,6 +26,7 @@ Work that cannot go on without him, put to him as ways through, each priced in h
 
 ## Orders
 One line per order, written before any message says "look".
+- 06:20 · site · tasks 1, 3, 2, 4, 5, 6 · his one-page site to style C, words approved line by line, sent across and live at both addresses · `desks/site/docs/asks.md` (cards cut by the master, by his team ruling of 15 Oct 03:36)
 
 ## Merges
 One line per merge into the try-it build, with its undo.
