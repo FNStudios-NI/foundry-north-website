@@ -5,6 +5,7 @@ Read the end dates before any long run. Why: a seven-day sign-in once expired in
 
 | secret (its name, never its value) | machine | pointer (where it lives) | door (the one tool that uses it, and its one job) | who renews it | ends on |
 |---|---|---|---|---|---|
+| Cloudflare API token "foundry-north-website master" (Zone Read, DNS Read, Cloudflare Pages Edit; zone foundrynorthstudios.co.uk only) | Pandora | `C:\Users\3070s\.foundry-north-website\cloudflare-token.txt`, outside the project | the master's reads of the zone's records and its Pages set-up (his letter 4a, 15 Oct 2026) | Rhys | none set; he deletes it in Cloudflare's API Tokens page |
 
 ## People
 
