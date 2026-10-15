@@ -45,6 +45,7 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 - 06:30 · the first real send refused: the machine has no global git identity, so the site clone could not commit · chose: same-worker fix (the tool takes the project's own identity) · turned down: setting a global git identity on Pandora (machine settings are his), sending by hand (routes around the tool) · why: the fix keeps every send on the checked tool
 - 06:48 · piece 5 passed its check with three small parked fixes (STEP 12's order, a second cause of a blocked domain, the same-account note) · chose: same-worker fix before landing · turned down: land as is (he follows the file by hand at K4, so a gap costs him) · why: about ten minutes while he is at K3 anyway
 - 06:52 · where his film is hosted (his question: "frame.io?") · recommended: the film file kept in the site's own folder on Cloudflare Pages if it fits the 25 MB per-file limit (from memory, not checked today), else Cloudflare Stream in his account (paid, from memory about $5 per 1,000 minutes stored and $1 per 1,000 watched) · turned down: Frame.io (a review tool, not a public player), YouTube (ads, suggestions, tracking), Vimeo (a paid plan to drop its branding) · his to choose
+- 07:04 · his two additions before going live (logos banner, the film): taken as his ruling adding pieces 7 and 8 to this run, recorded in docs/decisions.md · chose: build the banner now with plain stand-in marks (no real name or logo until he sends his), inside the trust section, with a reduced-motion fallback · turned down: wait for his logos before building (idle time), put the banner as a new section between others (changes his ruled order) · why: he asked for it built while he collects them
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
@@ -57,6 +58,7 @@ Work that cannot go on without him, put to him as ways through, each priced in h
 ## Orders
 One line per order, written before any message says "look".
 - 06:20 · site · tasks 1, 3, 2, 4, 5, 6 · his one-page site to style C, words approved line by line, sent across and live at both addresses · `desks/site/docs/asks.md` (cards cut by the master, by his team ruling of 15 Oct 03:36)
+- 07:04 · site · tasks 7, 8 · the logo banner (now, stand-ins) and his film (on his file) · `desks/site/docs/asks.md`
 
 ## Merges
 One line per merge into the try-it build, with its undo.
