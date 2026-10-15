@@ -34,6 +34,8 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
 - 06:26 · K1 the page first on the preview, before the words pass · b · told him and showed him on his phone: https://ni-h3-3070.tail552bbe.ts.net/site/ (P3, tailnet only); carried on
 - 06:39 · K2 the words sheet, line by line · a · stopped and told him: https://ni-h3-3070.tail552bbe.ts.net/fnw/2026-10-15-words-sheet-1.html (31 lines asked, 5 ruled shown); the words line waits for his letters; piece 5 waits for "key saved"
+- 06:45 · K2 the words sheet · a · his answer: "yes to all" (a quote of the master's K2 line, with his comment): every asked line kept as drafted, W18 "once a month" included; the page's lines are his kept lines, so no continue card is needed
+- 06:45 · K3 the whole page approved for going live · a · stopped and asked him: the page at https://ni-h3-3070.tail552bbe.ts.net/site/, with his approved words
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
@@ -62,6 +64,7 @@ One line per merge into the try-it build, with its undo.
 - 06:35 · 2026-10-15-send-site · squash 149af01 · undo: `git revert 149af01`
 - 06:36 · First real send (piece 4's done-when, the master's act): python tools/send_site.py → SENT: 77b6265 from 1c7de56 to foundry-north-site (6 files: index.html, og.png, fonts/ with OFL.txt); unauthenticated GitHub answers 404 for the repository, so it is still private · undo: a send of the previous state, or his deleting the repository's commit (his)
 - 06:39 · 2026-10-15-words · squash 81b9e70 · undo: `git revert 81b9e70`
+- 06:45 · Second send: SENT: 2c09273 from b5ed0ef to foundry-north-site (his approved words) · undo: a send of the earlier state
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
