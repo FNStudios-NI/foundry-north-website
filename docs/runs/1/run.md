@@ -15,7 +15,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:18 · server · page server for the look's scratch folder, port 8740 (started by the planning master) · pid 12596 · taskkill · open
 - 06:18 · tailnet route · tailscale serve paths /fnw (→8741) and /look (→8740) on ni-h3-3070.tail552bbe.ts.net · serve-fnw-look · by hand: tailscale serve --https=443 --set-path=/fnw off, and the same for /look · open
 - 06:21 · session · worker thread, piece 1 the-page, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-page · mcp:02ea4f18-25d8-4959-828c-74c5b83df295 · by hand: t3_thread_organize archive once merged; its seat it releases itself · closed 06:26
-- 06:21 · session · worker thread, piece 4 send-site, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-send-site · mcp:493e4a57-7c27-4dbe-bcd2-d82eedd2d920 · by hand: t3_thread_organize archive once merged; its seat it releases itself · open
+- 06:21 · session · worker thread, piece 4 send-site, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-send-site · mcp:493e4a57-7c27-4dbe-bcd2-d82eedd2d920 · by hand: t3_thread_organize archive once merged; its seat it releases itself · closed 06:36
 - 06:24 · session · checker for piece 1, Sonnet 5.5 high, delegate_task child of the master · node:delegated-task:command%3Amcp%3A39a76e3d-ba11-4707-a14d-f07b6a4d2b53%3Adelegate-task%3Afnw-run1-check-the-page-1 · ends with its task; seat it releases itself · closed 06:26
 - 06:26 · server · the try-it build's preview, python3.11 http.server port 8742 serving the main checkout's desks/site/public (detached) · pid 20240 · taskkill · open
 - 06:26 · tailnet route · tailscale serve path /site (→8742), tailnet only · serve-site · by hand: tailscale serve --https=443 --set-path=/site off · open
@@ -24,7 +24,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:27 · session · worker thread, piece 6 live-check, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-live-check · mcp:e3693ce5-09a8-4b90-a23c-56f1cb018139 · by hand: archive once merged; seat it releases itself · closed 06:34
 - 06:29 · session · worker thread, piece 2 words, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-words · mcp:e0e8d850-41dc-4d06-a258-b545bae8c122 · by hand: archive once merged; seat it releases itself · open
 - 06:31 · session · checker for piece 6, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-live-check-1 · ends with its task; seat it releases itself · closed 06:34
-- 06:33 · session · checker for piece 4's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-2 · ends with its task; seat it releases itself · open
+- 06:33 · session · checker for piece 4's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-2 · ends with its task; seat it releases itself · closed 06:36
 - 06:35 · session · checker for piece 2, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-words-1 · ends with its task; seat it releases itself · open
 
 ## Key points he marked
@@ -55,6 +55,7 @@ One line per merge into the try-it build, with its undo.
 - 06:29 · 2026-10-15-send-site · squash b04f042 · undo: `git revert b04f042`
 - 06:34 · 2026-10-15-live-check · squash b79ae9a · undo: `git revert b79ae9a`
 - 06:35 · 2026-10-15-send-site · squash 149af01 · undo: `git revert 149af01`
+- 06:36 · First real send (piece 4's done-when, the master's act): python tools/send_site.py → SENT: 77b6265 from 1c7de56 to foundry-north-site (6 files: index.html, og.png, fonts/ with OFL.txt); unauthenticated GitHub answers 404 for the repository, so it is still private · undo: a send of the previous state, or his deleting the repository's commit (his)
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
