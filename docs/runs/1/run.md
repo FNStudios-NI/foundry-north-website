@@ -100,6 +100,7 @@ One line per merge into the try-it build, with its undo.
 - 07:21 · 2026-10-15-logo-banner-move · squash d400b8b · undo: `git revert d400b8b`
 - 08:48 · 2026-10-15-the-film · squash cba2516 · undo: `git revert cba2516`
 - 09:40 · 2026-10-15-logos-in · squash af8bf47 · undo: `git revert af8bf47`
+- 09:41 · Third send: SENT: 8371d4c from 3559355 to foundry-north-site (his film and his 18 logos); the first try refused on a passing stale index flag on index.html right after the landing, clean on the next read · undo: a send of the earlier state
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
@@ -121,6 +122,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 08:33 · waiting on him: the film by Tailscale send, and how it plays (header loop or press-play film); the logos by end of day · next step: tailscale file get into C:\Users\3070s\.foundry-north-website\inbox, check size (< 25 MB), then piece 8's card
 - 08:48 · running: nothing · pieces 1 to 8 landed (the film cba2516); the page holds his film and stand-in logos · waiting on him: his logos (by end of day, C:\Users\3070s\.foundry-north-website\logos\) and his yes to name each; his look at the film on a real phone; new lines W12 and W37 for his approval · next step: logo drop-in card (piece 7's thread mcp:92221dbf… kept), send, then K3, K4 (docs/operator-acts/2026-10-15-going-live.txt), K5
 - 09:36 · waiting on him: a, b or c for the Cloudflare steps · running: piece 7 logos-in (mcp:9db655c5…) · next step: land the logos, send, then the Cloudflare steps by his letter
+- 09:41 · waiting on him: a, b or c for the Cloudflare steps (a recommended: he connects GitHub, the master does the rest by his key) · nothing running · foundry-north-site holds 8371d4c, the page as approved
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
@@ -130,3 +132,4 @@ One line per lesson, as it happens, from `docs/blanks/review-note.md`.
 - 06:28 · 2026-10-15 06:28 · the light lane says the master re-runs the gate, but merge_check.py still demands a Checker run block, so the master wrote one into the helper's receipt on its branch (outside the main checkout) to land piece 3 · the line it should become, in the run skill's § 3 Light row: "the master re-runs the gate in the branch's worktree and appends the Checker run block, headed 'the master (light lane)', before land.py"
 - 06:34 · 2026-10-15 06:34 · the piece 6 worker left a copy of its test file at C:\Users\3070s\AppData\Local\Temp\x.py, outside its named scratch; the master left it (deleting outside a worktree is his) · the line it should become, in worker-rules.md rule 6: "Every file you write outside your worktree goes in your named scratch folder, never loose in the shared Temp; a loose file is named in the receipt's Drift."
 - 09:02 · 2026-10-15 09:02 · the template's preview server (python -m http.server) cannot play video on iPhone: no byte ranges · the line it should become, in tracks.md rule 33: "A page server that will show video to his phone answers byte ranges (206); python -m http.server does not."
+- 09:41 · 2026-10-15 09:41 · send_site.py refused straight after land.py on an index.html that git briefly listed as modified (line endings), clean a moment later · the line it should become, in send_site.py's check: "refresh git's index (git update-index -q --refresh) before reading uncommitted changes"
