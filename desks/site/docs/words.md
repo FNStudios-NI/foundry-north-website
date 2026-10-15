@@ -32,8 +32,24 @@ Ruled lines are marked ruled and stay word for word. His keep, change or drop fo
 ## #logos
 
 - **W37** · `Worked with` · over the logos banner · from: drafted · new, for his approval
-- **W38** · `University` · a logo's alt text, heard, not seen · from: piece 7's stand-in logos · stand-in, replaced by his logos' names
-- **W39** · `Company` · a logo's alt text, heard, not seen · from: piece 7's stand-in logos · stand-in, replaced by his logos' names
+- **W40** · `UCL` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W41** · `Extern` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W42** · `University of Glasgow` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W43** · `Eccles` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W44** · `The University of Manchester` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W45** · `ICURe` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W46** · `University of Leeds` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W47** · `Bradley` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W48** · `University of Liverpool` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W49** · `University of Cambridge` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W50** · `Brilliant Red Digital` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W51** · `Imperial College London` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W52** · `Royal Navy` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W53** · `The University of Edinburgh` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W54** · `Innovate UK` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W55** · `King's College London` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W56** · `Sandvik` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
+- **W57** · `Queen's University Belfast` · a logo's alt text, heard, not seen · from: the name as his logo file reads · his logos, 15 Oct
 
 ## #how
 
