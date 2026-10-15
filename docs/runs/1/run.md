@@ -37,12 +37,14 @@ One line per key point in the signed plan, with his letter, and what happened wh
 - 06:39 · K2 the words sheet, line by line · a · stopped and told him: https://ni-h3-3070.tail552bbe.ts.net/fnw/2026-10-15-words-sheet-1.html (31 lines asked, 5 ruled shown); the words line waits for his letters; piece 5 waits for "key saved"
 - 06:45 · K2 the words sheet · a · his answer: "yes to all" (a quote of the master's K2 line, with his comment): every asked line kept as drafted, W18 "once a month" included; the page's lines are his kept lines, so no continue card is needed
 - 06:45 · K3 the whole page approved for going live · a · stopped and asked him: the page at https://ni-h3-3070.tail552bbe.ts.net/site/, with his approved words
+- 06:52 · K3 · his reply: "almost good to go live. let me go make the video for it" · not yet an approval; asked him, grouped: where the film is hosted, go live now or after the film, and what else "almost" covers
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
 - 06:30 · send-site carries one unasked refusal (a send when git holds nothing under desks/site/public/) · chose: keep it · turned down: strip it as drift · why: it stops a send that would wipe his live site, costs nothing, and the worker declared it
 - 06:30 · the first real send refused: the machine has no global git identity, so the site clone could not commit · chose: same-worker fix (the tool takes the project's own identity) · turned down: setting a global git identity on Pandora (machine settings are his), sending by hand (routes around the tool) · why: the fix keeps every send on the checked tool
 - 06:48 · piece 5 passed its check with three small parked fixes (STEP 12's order, a second cause of a blocked domain, the same-account note) · chose: same-worker fix before landing · turned down: land as is (he follows the file by hand at K4, so a gap costs him) · why: about ten minutes while he is at K3 anyway
+- 06:52 · where his film is hosted (his question: "frame.io?") · recommended: the film file kept in the site's own folder on Cloudflare Pages if it fits the 25 MB per-file limit (from memory, not checked today), else Cloudflare Stream in his account (paid, from memory about $5 per 1,000 minutes stored and $1 per 1,000 watched) · turned down: Frame.io (a review tool, not a public player), YouTube (ads, suggestions, tracking), Vimeo (a paid plan to drop its branding) · his to choose
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
@@ -81,6 +83,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 06:21 · running: piece 1 the-page (mcp:02ea4f18…, branch task/foundry-north-website/2026-10-15-the-page), piece 4 send-site (mcp:493e4a57…, branch task/foundry-north-website/2026-10-15-send-site) · merges done: none · open key points: none reached · next step: on each worker's end line, a Sonnet checker by delegate_task, then land.py; piece 1's landing also tries the undo with him reachable, then serves the page to his phone (K1 b)
 - 06:39 · running: nothing (all seats but the master's free) · merges done: the-page e2ecbac (undo now git revert 6142a71), search-preview b377c20, send-site b04f042 + fix 149af01, live-check b79ae9a, words 81b9e70, each undo git revert <commit>; first send to foundry-north-site 77b6265 · open key points: K2 (his words sheet), then K3, K4, K5 · next step: on his letters, a continue card applying them to the page and words.md, then a send; on "key saved", verify the token and read the two DNS rows and Pages projects, then cut piece 5's card
 - 06:51 · running: nothing · merges done: the six pieces' work landed (the-page, search-preview, send-site + fix, live-check, words, going-live-act 7141be2), each with its undo under Merges; foundry-north-site holds 2c09273 · open key points: K3 (asked, waiting), K4, K5 · next step: on his K3 a, open docs/operator-acts/2026-10-15-going-live.txt for him (K4); on his last step, run python tools/live_check.py and show him (K5); then the review
+- 06:52 · waiting on him: K3 (his three grouped answers: film hosting, live now or after the film, anything else) · nothing running · next step as at 06:51
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
