@@ -30,6 +30,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:41 · session · worker thread, piece 5 going-live-act, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-going-live-act · mcp:e63c2bc9-9958-4ab3-989a-17b44215af31 · by hand: archive once merged; seat it releases itself · closed 06:51
 - 06:45 · session · checker for piece 5, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-1 · ends with its task; seat it releases itself · closed 06:48
 - 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · closed 06:51
+- 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -86,6 +87,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 06:39 · running: nothing (all seats but the master's free) · merges done: the-page e2ecbac (undo now git revert 6142a71), search-preview b377c20, send-site b04f042 + fix 149af01, live-check b79ae9a, words 81b9e70, each undo git revert <commit>; first send to foundry-north-site 77b6265 · open key points: K2 (his words sheet), then K3, K4, K5 · next step: on his letters, a continue card applying them to the page and words.md, then a send; on "key saved", verify the token and read the two DNS rows and Pages projects, then cut piece 5's card
 - 06:51 · running: nothing · merges done: the six pieces' work landed (the-page, search-preview, send-site + fix, live-check, words, going-live-act 7141be2), each with its undo under Merges; foundry-north-site holds 2c09273 · open key points: K3 (asked, waiting), K4, K5 · next step: on his K3 a, open docs/operator-acts/2026-10-15-going-live.txt for him (K4); on his last step, run python tools/live_check.py and show him (K5); then the review
 - 06:52 · waiting on him: K3 (his three grouped answers: film hosting, live now or after the film, anything else) · nothing running · next step as at 06:51
+- 07:05 · running: piece 7 logo-banner (mcp:92221dbf…) · waiting on him: his logos and his film, and where the film is hosted · next step: check and land piece 7; on his logos, a drop-in card; on his film, piece 8's card; then K3 again, K4, K5
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
