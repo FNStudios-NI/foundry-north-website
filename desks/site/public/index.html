@@ -77,7 +77,7 @@ h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spac
 .banner{margin-top:26px;overflow:hidden;display:grid;gap:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
 .banner .row{display:flex;width:max-content;will-change:transform}
 .banner .logos{display:flex;align-items:center;list-style:none}
-.banner img{display:block;width:auto;filter:brightness(0)}
+.banner img{display:block;width:auto;filter:grayscale(1)}
 .banner .back{animation:drift 90s linear -30s infinite reverse}
 .banner .back .logos{gap:32px;padding-right:32px}
 .banner .back img{height:20px;opacity:.28}
@@ -97,7 +97,7 @@ h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spac
   .banner{-webkit-mask-image:none;mask-image:none}
   .banner .row{animation:none;width:auto}
   .banner [aria-hidden="true"]{display:none}
-  .banner .front .logos{flex-wrap:wrap;justify-content:center;padding-right:0;row-gap:20px}
+  .banner .back .logos,.banner .front .logos{flex-wrap:wrap;justify-content:center;padding-right:0;row-gap:20px}
 }
 
 @media (min-width:860px){
@@ -196,56 +196,52 @@ h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spac
   <section id="logos">
     <p class="lab with">Worked with</p>
     <div class="banner">
-      <div class="row back" aria-hidden="true">
+      <div class="row back">
         <ul class="logos">
-          <li><img src="logos/standin-01.svg" alt=""></li>
-          <li><img src="logos/standin-02.svg" alt=""></li>
-          <li><img src="logos/standin-03.svg" alt=""></li>
-          <li><img src="logos/standin-04.svg" alt=""></li>
-          <li><img src="logos/standin-05.svg" alt=""></li>
-          <li><img src="logos/standin-06.svg" alt=""></li>
-          <li><img src="logos/standin-07.svg" alt=""></li>
-          <li><img src="logos/standin-08.svg" alt=""></li>
-          <li><img src="logos/standin-09.svg" alt=""></li>
-          <li><img src="logos/standin-10.svg" alt=""></li>
+          <li><img src="logos/ucl.png" alt="UCL"></li>
+          <li><img src="logos/extern.png" alt="Extern"></li>
+          <li><img src="logos/glasgow.png" alt="University of Glasgow"></li>
+          <li><img src="logos/eccles.png" alt="Eccles"></li>
+          <li><img src="logos/manchester.png" alt="The University of Manchester"></li>
+          <li><img src="logos/icure.png" alt="ICURe"></li>
+          <li><img src="logos/leeds.png" alt="University of Leeds"></li>
+          <li><img src="logos/bradley.png" alt="Bradley"></li>
+          <li><img src="logos/liverpool.png" alt="University of Liverpool"></li>
         </ul>
-        <ul class="logos">
-          <li><img src="logos/standin-01.svg" alt=""></li>
-          <li><img src="logos/standin-02.svg" alt=""></li>
-          <li><img src="logos/standin-03.svg" alt=""></li>
-          <li><img src="logos/standin-04.svg" alt=""></li>
-          <li><img src="logos/standin-05.svg" alt=""></li>
-          <li><img src="logos/standin-06.svg" alt=""></li>
-          <li><img src="logos/standin-07.svg" alt=""></li>
-          <li><img src="logos/standin-08.svg" alt=""></li>
-          <li><img src="logos/standin-09.svg" alt=""></li>
-          <li><img src="logos/standin-10.svg" alt=""></li>
+        <ul class="logos" aria-hidden="true">
+          <li><img src="logos/ucl.png" alt=""></li>
+          <li><img src="logos/extern.png" alt=""></li>
+          <li><img src="logos/glasgow.png" alt=""></li>
+          <li><img src="logos/eccles.png" alt=""></li>
+          <li><img src="logos/manchester.png" alt=""></li>
+          <li><img src="logos/icure.png" alt=""></li>
+          <li><img src="logos/leeds.png" alt=""></li>
+          <li><img src="logos/bradley.png" alt=""></li>
+          <li><img src="logos/liverpool.png" alt=""></li>
         </ul>
       </div>
       <div class="row front">
         <ul class="logos">
-          <li><img src="logos/standin-01.svg" alt="University"></li>
-          <li><img src="logos/standin-02.svg" alt="Company"></li>
-          <li><img src="logos/standin-03.svg" alt="University"></li>
-          <li><img src="logos/standin-04.svg" alt="Company"></li>
-          <li><img src="logos/standin-05.svg" alt="University"></li>
-          <li><img src="logos/standin-06.svg" alt="Company"></li>
-          <li><img src="logos/standin-07.svg" alt="University"></li>
-          <li><img src="logos/standin-08.svg" alt="Company"></li>
-          <li><img src="logos/standin-09.svg" alt="University"></li>
-          <li><img src="logos/standin-10.svg" alt="Company"></li>
+          <li><img src="logos/cambridge.png" alt="University of Cambridge"></li>
+          <li><img src="logos/brilliant-red-digital.png" alt="Brilliant Red Digital"></li>
+          <li><img src="logos/imperial.png" alt="Imperial College London"></li>
+          <li><img src="logos/royal-navy.png" alt="Royal Navy"></li>
+          <li><img src="logos/edinburgh.png" alt="The University of Edinburgh"></li>
+          <li><img src="logos/innovate-uk.png" alt="Innovate UK"></li>
+          <li><img src="logos/kings.png" alt="King's College London"></li>
+          <li><img src="logos/sandvik.png" alt="Sandvik"></li>
+          <li><img src="logos/queens.png" alt="Queen's University Belfast"></li>
         </ul>
         <ul class="logos" aria-hidden="true">
-          <li><img src="logos/standin-01.svg" alt=""></li>
-          <li><img src="logos/standin-02.svg" alt=""></li>
-          <li><img src="logos/standin-03.svg" alt=""></li>
-          <li><img src="logos/standin-04.svg" alt=""></li>
-          <li><img src="logos/standin-05.svg" alt=""></li>
-          <li><img src="logos/standin-06.svg" alt=""></li>
-          <li><img src="logos/standin-07.svg" alt=""></li>
-          <li><img src="logos/standin-08.svg" alt=""></li>
-          <li><img src="logos/standin-09.svg" alt=""></li>
-          <li><img src="logos/standin-10.svg" alt=""></li>
+          <li><img src="logos/cambridge.png" alt=""></li>
+          <li><img src="logos/brilliant-red-digital.png" alt=""></li>
+          <li><img src="logos/imperial.png" alt=""></li>
+          <li><img src="logos/royal-navy.png" alt=""></li>
+          <li><img src="logos/edinburgh.png" alt=""></li>
+          <li><img src="logos/innovate-uk.png" alt=""></li>
+          <li><img src="logos/kings.png" alt=""></li>
+          <li><img src="logos/sandvik.png" alt=""></li>
+          <li><img src="logos/queens.png" alt=""></li>
         </ul>
       </div>
     </div>
