@@ -87,6 +87,7 @@ Work that cannot go on without him, put to him as ways through, each priced in h
 - 09:36 · his ask: the master does the Cloudflare steps in a private browser window and hands over only for his sign-ins · ways through: a) the master does steps 4 to 9 through the Cloudflare key he already made (Pages Edit; checked at 09:35: active, zone found, no Pages project yet), no browser and nothing saved; he connects GitHub to Cloudflare once (steps 1 to 3, about 3 min, the only part an API cannot do); any of the four old DNS rows to delete is his (the key reads DNS, cannot change it); b) the T3 shared browser tab he can watch, he types his own sign-ins, the master clicks; whether it keeps the sign-in afterwards is not known; c) as written, he does all steps (20 to 30 min) · my recommendation: a
 - 09:53 · Going live needs his DNS change (the key reads DNS only): in DNS Records, delete the four A/AAAA rows of the bare address and www (217.160.0.70, 2001:8d8:100f:f000::25b), add CNAME @ → foundry-north-site.pages.dev and CNAME www → foundry-north-site.pages.dev, both proxied · about 3 minutes of his · the act file's STEP 11 covers the deletes; the undo is its STEPs 13 to 15
 - 10:04 · his ask: the master does the DNS step or makes it easier · way through offered: he raises his key's one DNS line from Read to Edit (about 1 minute; the key stays this zone only and keeps its value), the master then deletes only the four A/AAAA rows and adds the two CNAMEs by the API, and he may set it back to Read afterwards · this widens what the master's key may do, so it is his act and his word; recorded as his ruling if he does it
+- 10:13 · run paused: needs him
 
 ## Orders
 One line per order, written before any message says "look".
@@ -119,6 +120,14 @@ One line per merge into the try-it build, with its undo.
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
+- 10:13 · the-page (piece 1) · pass · the page live at foundrynorthstudios.co.uk in the ruled order with his film, logos and Rose look; piece 1 gate re-run by each later checker (360 px, Inter kept local, nothing from Google)
+- 10:13 · words (piece 2) · pass · his "yes to all" on the words sheet; the words gate passed at every later landing; new lines W12 and W37 are on the page awaiting his say at the review
+- 10:13 · search-preview (piece 3) · pass · live_check.py at 10:11: og:image https://foundrynorthstudios.co.uk/og.png answered 200 image/png
+- 10:13 · send-site (piece 4) · pass · five sends to foundry-north-site, the last SENT: 2a416d3, deployed by Cloudflare Pages
+- 10:13 · going-live-act (piece 5) · pass · its steps were done in the end through his key (his letter a); its DNS undo stands
+- 10:13 · live-check (piece 6) · pass · python tools/live_check.py at 10:11 → LIVE: PASS, 7 of 7
+- 10:13 · logo banner (piece 7) · pass · his 18 logos moving in two rows between the film and how it works, served live
+- 10:13 · the film (piece 8) · pass · his new film answers 200 at the live address, 25,959,232 bytes; plays muted and looping
 
 ## Next run's list
 New ideas that come up mid-run go here, not into this run, unless they are a blocker.
@@ -140,6 +149,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 09:41 · waiting on him: a, b or c for the Cloudflare steps (a recommended: he connects GitHub, the master does the rest by his key) · nothing running · foundry-north-site holds 8371d4c, the page as approved
 - 09:59 · waiting on him: his DNS step (then "done"), and later his new film · nothing running · Pages project live at foundry-north-site.pages.dev; both custom domains pending on his CNAMEs · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); on his film, a swap card like piece 8
 - 10:04 · waiting on him: his DNS step (four old rows still in DNS at 10:05; both domains pending) · nothing running · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); then the review
+- 10:13 · wrap on his word ("wrap, i will do the review later") · running: nothing; every worker and checker thread archived, every seat but the master's released · merges done: 11 cards landed, each with its undo under Merges; the site LIVE at both addresses since 10:11 · open: the review (docs/runs/1/review.html not yet written), his key back to DNS Read (his), W12 and W37 for his say · next step: a fresh master with /run carry on from the handover writes the review page (pages.md § The review page), publishes it on a page server, and closes with the Run 1 closed entry
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
