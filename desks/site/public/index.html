@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foundry North: your own mini studio</title>
+<meta name="description" content="We turn one interview into content that sounds like you. An engine that understands you better every month.">
+<link rel="canonical" href="https://foundrynorthstudios.co.uk/">
+<meta property="og:title" content="Foundry North: your own mini studio">
+<meta property="og:description" content="We turn one interview into content that sounds like you. An engine that understands you better every month.">
+<meta property="og:url" content="https://foundrynorthstudios.co.uk/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://foundrynorthstudios.co.uk/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/Inter-Regular.woff2") format("woff2")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/Inter-Medium.woff2") format("woff2")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/Inter-SemiBold.woff2") format("woff2")}
+:root{
+  --bg:#e7ede6; --hi:#f4f8f4; --ink:#0e1512; --soft:#1a2620; --body:#4a5750;
+  --rose:#e9b4b7; --deep:#d1808c; --hot:#c46b7a; --lab:#9c6f79; --gold:#c99c85;
+  --shadow:0 24px 50px -26px rgba(150,105,80,.35),0 2px 6px rgba(150,105,80,.08);
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;text-align:center}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--hot);outline-offset:3px}
+
+.wrap{width:100%;max-width:980px;margin:0 auto;padding:0 20px}
+
+#name{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 0;text-align:left}
+#name .word{font-weight:600;font-size:18px;letter-spacing:-.03em}
+.btn{display:inline-flex;align-items:center;background:var(--ink);color:var(--hi);text-decoration:none;font:500 13px/1 var(--sans);padding:13px 22px;border-radius:40px;white-space:nowrap;transition:transform .2s ease,background .2s ease}
+.btn:hover{background:var(--soft);transform:translateY(-1px)}
+.btn.lg{font-size:15px;padding:19px 34px}
+
+.lab{font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.3em;color:var(--lab)}
+
+#top{padding:60px 0 40px}
+h1{font-weight:600;font-size:clamp(40px,11.4vw,92px);line-height:1.02;letter-spacing:-.04em;margin:22px auto 24px;max-width:13ch}
+.tagline{font-weight:500;font-size:clamp(19px,3vw,26px);line-height:1.25;letter-spacing:-.02em;color:var(--soft);max-width:22ch;margin:0 auto}
+.under{margin:14px auto 0;color:var(--body);max-width:34ch}
+.rule{width:1px;height:56px;background:var(--gold);margin:40px auto 0}
+
+.frame{position:relative;aspect-ratio:16 / 9;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(244,248,244,.85));border:1px solid rgba(201,156,133,.45);box-shadow:var(--shadow);overflow:hidden}
+.frame > svg,.frame > video,.frame > iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.frame .wave-r{stop-color:var(--rose)}
+.frame .wave-d{stop-color:var(--deep)}
+.frame .b{fill:url(#wave);opacity:.75;transform-box:fill-box;transform-origin:center;animation:pulse 3.2s ease-in-out var(--d,0s) infinite}
+.frame .axis{stroke:var(--gold);stroke-width:1;opacity:.55}
+.frame .soon{position:absolute;left:0;right:0;bottom:18px;font:500 11px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--lab)}
+@keyframes pulse{0%,100%{transform:scaleY(.55)}50%{transform:scaleY(1)}}
+
+.sec{padding:92px 0 0}
+h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spacing:-.035em;margin:18px auto 0;max-width:16ch}
+.p{color:var(--body);font-size:17px;max-width:36ch;margin:16px auto 0}
+
+.steps{list-style:none;margin:44px auto 0;max-width:640px;position:relative;display:grid;gap:34px}
+.steps::before{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:1px;background:var(--gold);opacity:.7}
+.steps li{position:relative;padding:4px 0 6px}
+.steps .n{position:relative;z-index:1;display:grid;place-items:center;width:34px;height:34px;margin:0 auto;border-radius:50%;background:var(--hi);border:1px solid var(--deep);color:var(--hot);font:500 12px/1 var(--mono)}
+.steps .tx{background:var(--bg);position:relative;z-index:1;padding:12px 8px 6px}
+.steps h3{font-weight:600;font-size:22px;line-height:1.15;letter-spacing:-.025em}
+.steps p{color:var(--body);max-width:34ch;margin:8px auto 0}
+
+.who{display:grid;gap:18px;padding-top:92px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(244,248,244,.8));border:1px solid rgba(201,156,133,.4);border-radius:14px;padding:34px 24px 38px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(26px,6vw,34px);margin-top:0}
+.card .sub{display:block;margin-top:12px;font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.24em;color:var(--lab)}
+
+#trust .big{font-weight:600;font-size:clamp(26px,6.6vw,46px);line-height:1.1;letter-spacing:-.035em;max-width:16ch;margin:22px auto 0}
+#trust .sig{width:56px;height:1px;background:var(--gold);margin:30px auto 0}
+
+#contact{padding:110px 0 60px}
+#contact .btn{margin-top:30px}
+#contact .addr{display:block;margin-top:18px;font:400 13px/1 var(--mono);color:var(--lab);letter-spacing:.04em}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .frame .b{animation:none;transform:scaleY(.8)}
+  .btn{transition:none}
+}
+
+@media (min-width:860px){
+  .wrap{padding:0 40px}
+  #name{padding:28px 0}
+  #top{padding:100px 0 56px}
+  .sec{padding-top:140px}
+  .steps{max-width:none;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:64px}
+  .steps::before{left:0;right:0;top:17px;bottom:auto;width:auto;height:1px}
+  .steps .tx{background:transparent;padding-top:22px}
+  .steps li{padding:0}
+  .who{grid-template-columns:1fr 1fr;gap:22px;padding-top:140px}
+  .card{padding:48px 36px 52px}
+  #contact{padding:150px 0 80px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header id="name">
+  <span class="word">Foundry North</span>
+  <a class="btn" href="mailto:rhys@foundrynorthstudios.co.uk">Email us</a>
+</header>
+
+<main>
+  <section id="top">
+    <p class="lab">Your own mini studio</p>
+    <h1>Hours of your time. Weeks of content.</h1>
+    <p class="tagline">An engine that understands you better every month.</p>
+    <p class="under">We turn one interview into content that sounds like you.</p>
+    <div class="rule" aria-hidden="true"></div>
+  </section>
+
+  <section id="film" aria-label="Film">
+    <div class="frame" role="img" aria-label="A 16 by 9 frame. Film coming soon.">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="wave" x1="0" y1="0" x2="0" y2="1"><stop class="wave-r" offset="0"/><stop class="wave-d" offset=".5"/><stop class="wave-r" offset="1"/></linearGradient></defs>
+        <line class="axis" x1="60" y1="450" x2="1540" y2="450"/>
+        <rect class="b" style="--d:-0.00s" x="100" y="435" width="10" height="30" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="128" y="432" width="10" height="36" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="156" y="432" width="10" height="37" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="184" y="432" width="10" height="36" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="212" y="420" width="10" height="60" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="240" y="413" width="10" height="75" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="268" y="426" width="10" height="49" rx="5"/>
+        <rect class="b" style="--d:-0.00s" x="296" y="423" width="10" height="55" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="324" y="394" width="10" height="113" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="352" y="397" width="10" height="106" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="380" y="424" width="10" height="53" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="408" y="402" width="10" height="97" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="436" y="366" width="10" height="168" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="464" y="394" width="10" height="112" rx="5"/>
+        <rect class="b" style="--d:-0.00s" x="492" y="420" width="10" height="61" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="520" y="372" width="10" height="156" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="548" y="350" width="10" height="200" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="576" y="402" width="10" height="96" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="604" y="406" width="10" height="88" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="632" y="344" width="10" height="213" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="660" y="352" width="10" height="197" rx="5"/>
+        <rect class="b" style="--d:-0.00s" x="688" y="412" width="10" height="77" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="716" y="385" width="10" height="131" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="744" y="328" width="10" height="244" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="772" y="369" width="10" height="162" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="800" y="415" width="10" height="70" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="828" y="363" width="10" height="175" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="856" y="332" width="10" height="236" rx="5"/>
+        <rect class="b" style="--d:-0.00s" x="884" y="393" width="10" height="114" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="912" y="409" width="10" height="82" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="940" y="351" width="10" height="199" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="968" y="355" width="10" height="191" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="996" y="413" width="10" height="75" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="1024" y="400" width="10" height="101" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="1052" y="357" width="10" height="187" rx="5"/>
+        <rect class="b" style="--d:-0.00s" x="1080" y="385" width="10" height="130" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="1108" y="422" width="10" height="56" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="1136" y="396" width="10" height="108" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="1164" y="379" width="10" height="142" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="1192" y="412" width="10" height="76" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="1220" y="425" width="10" height="50" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="1248" y="405" width="10" height="91" rx="5"/>
+        <rect class="b" style="--d:-0.00s" x="1276" y="407" width="10" height="86" rx="5"/>
+        <rect class="b" style="--d:-0.35s" x="1304" y="428" width="10" height="44" rx="5"/>
+        <rect class="b" style="--d:-0.70s" x="1332" y="428" width="10" height="44" rx="5"/>
+        <rect class="b" style="--d:-1.05s" x="1360" y="423" width="10" height="55" rx="5"/>
+        <rect class="b" style="--d:-1.40s" x="1388" y="430" width="10" height="41" rx="5"/>
+        <rect class="b" style="--d:-1.75s" x="1416" y="435" width="10" height="31" rx="5"/>
+        <rect class="b" style="--d:-2.10s" x="1444" y="435" width="10" height="30" rx="5"/>
+      </svg>
+      <p class="soon">Film coming soon</p>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <p class="lab">How it works</p>
+    <h2>Your own mini studio, in three steps.</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><div class="tx"><h3>An interview goes in.</h3><p>You sit down once, on camera. We ask the questions and listen for how you think.</p></div></li>
+      <li><span class="n">2</span><div class="tx"><h3>Weeks of content come out.</h3><p>We cut a long video, short clips, captions and posts, all in your voice.</p></div></li>
+      <li><span class="n">3</span><div class="tx"><h3>It gets sharper every month.</h3><p>Each run teaches your mini studio more about you and your audience. Month three is sharper than month one.</p></div></li>
+    </ol>
+  </section>
+
+  <div class="who">
+    <section class="card" id="founders">
+      <h2>For founders</h2>
+      <p class="p">The work is good and the market cannot see it. We build you a mini studio of your own, so what you know reaches the people who need it. You talk to the person doing the work.</p>
+    </section>
+    <section class="card" id="organisations">
+      <h2>For organisations</h2>
+      <span class="sub">Teams, schools, companies</span>
+      <p class="p">Your people have stories worth telling and no time to film them. We build your organisation a mini studio instead. You approve everything that ships.</p>
+    </section>
+  </div>
+
+  <section class="sec" id="trust" aria-label="Why trust us">
+    <p class="big">Built by filmmakers. Fifteen years of craft.</p>
+    <p class="big">The last cut is human. Every time.</p>
+    <div class="sig" aria-hidden="true"></div>
+  </section>
+
+  <section id="contact">
+    <p class="lab">Contact</p>
+    <h2>Start with an email.</h2>
+    <a class="btn lg" href="mailto:rhys@foundrynorthstudios.co.uk">Email Rhys</a>
+    <span class="addr">rhys@foundrynorthstudios.co.uk</span>
+  </section>
+</main>
+
+</div>
+</body>
+</html>

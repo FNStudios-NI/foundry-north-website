@@ -1,0 +1,72 @@
+MAKE A LIMITED CLOUDFLARE KEY FOR THE WEBSITE  -  your act, about 5 minutes, in a browser signed in to Cloudflare (any machine), then Notepad on Pandora
+==========================================================================
+
+What it unlocks: the master can read your domain's records and set up the website hosting from Pandora, without a browser.
+Why you and not me: making a key changes what an agent may reach; that is always yours (your letter "4a", 15 Oct).
+
+What the key can do: read foundrynorthstudios.co.uk's settings and records, and manage Cloudflare's website hosting (Pages).
+What it cannot do: change or delete any DNS record (your email, the portal), touch any other domain, or see billing.
+You can delete it at any time: My Profile, API Tokens, the three dots beside it, Delete.
+
+
+STEP 1 - in the browser, signed in to Cloudflare
+Why: this is Cloudflare's own page for making keys.
+
+Open this address:
+
+https://dash.cloudflare.com/profile/api-tokens
+
+Pass: you see a page headed "API Tokens" with a button "Create Token".
+
+
+STEP 2 - on that page
+Why: a custom key lets us give it only the three permissions below.
+
+Press "Create Token". Scroll to "Create Custom Token" at the bottom and press "Get started".
+
+Pass: you see a form with "Token name" and "Permissions".
+
+
+STEP 3 - the form: name and permissions
+Why: each line below is one permission; nothing else is added.
+
+Token name: foundry-north-website master
+
+Permissions (press "+ Add more" for each new line):
+  Line 1:  Zone      |  Zone              |  Read
+  Line 2:  Zone      |  DNS               |  Read
+  Line 3:  Account   |  Cloudflare Pages  |  Edit
+
+Pass: exactly three permission lines, as above. No line says "DNS | Edit".
+
+
+STEP 4 - the form: which domain and account
+Why: the key reaches this one domain and nothing else.
+
+Zone Resources:     Include  |  Specific zone  |  foundrynorthstudios.co.uk
+Account Resources:  Include  |  your account (the only one listed)
+Client IP Address Filtering and TTL: leave as they are.
+
+Pass: Zone Resources names foundrynorthstudios.co.uk and nothing else.
+
+
+STEP 5 - the bottom of the form
+Why: Cloudflare shows a summary before making the key.
+
+Press "Continue to summary", check it matches the three lines and the one domain, then press "Create Token".
+
+Pass: a page showing your new token once, with a "Copy" button.
+
+
+STEP 6 - Notepad on Pandora (I have opened an empty file for you there)
+Why: the key goes into a file outside the project, never into the chat, where it would be kept in the conversation's logs.
+
+Press "Copy" in Cloudflare. In the Notepad window titled "cloudflare-token.txt", paste it (Ctrl+V), then save (Ctrl+S) and close Notepad.
+If you made the key on your laptop: send it to Pandora the way you send files across, or open this file on Pandora over remote desktop and paste there.
+
+Pass: Notepad saves with no message. Then tell me "key saved".
+
+
+Afterwards I check the key with Cloudflare's own "verify" address and read the two rows. I never print the key.
+
+If anything looks different from a Pass line, stop and tell me what it says.
