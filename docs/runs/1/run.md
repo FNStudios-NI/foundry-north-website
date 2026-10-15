@@ -28,7 +28,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:33 · session · checker for piece 4's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-2 · ends with its task; seat it releases itself · closed 06:36
 - 06:35 · session · checker for piece 2, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-words-1 · ends with its task; seat it releases itself · closed 06:39
 - 06:41 · session · worker thread, piece 5 going-live-act, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-going-live-act · mcp:e63c2bc9-9958-4ab3-989a-17b44215af31 · by hand: archive once merged; seat it releases itself · open
-- 06:45 · session · checker for piece 5, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-1 · ends with its task; seat it releases itself · open
+- 06:45 · session · checker for piece 5, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-1 · ends with its task; seat it releases itself · closed 06:48
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -41,6 +41,7 @@ One line per key point in the signed plan, with his letter, and what happened wh
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
 - 06:30 · send-site carries one unasked refusal (a send when git holds nothing under desks/site/public/) · chose: keep it · turned down: strip it as drift · why: it stops a send that would wipe his live site, costs nothing, and the worker declared it
 - 06:30 · the first real send refused: the machine has no global git identity, so the site clone could not commit · chose: same-worker fix (the tool takes the project's own identity) · turned down: setting a global git identity on Pandora (machine settings are his), sending by hand (routes around the tool) · why: the fix keeps every send on the checked tool
+- 06:48 · piece 5 passed its check with three small parked fixes (STEP 12's order, a second cause of a blocked domain, the same-account note) · chose: same-worker fix before landing · turned down: land as is (he follows the file by hand at K4, so a gap costs him) · why: about ten minutes while he is at K3 anyway
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
