@@ -50,6 +50,7 @@ One line per key point in the signed plan, with his letter, and what happened wh
 - 06:45 · K3 the whole page approved for going live · a · stopped and asked him: the page at https://ni-h3-3070.tail552bbe.ts.net/site/, with his approved words
 - 06:52 · K3 · his reply: "almost good to go live. let me go make the video for it" · not yet an approval; asked him, grouped: where the film is hosted, go live now or after the film, and what else "almost" covers
 - 09:30 · K3 the whole page approved for going live · a · his words: "lets get this live and i'll test it for real", with his logos sent; approved for the page with his logos in place of the stand-ins
+- 09:44 · K4 his Cloudflare steps · a · his letter "a": he connects GitHub (walked through in the chat); the master does the rest through his key, each act told to him
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
