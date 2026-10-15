@@ -42,8 +42,8 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · closed 09:40
 - 09:37 · session · checker for logos-in, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logos-in-1 · ends with its task; seat it releases itself · closed 09:40
 - 09:52 · file · C:\Users\3070s\.foundry-north-website\preview\cf.py, the master's Cloudflare calls through his key (outside the project; the key is read, never printed) · cf-py · nothing runs; left in place · open
-- 10:00 · session · worker thread, film swap, Sonnet 5.5 high, branch task/foundry-north-website/2026-10-15-the-film-swap · mcp:c16de818-4250-45d8-8d6b-d13f59f85ec0 · by hand: archive once merged; seat it releases itself · open
-- 10:02 · session · checker for the film swap, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-swap-1 · ends with its task; seat it releases itself · open
+- 10:00 · session · worker thread, film swap, Sonnet 5.5 high, branch task/foundry-north-website/2026-10-15-the-film-swap · mcp:c16de818-4250-45d8-8d6b-d13f59f85ec0 · by hand: archive once merged; seat it releases itself · closed 10:04
+- 10:02 · session · checker for the film swap, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-swap-1 · ends with its task; seat it releases itself · closed 10:04
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -111,6 +111,7 @@ One line per merge into the try-it build, with its undo.
 - 09:52 · Cloudflare (his letter a, through his key): Pages project foundry-north-site created from FNStudios-NI/foundry-north-site, branch main, no build, output the top folder; first deployment success; https://foundry-north-site.pages.dev answers 200 with the page, film 200 (24,052,230 bytes), logos and fonts 200 · undo: delete the Pages project (his, in the dashboard)
 - 09:53 · Cloudflare: custom domains www.foundrynorthstudios.co.uk and foundrynorthstudios.co.uk added to the Pages project through his key; both read pending, "CNAME record not set" (a domain added by the API does not get its DNS row made for it, and the key cannot write DNS); the four old A/AAAA rows (IONOS) still answer, so nothing has changed for visitors yet · undo: remove the two custom domains
 - 10:03 · 2026-10-15-the-film-swap · squash fbccfa3 · undo: `git revert fbccfa3`
+- 10:04 · Fourth send: SENT: 2a416d3 from 8839556 to foundry-north-site (his new film); Cloudflare redeploys pages.dev from it · undo: a send of the earlier state
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
@@ -134,6 +135,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 09:36 · waiting on him: a, b or c for the Cloudflare steps · running: piece 7 logos-in (mcp:9db655c5…) · next step: land the logos, send, then the Cloudflare steps by his letter
 - 09:41 · waiting on him: a, b or c for the Cloudflare steps (a recommended: he connects GitHub, the master does the rest by his key) · nothing running · foundry-north-site holds 8371d4c, the page as approved
 - 09:59 · waiting on him: his DNS step (then "done"), and later his new film · nothing running · Pages project live at foundry-north-site.pages.dev; both custom domains pending on his CNAMEs · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); on his film, a swap card like piece 8
+- 10:04 · waiting on him: his DNS step (four old rows still in DNS at 10:05; both domains pending) · nothing running · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); then the review
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
