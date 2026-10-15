@@ -30,6 +30,10 @@ Ruled lines are marked ruled and stay word for word. His keep, change or drop fo
 - **W12** · `A space for our film, coming soon.` · heard, not seen · from: drafted · redrafted; it read "A 16 by 9 frame. Film coming soon."
 - **W13** · `Film coming soon` · in the frame · from: the brief ("Film coming soon", the placeholder you ruled)
 
+## #logos
+
+- **W37** · `Worked with` · over the logos banner · from: drafted · new, for his approval
+
 ## #how
 
 - **W14** · `How it works` · section label · from: drafted
@@ -60,7 +64,6 @@ Ruled lines are marked ruled and stay word for word. His keep, change or drop fo
 - **W30** · `Why trust us` · heard, not seen · from: the brief ("why trust us")
 - **W31** · `Built by filmmakers. Fifteen years of craft.` · trust line · from: his voice line 3; ruled in the brief · **ruled**
 - **W32** · `The last cut is human. Every time.` · trust line · from: his voice line 8; ruled in the brief · **ruled**
-- **W37** · `Worked with` · over the logos banner · from: drafted · new, for his approval
 
 ## #contact
 
