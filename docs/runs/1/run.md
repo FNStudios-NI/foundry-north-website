@@ -32,6 +32,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · closed 06:51
 - 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · open
 - 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
+- 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -49,6 +50,7 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 - 06:52 · where his film is hosted (his question: "frame.io?") · recommended: the film file kept in the site's own folder on Cloudflare Pages if it fits the 25 MB per-file limit (from memory, not checked today), else Cloudflare Stream in his account (paid, from memory about $5 per 1,000 minutes stored and $1 per 1,000 watched) · turned down: Frame.io (a review tool, not a public player), YouTube (ads, suggestions, tracking), Vimeo (a paid plan to drop its branding) · his to choose
 - 07:04 · his two additions before going live (logos banner, the film): taken as his ruling adding pieces 7 and 8 to this run, recorded in docs/decisions.md · chose: build the banner now with plain stand-in marks (no real name or logo until he sends his), inside the trust section, with a reduced-motion fallback · turned down: wait for his logos before building (idle time), put the banner as a new section between others (changes his ruled order) · why: he asked for it built while he collects them
 - 07:13 · the banner's soft fade at both edges (not named in the card) · chose: keep it · turned down: strip it as drift · why: it hides the loop's edge and is how such strips read; cosmetic, one CSS rule to undo
+- 07:18 · the banner-move card contradicted itself (its words gate needs the stand-in alts in words.md; its Goal forbade adding them) · chose: correct the card, two stand-in W lines, same worker · turned down: set the words gate aside (a gate waived is no gate) · why: the card was wrong, not the work
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.

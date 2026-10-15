@@ -11,7 +11,7 @@ His words (07:15), with a screenshot of the preview marking the space between th
 When done:
 1. The logo banner (its "Worked with" label and both moving rows, exactly as landed in piece 7) is moved out of `<section id="trust">` into its own `<section id="logos">`, placed after `id="film"` and before `id="how"`. Its look, motion, reduced-motion rule, alt text and aria-hidden copies are unchanged; only spacing is adjusted so it sits well between the film frame and "How it works" on a phone and a laptop.
 2. The trust section goes back to the two trust lines and its hairline, as before piece 7.
-3. `desks/site/docs/words.md`: W37 "Worked with" moves to sit under the new `logos` place, between the film and how-it-works lines; nothing else in it changes.
+3. `desks/site/docs/words.md`: W37 "Worked with" moves to sit under the new `logos` place, between the film and how-it-works lines; and two new lines are added there for the stand-in logos' alt texts, `University` and `Company`, each marked "stand-in, replaced by his logos' names" (piece 7 left them out, so the words gate has failed since). Nothing else in it changes. (Card corrected by the master at 07:18: the first version forbade these two lines while its gate needed them.)
 Must merge first: piece 7 (on main). Inputs: `desks/site/public/` at main.
 
 ## Gate — run it; done means this passes
