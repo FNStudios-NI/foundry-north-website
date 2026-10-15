@@ -1,0 +1,208 @@
+PUT THE WEBSITE LIVE ON CLOUDFLARE PAGES  -  your act, about 20 to 30 minutes, in a web browser on your laptop or Pandora, signed in to Cloudflare and GitHub
+==========================================================================
+
+What it unlocks: foundrynorthstudios.co.uk and www.foundrynorthstudios.co.uk show the new page instead of today's error page.
+Why you and not me: it gives Cloudflare read access to a GitHub repository and changes what your address points to; both are always yours.
+
+No step needs a terminal. Everything is pressed in the browser, so your phone works too, though a laptop screen is easier.
+
+Make the Pages project in the same Cloudflare account that holds foundrynorthstudios.co.uk: Cloudflare's documentation says the address must be on the account the project is made in. If your sign-in shows more than one account, choose the one that lists foundrynorthstudios.co.uk.
+
+
+What this rests on (read through your Cloudflare key at 06:40 today, 15 Oct)
+--------------------------------------------------------------------------
+- foundrynorthstudios.co.uk is on Cloudflare and active.
+- The bare address and www each hold two rows that point at IONOS, the old host behind today's error 525, both proxied (orange cloud):
+    A     foundrynorthstudios.co.uk   217.160.0.70
+    AAAA  foundrynorthstudios.co.uk   2001:8d8:100f:f000::25b
+    A     www                         217.160.0.70
+    AAAA  www                         2001:8d8:100f:f000::25b
+- Your email rows (three Zoho MX rows) and the SPF TXT row are DNS only (grey cloud). They stay exactly as they are.
+- No Pages project exists yet.
+
+What Cloudflare's documentation says about those four rows: nothing. Its Custom domains page says only that, for an address already on Cloudflare, "Cloudflare will proceed by creating a CNAME record for you" (a CNAME row points one address at another; here, at the Pages project). It does not say what happens when A or AAAA rows already sit on the same name, and it links no page that does:
+https://developers.cloudflare.com/pages/configuration/custom-domains/
+So STEP 7 and STEP 8 say what to do if those rows get in the way: the section "IF A DOMAIN WILL NOT GO ACTIVE" further down.
+
+
+STEP 1 - in the browser, signed in to Cloudflare
+Why: this is where Cloudflare's website hosting (Pages) is made.
+
+Open this address:
+
+https://dash.cloudflare.com/?to=/:account/workers-and-pages
+
+Pass: you see a page headed "Workers & Pages" with a button "Create application".
+
+
+STEP 2 - on that page
+Why: a Pages project built from your site's GitHub repository updates itself each time new files reach it.
+
+Press "Create application". Choose the "Pages" tab, then "Import an existing Git repository" (some screens call it "Connect to Git").
+
+Pass: Cloudflare asks you to connect GitHub, or sends you to a GitHub page about "Cloudflare Workers and Pages".
+
+
+STEP 3 - the GitHub page (it opens from Cloudflare)
+Why: Cloudflare's GitHub app should see this one repository and nothing else of yours.
+
+If GitHub asks which account, choose FNStudios-NI.
+Under "Repository access", choose "Only select repositories", then pick foundry-north-site (its full name is FNStudios-NI/foundry-north-site). Pick nothing else.
+Press "Install & Authorize" (GitHub may ask for your password or a code: that is GitHub checking it is you).
+
+Pass: you are back in Cloudflare, and the repository list shows foundry-north-site and no other repository.
+
+
+STEP 4 - Cloudflare: choose the repository and set it up
+Why: the site is one plain page with no build step, and its index.html sits at the top of the repository.
+
+Select foundry-north-site, then press "Begin setup". Under "Set up builds and deployments", fill in:
+
+  Project name:             foundry-north-site   (leave as it is)
+  Production branch:        main
+  Framework preset:         None
+  Build command:            leave it empty
+  Build output directory:   /
+  Root directory, Environment variables: leave as they are.
+
+If the "Production branch" list is empty, stop: the files have not reached the repository yet, and that is mine to fix.
+
+Pass: the five lines read as above.
+
+
+STEP 5 - the bottom of that form
+Why: this puts the page on a Cloudflare test address first, before your own address changes.
+
+Press "Save and Deploy". Wait for the log to finish (a minute or two), then press "Continue to project".
+
+Pass: the project page shows a finished deployment and an address ending in pages.dev, most likely https://foundry-north-site.pages.dev
+
+
+STEP 6 - open that pages.dev address in a new tab
+Why: this proves the page works on Cloudflare before your address is moved to it.
+
+Pass: you see the page with the name "Foundry North" and the line "An engine that understands you better every month."
+
+
+STEP 7 - the project page: add www
+Why: this points www.foundrynorthstudios.co.uk at the new page.
+
+In the project, open the "Custom domains" tab. Press "Set up a domain". Type:
+
+www.foundrynorthstudios.co.uk
+
+Press "Continue". Cloudflare shows the CNAME row it will add and asks you to confirm it; press its confirm button.
+If instead a message says a record already exists on that name, or offers to replace records: press Cancel, write down its words, and go to "IF A DOMAIN WILL NOT GO ACTIVE" below.
+
+Pass: www.foundrynorthstudios.co.uk is listed in Custom domains. It may say "Verifying" first; within about 15 minutes it reads "Active".
+
+
+STEP 8 - the same tab: add the bare address
+Why: this points foundrynorthstudios.co.uk (no www) at the same page.
+
+Press "Set up a domain" again. Type:
+
+foundrynorthstudios.co.uk
+
+Press "Continue", then confirm as in STEP 7. The same rule holds: if a message talks of an existing record, press Cancel, write down its words, and go to the section below.
+
+Pass: foundrynorthstudios.co.uk is listed and, within about 15 minutes, reads "Active".
+
+
+STEP 9 - two new tabs
+Why: "Active" is Cloudflare's word; the page itself is the proof.
+
+Open https://www.foundrynorthstudios.co.uk and https://foundrynorthstudios.co.uk
+
+Pass: each domain reads "Active" in the Custom domains tab, and both addresses show the page with "Foundry North" and its tagline, not the error page. Then tell me "live". You are done: the steps below are only for trouble or undoing.
+
+
+IF A DOMAIN WILL NOT GO ACTIVE
+==========================================================================
+Use this only if a domain is still not "Active" after 15 minutes, or a message in STEP 7 or STEP 8 talked of an existing record.
+While you do this the address still shows an error, as it does today; nothing gets worse.
+
+STEP 10 - two things that can block it: a CAA row, or something in the way
+Why: Cloudflare's documentation names both. A CAA row (one that names who may issue the padlock certificate) can stop the certificate. And Cloudflare checks the address over the web before it goes Active; Cloudflare Access (a sign-in page put in front of an address), a redirect, or a Worker on the address can block that check.
+
+Open https://dash.cloudflare.com, choose foundrynorthstudios.co.uk, then "DNS", then "Records". Look down the "Type" column for CAA.
+Then, in the same menu for foundrynorthstudios.co.uk, look under "Rules" for any redirect, and under "Workers Routes" for any route on foundrynorthstudios.co.uk or www.
+
+Pass: no row has Type CAA, and nothing under "Rules" or "Workers Routes" touches foundrynorthstudios.co.uk or www. Go on to STEP 11.
+If a CAA row is there, or a redirect or a Worker route on either address, or you know you have put Cloudflare Access in front of this address: stop. Do not change it or delete it. Tell me what it says and that the domain is stuck; that one is mine to work out.
+
+STEP 11 - DNS Records: delete only these four rows
+Why: the old IONOS rows sit on the same two names the new page needs.
+
+Never touch the MX rows, the TXT rows, portal, pick or anything else. Only these four, matched by Type, Name and Content:
+
+    A     foundrynorthstudios.co.uk   217.160.0.70
+    AAAA  foundrynorthstudios.co.uk   2001:8d8:100f:f000::25b
+    A     www                         217.160.0.70
+    AAAA  www                         2001:8d8:100f:f000::25b
+
+For each one: press "Edit" on that row, then "Delete", then "Delete" again to confirm.
+
+Pass: those four rows are gone, and the three MX rows, the TXT row, portal and pick are all still listed.
+
+STEP 12 - back to Workers & Pages, the project, "Custom domains"
+Why: with the old rows gone, Cloudflare can add its own row.
+
+If the stuck domain is listed, take it off in the order Cloudflare's documentation gives:
+first, in DNS, Records, if there is a CNAME row on that name whose Content is the pages.dev address, delete that one row ("Edit", "Delete", "Delete" again) and nothing else;
+then, back in Custom domains, press the three dots beside the domain, then "Remove domain".
+Then add it again as in STEP 7 (www) or STEP 8 (the bare address), and carry on to STEP 9.
+
+Pass: the domain reads "Active" within about 15 minutes. If it still does not, stop and tell me what the Custom domains tab says.
+
+
+UNDO (only if you want the old state back)
+==========================================================================
+Do these in this order. The page leaves your address, which goes back to today's error page.
+
+STEP 13 - DNS Records: delete the two Pages rows
+Why: Cloudflare's documentation says to remove the project's CNAME row first, before removing the domain.
+
+In DNS, Records, find the CNAME rows named foundrynorthstudios.co.uk and www whose Content is the pages.dev address. For each: "Edit", "Delete", "Delete" again. Delete nothing else: never touch the MX rows, the TXT rows, portal or pick.
+
+Pass: no CNAME row points at pages.dev.
+
+STEP 14 - Workers & Pages, the project, "Custom domains"
+Why: this detaches both addresses from the project.
+
+For each of the two domains: the three dots beside it, then "Remove domain".
+
+Pass: the Custom domains tab lists neither address; the pages.dev address still shows the page.
+
+STEP 15 - DNS Records: add the four old rows back
+Why: this returns your address to exactly what it held on 15 Oct.
+
+Press "Add record" four times, one row each, Proxy status "Proxied" (orange cloud) every time, then "Save":
+
+    Type A,     Name @,    IPv4 address 217.160.0.70
+    Type AAAA,  Name @,    IPv6 address 2001:8d8:100f:f000::25b
+    Type A,     Name www,  IPv4 address 217.160.0.70
+    Type AAAA,  Name www,  IPv6 address 2001:8d8:100f:f000::25b
+
+(@ is Cloudflare's short name for foundrynorthstudios.co.uk itself.)
+
+Pass: the four rows are listed as above, proxied, and both addresses show the error page again.
+
+
+Sources (Cloudflare's documentation, each read 15 Oct 2026)
+==========================================================================
+- Get started, Git integration: https://developers.cloudflare.com/pages/get-started/git-integration/
+  STEP 1, 2, 4, 5 (Create application, Pages, Connect to Git; Install & Authorize, Begin setup; Production branch; Build command left empty; Save and Deploy; Continue to project).
+- Static HTML (deploy anything): https://developers.cloudflare.com/pages/framework-guides/deploy-anything/
+  STEP 2, 4, 5 (the "Pages" tab and "Import an existing Git repository"; the build output directory is where the site's files live; a pages.dev address after deploying).
+- GitHub integration: https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/
+  STEP 3 (the app "Cloudflare Workers and Pages"; Repository access, "Only select repositories"; Install & Authorize).
+- Custom domains: https://developers.cloudflare.com/pages/configuration/custom-domains/
+  The same-account line at the top; STEP 7, 8; what it says (and does not say) about the four rows; the CAA warning; STEP 12, 13 and 14 (delete the CNAME row, then three dots, Remove domain).
+- Debugging Pages: https://developers.cloudflare.com/pages/configuration/debugging-pages/
+  STEP 7, 8 and 10 (a domain stuck at "Verifying"; blocked HTTP validation, from Access, a redirect or a Worker; missing CAA records; still verifying after 15 minutes).
+- Create DNS records: https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
+  STEP 11, 12, 13 (Edit, Delete, Delete again) and STEP 15 (Add record, Type, Proxy status, Save).
+
+
+If anything looks different from a Pass line, stop and tell me what it says.
