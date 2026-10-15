@@ -57,13 +57,6 @@ none
 
 Scratch folder: `C:\Users\3070s\AppData\Local\Temp\fnw-the-page-worker` (the Inter download, the gate, the serve and ablation copies, the screenshot script and the two screenshots). Left in place for the master's look; remove it by that exact name only.
 
-## Checker run <yyyy-mm-dd> — <who>, own session
-Commit: <the full commit id the checker ran at>
-Exit code: <the command's exit code>
-Verdict: <PASS or FAIL, alone on the line>
-Why: <any summary of the verdict goes here, never on a second Verdict line>
-<written by the checker, never by the worker: the command and its count; red before the change; the ablation; the diff read whole; the work compared against the card's asks; the verdict. The Commit, Exit code and Verdict lines are read by `tools/merge_check.py`: keep their words as they are. Exactly one line in this block starts with `Verdict`: `Verdict: PASS` or `Verdict: FAIL`, alone; any summary goes under `Why:`. Two Verdict lines are refused.>
-
 ## Checker run 2026-10-15 — fresh Sonnet 5.5 checker, own session
 Commit: bc1d3145731aa2c4eed680d095d0799ae77ab1f6
 Exit code: 0
