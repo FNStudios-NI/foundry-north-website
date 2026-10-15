@@ -35,6 +35,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · closed 07:21
 - 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · closed 07:21
 - 08:33 · folder · C:\Users\3070s\.foundry-north-website\inbox (empty, made for his Tailscale send of the film; outside the project) · inbox-folder · left in place; nothing runs · open
+- 08:42 · session · worker thread, piece 8 the-film, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-film · mcp:5288a6b9-63bd-4ace-80ec-73fa23f4c179 · by hand: archive once merged; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
