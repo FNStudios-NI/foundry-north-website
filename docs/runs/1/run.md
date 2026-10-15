@@ -44,6 +44,7 @@ Work that cannot go on without him, put to him as ways through, each priced in h
 - 06:21 · Not yet blocking (needed before piece 5's act file): the Cloudflare DNS rows for the bare address and www, and Workers & Pages, not read · way through: his laptop prompt in https://claude.ai/code/artifact/fbea4d5b-13a0-4575-8328-6271c1184da6, about 10 min · my recommendation: whenever he is at the laptop
 - 06:27 · Closed: rhys@foundrynorthstudios.co.uk receives (his words, via the planning master at 06:26: "it works now the rhys@ . it was my phone not the email address")
 - 06:27 · Cloudflare read: his letter "4a" via the planning master at 06:26, a limited API token (Zone Read, DNS Read, Pages Edit, this zone only), act file docs/operator-acts/2026-10-15-cloudflare-key.txt, key at C:\Users\3070s\.foundry-north-website\cloudflare-token.txt · next: on his "key saved", the master verifies it and reads the two DNS rows and the Pages projects by the API, never printing the key, before piece 5's card
+- 06:41 · Closed: the Cloudflare read, by the planning master at 06:40 through his key (A 217.160.0.70 and AAAA 2001:8d8:100f:f000::25b on the bare address and www, proxied, IONOS; MX and SPF DNS only; no Pages project)
 
 ## Orders
 One line per order, written before any message says "look".
