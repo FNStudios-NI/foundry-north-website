@@ -33,6 +33,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · open
 - 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
 - 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · open
+- 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
