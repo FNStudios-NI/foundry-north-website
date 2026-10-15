@@ -5,22 +5,22 @@
 - Planned end: 2026-10-15 09:18 (hard stop 4½ running hours from Go, 10:48, not counting waits on him)
 - Cap: four
 - Seat claimed: 06:18 · `python tools/cap_check.py claim --kind master --card docs/runs/1/run.md` → 20261015-061818-master-19820-92e9
-- Seat released: <hh:mm, at the wrap> · `python tools/cap_check.py release 20261015-061818-master-19820-92e9`
+- Seat released: 10:14 (wrap on his word; the review is a fresh master's) · `python tools/cap_check.py release 20261015-061818-master-19820-92e9`
 - 06:18 · Window read at Go (claude -p, rate_limit_event): week 18% used, five-hour window 16%. Budget 10% of his week: the run wraps at 28% of the week.
 - 06:39 · Window read at 06:37: week 0.19 used (wrap at 0.28)
 - 08:48 · Window read: week 0.2 used (wrap at 0.28)
 
 ## Shutdown list
 Everything the run starts, written here as it starts: sessions, seats, background processes, watches, scheduled wake-ups and page servers. At any stop, `python tools/shutdown.py` stops each item and confirms nothing is left. Why: run 2 left the signal box running and two daily wake-ups that only a deletion stops.
-- 06:18 · seat · the master's seat · 20261015-061818-master-19820-92e9 · cap_check.py release · open
-- 06:18 · server · page server for docs/pages, python3.11 http.server port 8741 (started by the planning master) · pid 10820 · taskkill · open
-- 06:18 · server · page server for the look's scratch folder, port 8740 (started by the planning master) · pid 12596 · taskkill · open
-- 06:18 · tailnet route · tailscale serve paths /fnw (→8741) and /look (→8740) on ni-h3-3070.tail552bbe.ts.net · serve-fnw-look · by hand: tailscale serve --https=443 --set-path=/fnw off, and the same for /look · open
+- 06:18 · seat · the master's seat · 20261015-061818-master-19820-92e9 · cap_check.py release · closed 10:13
+- 06:18 · server · page server for docs/pages, python3.11 http.server port 8741 (started by the planning master) · pid 10820 · taskkill · closed 10:13
+- 06:18 · server · page server for the look's scratch folder, port 8740 (started by the planning master) · pid 12596 · taskkill · closed 10:13
+- 06:18 · tailnet route · tailscale serve paths /fnw (→8741) and /look (→8740) on ni-h3-3070.tail552bbe.ts.net · serve-fnw-look · by hand: tailscale serve --https=443 --set-path=/fnw off, and the same for /look · closed 10:13
 - 06:21 · session · worker thread, piece 1 the-page, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-page · mcp:02ea4f18-25d8-4959-828c-74c5b83df295 · by hand: t3_thread_organize archive once merged; its seat it releases itself · closed 06:26
 - 06:21 · session · worker thread, piece 4 send-site, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-send-site · mcp:493e4a57-7c27-4dbe-bcd2-d82eedd2d920 · by hand: t3_thread_organize archive once merged; its seat it releases itself · closed 06:36
 - 06:24 · session · checker for piece 1, Sonnet 5.5 high, delegate_task child of the master · node:delegated-task:command%3Amcp%3A39a76e3d-ba11-4707-a14d-f07b6a4d2b53%3Adelegate-task%3Afnw-run1-check-the-page-1 · ends with its task; seat it releases itself · closed 06:26
 - 06:26 · server · the try-it build's preview, python3.11 http.server port 8742 serving the main checkout's desks/site/public (detached) · pid 20240 · taskkill · closed 09:02
-- 06:26 · tailnet route · tailscale serve path /site (→8742), tailnet only · serve-site · by hand: tailscale serve --https=443 --set-path=/site off · open
+- 06:26 · tailnet route · tailscale serve path /site (→8742), tailnet only · serve-site · by hand: tailscale serve --https=443 --set-path=/site off · closed 10:13
 - 06:26 · session · checker for piece 4, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-1 · ends with its task; seat it releases itself · closed 06:30
 - 06:27 · session · worker thread, piece 3 search-preview, Sonnet 5.5 high (light lane), branch task/foundry-north-website/2026-10-15-search-preview · mcp:020e6de0-f34f-4278-8e26-98c71cff0db2 · by hand: archive once merged; seat it releases itself · closed 06:28
 - 06:27 · session · worker thread, piece 6 live-check, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-live-check · mcp:e3693ce5-09a8-4b90-a23c-56f1cb018139 · by hand: archive once merged; seat it releases itself · closed 06:34
@@ -35,13 +35,13 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
 - 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · closed 07:21
 - 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · closed 07:21
-- 08:33 · folder · C:\Users\3070s\.foundry-north-website\inbox (empty, made for his Tailscale send of the film; outside the project) · inbox-folder · left in place; nothing runs · open
+- 08:33 · folder · C:\Users\3070s\.foundry-north-website\inbox (empty, made for his Tailscale send of the film; outside the project) · inbox-folder · left in place; nothing runs · closed 10:13
 - 08:42 · session · worker thread, piece 8 the-film, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-film · mcp:5288a6b9-63bd-4ace-80ec-73fa23f4c179 · by hand: archive once merged; seat it releases itself · closed 08:48
 - 08:45 · session · checker for piece 8, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-1 · ends with its task; seat it releases itself · closed 08:48
-- 09:02 · server · the preview, now a byte-range server (C:\Users\3070s\.foundry-north-website\preview\range_server.py, outside the project) on port 8742, replacing pid 20240 (stopped 08:52) so iPhone Safari can play the film · pid 20284 · taskkill · open
+- 09:02 · server · the preview, now a byte-range server (C:\Users\3070s\.foundry-north-website\preview\range_server.py, outside the project) on port 8742, replacing pid 20240 (stopped 08:52) so iPhone Safari can play the film · pid 20284 · taskkill · closed 10:13
 - 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · closed 09:40
 - 09:37 · session · checker for logos-in, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logos-in-1 · ends with its task; seat it releases itself · closed 09:40
-- 09:52 · file · C:\Users\3070s\.foundry-north-website\preview\cf.py, the master's Cloudflare calls through his key (outside the project; the key is read, never printed) · cf-py · nothing runs; left in place · open
+- 09:52 · file · C:\Users\3070s\.foundry-north-website\preview\cf.py, the master's Cloudflare calls through his key (outside the project; the key is read, never printed) · cf-py · nothing runs; left in place · closed 10:13
 - 10:00 · session · worker thread, film swap, Sonnet 5.5 high, branch task/foundry-north-website/2026-10-15-the-film-swap · mcp:c16de818-4250-45d8-8d6b-d13f59f85ec0 · by hand: archive once merged; seat it releases itself · closed 10:04
 - 10:02 · session · checker for the film swap, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-swap-1 · ends with its task; seat it releases itself · closed 10:04
 
@@ -161,3 +161,4 @@ One line per lesson, as it happens, from `docs/blanks/review-note.md`.
 - 09:02 · 2026-10-15 09:02 · the template's preview server (python -m http.server) cannot play video on iPhone: no byte ranges · the line it should become, in tracks.md rule 33: "A page server that will show video to his phone answers byte ranges (206); python -m http.server does not."
 - 09:41 · 2026-10-15 09:41 · send_site.py refused straight after land.py on an index.html that git briefly listed as modified (line endings), clean a moment later · the line it should become, in send_site.py's check: "refresh git's index (git update-index -q --refresh) before reading uncommitted changes"
 - 09:56 · 2026-10-15 09:56 · the zone holds many rows the act file never named (n8n, paperclip, studio, mail sending, DMARC, DKIM, domainconnect); the act's never-touch list named only MX, TXT, portal and pick · the line it should become, in the act-file blank: "Name only the rows to change; say 'touch no other row' rather than listing the ones to keep."
+- 10:14 · 2026-10-15 10:14 · tailscale serve removes a path only when it is named without its slash (--set-path=fnw off); with the slash it says the handler does not exist · the line it should become, in the shutdown list's how-it-stops for a tailnet route: "tailscale serve --https=443 --set-path=<name without slash> off"
