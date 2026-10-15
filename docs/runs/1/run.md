@@ -19,7 +19,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:24 · session · checker for piece 1, Sonnet 5.5 high, delegate_task child of the master · node:delegated-task:command%3Amcp%3A39a76e3d-ba11-4707-a14d-f07b6a4d2b53%3Adelegate-task%3Afnw-run1-check-the-page-1 · ends with its task; seat it releases itself · closed 06:26
 - 06:26 · server · the try-it build's preview, python3.11 http.server port 8742 serving the main checkout's desks/site/public (detached) · pid 20240 · taskkill · open
 - 06:26 · tailnet route · tailscale serve path /site (→8742), tailnet only · serve-site · by hand: tailscale serve --https=443 --set-path=/site off · open
-- 06:26 · session · checker for piece 4, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-1 · ends with its task; seat it releases itself · open
+- 06:26 · session · checker for piece 4, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-1 · ends with its task; seat it releases itself · closed 06:30
 - 06:27 · session · worker thread, piece 3 search-preview, Sonnet 5.5 high (light lane), branch task/foundry-north-website/2026-10-15-search-preview · mcp:020e6de0-f34f-4278-8e26-98c71cff0db2 · by hand: archive once merged; seat it releases itself · closed 06:28
 - 06:27 · session · worker thread, piece 6 live-check, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-live-check · mcp:e3693ce5-09a8-4b90-a23c-56f1cb018139 · by hand: archive once merged; seat it releases itself · open
 - 06:29 · session · worker thread, piece 2 words, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-words · mcp:e0e8d850-41dc-4d06-a258-b545bae8c122 · by hand: archive once merged; seat it releases itself · open
@@ -30,6 +30,8 @@ One line per key point in the signed plan, with his letter, and what happened wh
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
+- 06:30 · send-site carries one unasked refusal (a send when git holds nothing under desks/site/public/) · chose: keep it · turned down: strip it as drift · why: it stops a send that would wipe his live site, costs nothing, and the worker declared it
+- 06:30 · the first real send refused: the machine has no global git identity, so the site clone could not commit · chose: same-worker fix (the tool takes the project's own identity) · turned down: setting a global git identity on Pandora (machine settings are his), sending by hand (routes around the tool) · why: the fix keeps every send on the checked tool
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
