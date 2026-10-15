@@ -7,6 +7,7 @@
 - Seat claimed: 06:18 · `python tools/cap_check.py claim --kind master --card docs/runs/1/run.md` → 20261015-061818-master-19820-92e9
 - Seat released: <hh:mm, at the wrap> · `python tools/cap_check.py release 20261015-061818-master-19820-92e9`
 - 06:18 · Window read at Go (claude -p, rate_limit_event): week 18% used, five-hour window 16%. Budget 10% of his week: the run wraps at 28% of the week.
+- 06:39 · Window read at 06:37: week 0.19 used (wrap at 0.28)
 
 ## Shutdown list
 Everything the run starts, written here as it starts: sessions, seats, background processes, watches, scheduled wake-ups and page servers. At any stop, `python tools/shutdown.py` stops each item and confirms nothing is left. Why: run 2 left the signal box running and two daily wake-ups that only a deletion stops.
@@ -22,14 +23,15 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:26 · session · checker for piece 4, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-1 · ends with its task; seat it releases itself · closed 06:30
 - 06:27 · session · worker thread, piece 3 search-preview, Sonnet 5.5 high (light lane), branch task/foundry-north-website/2026-10-15-search-preview · mcp:020e6de0-f34f-4278-8e26-98c71cff0db2 · by hand: archive once merged; seat it releases itself · closed 06:28
 - 06:27 · session · worker thread, piece 6 live-check, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-live-check · mcp:e3693ce5-09a8-4b90-a23c-56f1cb018139 · by hand: archive once merged; seat it releases itself · closed 06:34
-- 06:29 · session · worker thread, piece 2 words, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-words · mcp:e0e8d850-41dc-4d06-a258-b545bae8c122 · by hand: archive once merged; seat it releases itself · open
+- 06:29 · session · worker thread, piece 2 words, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-words · mcp:e0e8d850-41dc-4d06-a258-b545bae8c122 · by hand: archive once merged; seat it releases itself · closed 06:39
 - 06:31 · session · checker for piece 6, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-live-check-1 · ends with its task; seat it releases itself · closed 06:34
 - 06:33 · session · checker for piece 4's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-2 · ends with its task; seat it releases itself · closed 06:36
-- 06:35 · session · checker for piece 2, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-words-1 · ends with its task; seat it releases itself · open
+- 06:35 · session · checker for piece 2, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-words-1 · ends with its task; seat it releases itself · closed 06:39
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
 - 06:26 · K1 the page first on the preview, before the words pass · b · told him and showed him on his phone: https://ni-h3-3070.tail552bbe.ts.net/site/ (P3, tailnet only); carried on
+- 06:39 · K2 the words sheet, line by line · a · stopped and told him: https://ni-h3-3070.tail552bbe.ts.net/fnw/2026-10-15-words-sheet-1.html (31 lines asked, 5 ruled shown); the words line waits for his letters; piece 5 waits for "key saved"
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
@@ -68,6 +70,7 @@ New ideas that come up mid-run go here, not into this run, unless they are a blo
 ## Handover
 Written before the context fills, at a quiet moment, never in the middle of a merge.
 - 06:21 · running: piece 1 the-page (mcp:02ea4f18…, branch task/foundry-north-website/2026-10-15-the-page), piece 4 send-site (mcp:493e4a57…, branch task/foundry-north-website/2026-10-15-send-site) · merges done: none · open key points: none reached · next step: on each worker's end line, a Sonnet checker by delegate_task, then land.py; piece 1's landing also tries the undo with him reachable, then serves the page to his phone (K1 b)
+- 06:39 · running: nothing (all seats but the master's free) · merges done: the-page e2ecbac (undo now git revert 6142a71), search-preview b377c20, send-site b04f042 + fix 149af01, live-check b79ae9a, words 81b9e70, each undo git revert <commit>; first send to foundry-north-site 77b6265 · open key points: K2 (his words sheet), then K3, K4, K5 · next step: on his letters, a continue card applying them to the page and words.md, then a send; on "key saved", verify the token and read the two DNS rows and Pages projects, then cut piece 5's card
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
