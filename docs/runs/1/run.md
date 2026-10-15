@@ -27,9 +27,9 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:31 · session · checker for piece 6, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-live-check-1 · ends with its task; seat it releases itself · closed 06:34
 - 06:33 · session · checker for piece 4's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-2 · ends with its task; seat it releases itself · closed 06:36
 - 06:35 · session · checker for piece 2, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-words-1 · ends with its task; seat it releases itself · closed 06:39
-- 06:41 · session · worker thread, piece 5 going-live-act, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-going-live-act · mcp:e63c2bc9-9958-4ab3-989a-17b44215af31 · by hand: archive once merged; seat it releases itself · open
+- 06:41 · session · worker thread, piece 5 going-live-act, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-going-live-act · mcp:e63c2bc9-9958-4ab3-989a-17b44215af31 · by hand: archive once merged; seat it releases itself · closed 06:51
 - 06:45 · session · checker for piece 5, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-1 · ends with its task; seat it releases itself · closed 06:48
-- 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · open
+- 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · closed 06:51
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
