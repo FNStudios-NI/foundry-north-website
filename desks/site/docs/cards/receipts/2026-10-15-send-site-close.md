@@ -45,8 +45,8 @@ none
 ## Refused
 none
 
-## Checker run <yyyy-mm-dd> — <who>, own session
-Commit: <the full commit id the checker ran at>
-Exit code: <the command's exit code>
-Verdict: <PASS or FAIL, alone on the line>
-Why: <any summary of the verdict goes here, never on a second Verdict line>
+## Checker run 2026-10-15 — Sonnet 5.5 checker, own session
+Commit: 413c0610a4a2a68822911ff4fa479a2fb04efa0e
+Exit code: 0
+Verdict: PASS
+Why: Gate as written (`python3.11 -B -m pytest tools/tests/test_send_site.py -q`) errors on this machine before any test runs (8 errors, `PermissionError` on the shared `pytest-of-3070s` temp folder, as the worker said). Re-run in my own process with `-p no:cacheprovider --basetemp C:/Users/3070s/AppData/Local/Temp/fnw-send-site-checker/base`: `8 passed in 13.60s`, exit 0; worktree status clean after. Ablation in a scratch copy (`ls-tree` without `-- PUBLIC`, paths unstripped): `3 failed, 5 passed` — `test_sends_only_the_public_folder` (the tree-equals test), `test_a_file_removed_from_public_is_removed_from_the_site`, `test_dry_run_says_what_would_cross_and_pushes_nothing` (listed `tools/secret_plan.py` crossing); the worktree was not touched. Goal points 1-5 read against the diff: clone/stage/commit naming the project commit/push of `main`, `SENT:` / `NOTHING TO SEND` (1); `REFUSE:` exit 1 for a symbolic link, uncommitted changes (edit, new file, removal, untracked) and an extra or differing file in the staged clone, each refusal test also checking the remote unchanged (2); `--dry-run` pushes nothing, tested (3); contract § What it hands the rest says the two required things (4); standard library and git only, comment head in the style of the other tools (5). Every test uses a local bare repository under `tmp_path`; nothing touches the real remote. Fence: `INSIDE: all 4 changed file(s) are in the card's Touches (against main).` No CR in the three tracked files. Scope question — is anything in this diff not asked for by the card? One small thing, yes, already declared in the worker's Unsure: the refusal `git holds nothing under desks/site/public/ at HEAD` (two lines in `public_files()`; no test depends on it). It is a safety guard that stops an empty send wiping the site, not something the card listed; the master may keep it or strip it. The blob-id comparison in `stage()` and `core.autocrlf=false` serve the card's "exactly the files git holds" and are not extra. Nothing else unasked. Not run: any send or dry run against the real `foundry-north-site`.
