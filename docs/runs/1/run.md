@@ -89,6 +89,7 @@ One line per merge into the try-it build, with its undo.
 - 06:51 · 2026-10-15-going-live-act · squash 7141be2 · undo: `git revert 7141be2`
 - 07:13 · 2026-10-15-logo-banner · squash 50098f9 · undo: `git revert 50098f9`
 - 07:21 · 2026-10-15-logo-banner-move · squash d400b8b · undo: `git revert d400b8b`
+- 08:48 · 2026-10-15-the-film · squash cba2516 · undo: `git revert cba2516`
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
