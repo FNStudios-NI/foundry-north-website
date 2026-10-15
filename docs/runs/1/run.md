@@ -14,12 +14,18 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:18 · server · page server for docs/pages, python3.11 http.server port 8741 (started by the planning master) · pid 10820 · taskkill · open
 - 06:18 · server · page server for the look's scratch folder, port 8740 (started by the planning master) · pid 12596 · taskkill · open
 - 06:18 · tailnet route · tailscale serve paths /fnw (→8741) and /look (→8740) on ni-h3-3070.tail552bbe.ts.net · serve-fnw-look · by hand: tailscale serve --https=443 --set-path=/fnw off, and the same for /look · open
-- 06:21 · session · worker thread, piece 1 the-page, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-page · mcp:02ea4f18-25d8-4959-828c-74c5b83df295 · by hand: t3_thread_organize archive once merged; its seat it releases itself · open
+- 06:21 · session · worker thread, piece 1 the-page, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-page · mcp:02ea4f18-25d8-4959-828c-74c5b83df295 · by hand: t3_thread_organize archive once merged; its seat it releases itself · closed 06:26
 - 06:21 · session · worker thread, piece 4 send-site, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-send-site · mcp:493e4a57-7c27-4dbe-bcd2-d82eedd2d920 · by hand: t3_thread_organize archive once merged; its seat it releases itself · open
-- 06:24 · session · checker for piece 1, Sonnet 5.5 high, delegate_task child of the master · node:delegated-task:command%3Amcp%3A39a76e3d-ba11-4707-a14d-f07b6a4d2b53%3Adelegate-task%3Afnw-run1-check-the-page-1 · ends with its task; seat it releases itself · open
+- 06:24 · session · checker for piece 1, Sonnet 5.5 high, delegate_task child of the master · node:delegated-task:command%3Amcp%3A39a76e3d-ba11-4707-a14d-f07b6a4d2b53%3Adelegate-task%3Afnw-run1-check-the-page-1 · ends with its task; seat it releases itself · closed 06:26
+- 06:26 · server · the try-it build's preview, python3.11 http.server port 8742 serving the main checkout's desks/site/public (detached) · pid 20240 · taskkill · open
+- 06:26 · tailnet route · tailscale serve path /site (→8742), tailnet only · serve-site · by hand: tailscale serve --https=443 --set-path=/site off · open
+- 06:26 · session · checker for piece 4, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-1 · ends with its task; seat it releases itself · open
+- 06:27 · session · worker thread, piece 3 search-preview, Sonnet 5.5 high (light lane), branch task/foundry-north-website/2026-10-15-search-preview · mcp:020e6de0-f34f-4278-8e26-98c71cff0db2 · by hand: archive once merged; seat it releases itself · open
+- 06:27 · session · worker thread, piece 6 live-check, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-live-check · mcp:e3693ce5-09a8-4b90-a23c-56f1cb018139 · by hand: archive once merged; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
+- 06:26 · K1 the page first on the preview, before the words pass · b · told him and showed him on his phone: https://ni-h3-3070.tail552bbe.ts.net/site/ (P3, tailnet only); carried on
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
@@ -53,3 +59,4 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
 - 2026-10-15 03:48 · Rhys, after a discovery of about 20 single-question turns: "many of these questions could have been grouped and reduced the amount of back and forth" · the line it should become, in `operator.md` § Asking him to decide and the conductor skill's § 2: "In a talked step, put together in one message every question that does not depend on another's answer, each numbered with its letters; one question at a time only where the next question depends on this answer. Why: his note of 15 Oct 2026 on foundry-north-website: about 20 single-question turns of discovery 'could have been grouped and reduced the amount of back and forth'."
 - 2026-10-15 03:50 · the run skill's 1.3 asks for a merge and its undo at the sign-off sitting, but tools/land.py needs docs/runs/<n>/run.md, which 1.6 writes only at Go, after the sitting · the line it should become, in the run skill's 1.3: "The sitting tries the acts that need his hands; the first landing and its undo are tried at Go, on the first piece, with him reachable, since the landing tool writes into the run record that Go creates."
+- 06:27 · 2026-10-15 06:27 · the piece 1 worker left the receipt blank's placeholder Checker run block (with its own Verdict line) and the checker had to remove it so merge_check would not refuse two Verdict lines · the line it should become, in the receipt blank's checker block: "<the worker deletes this whole block; the checker appends its own>"
