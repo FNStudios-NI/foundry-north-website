@@ -1,0 +1,369 @@
+<meta charset="utf-8">
+<title>foundry-north-website · design · sheet 1</title>
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+/* The read-back bar sits at the bottom; a box being typed in scrolls clear of it. */
+:root { scroll-padding-bottom: 10rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 12px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+/* Phone width: the letters sit beside the button, and the bar is never more than a fifth of the screen;
+   anything below them (the copy-by-hand box) scrolls inside the bar. */
+@media (max-width: 34rem) {
+  .readback { box-sizing: border-box; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); max-height: 20vh; max-height: 20dvh; overflow-y: auto; }
+  .readback button { padding: 10px 12px; max-width: 9rem; }
+  .readback > .fallback, .readback > small { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>foundry-north-website</div>
+      <div><b>Stage</b>Design · 4 of 6 · about 6 minutes · 2 questions</div>
+      <div><b>Sheet</b>1, its own link</div>
+    </div>
+    <h1>How your site gets from here to your address</h1>
+    <p>One picture of the whole journey, built to the look you chose, then two questions: is this the shape to build, and where the site's files live.</p>
+  </header>
+
+  <section class="back stack">
+    <h2>What I took from your message</h2>
+    <ul>
+      <li>The look: <b>C, Rose</b> ("C please"). The site is built to it: porcelain with your rose, centred, the tagline "An engine that understands you better every month.", and the offer called "your own mini studio". That settles three of the old contradictions in your files: the colour, the tagline and the name of the offer.</li>
+      <li>The email: an address on foundrynorthstudios.co.uk (your "A"). I took it as rhys@foundrynorthstudios.co.uk; one test email at the sign-off sitting proves it arrives.</li>
+      <li>Going live is in this era (your "B"): today the address shows a Cloudflare error page.</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <section class="stack">
+    <h2>How it works</h2>
+    <p class="likeness"><b>Think of it as</b> a film going from the edit suite to a private screening, then to the cinema. The private screening is the <b>preview</b>: the finished site on a link only your own devices can open. The cinema is <b>Cloudflare</b>, the company that already looks after your domain, which will show the site to the public at your address.</p>
+    <figure>
+      <svg viewBox="0 0 340 500" role="img" aria-label="The site is built, shown to you privately, approved by you, published by Cloudflare once you connect it, seen by a visitor at your address, who emails your inbox.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The page is built</text><text class="d-s" x="34" y="50">to style C, with your words drafted</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">a private link</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The private preview</text><text class="d-s" x="34" y="134">on your phone, your devices only</text>
+        <line class="d-ah" x1="170" y1="146" x2="170" y2="176" marker-end="url(#arh)"/><text class="d-l" x="180" y="166">you read it</text>
+        <rect class="d-his" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">You approve</text><text class="d-s" x="34" y="218">the words line by line, then the page</text>
+        <line class="d-ah" x1="170" y1="230" x2="170" y2="260" marker-end="url(#arh)"/><text class="d-l" x="180" y="250">you connect it</text>
+        <rect class="d-his" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Cloudflare publishes it</text><text class="d-s" x="34" y="302">you connect once, then switch the address</text>
+        <line class="d-a" x1="170" y1="314" x2="170" y2="344" marker-end="url(#ar)"/><text class="d-l" x="180" y="334">public</text>
+        <rect class="d-out" x="20" y="346" width="300" height="52"/>
+        <text class="d-t" x="34" y="368">foundrynorthstudios.co.uk</text><text class="d-s" x="34" y="386">a visitor checks you out</text>
+        <line class="d-a" x1="170" y1="398" x2="170" y2="428" marker-end="url(#ar)"/><text class="d-l" x="180" y="418">Email Rhys</text>
+        <rect class="d-out" x="20" y="430" width="300" height="52"/>
+        <text class="d-t" x="34" y="452">Your inbox</text><text class="d-s" x="34" y="470">rhys@ on your domain, through Zoho</text>
+      </svg>
+      <figcaption>How to read it: grey steps are done for you, green steps are your own hand, dashed steps happen outside the system. Nothing reaches the public until both green steps are done.</figcaption>
+    </figure>
+    <p><b>Deliberately left out of the design</b>, as you ruled at scope: more pages, a form, a booking tool, a price, visitor counting, client stories, and any change to your email, the portal or the other sub-addresses. The film space waits for your film.</p>
+  </section>
+
+  <section class="item stack">
+    <h2>The page itself, built to style C</h2>
+    <p>One scrolling page, in this order: your name set in type with the email button · the top, which leads with the result and names neither buyer · the film space ("Film coming soon") · how it works in three steps · for founders · for organisations · why trust us (only what is true and public) · contact. It is designed for a phone first. A proper title, line and picture appear when the link is shared.</p>
+    <p>The look you picked: <span class="fact checked">checked</span> its pages answered on your private link today, and its phone screenshots fit the screen · the words in it are drafts, approved by you line by line before going live.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The website: the one thing a visitor sees.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Someone who looks you up before a deal, or clicks from outreach, finds nothing (today: an error page).</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your outreach, or a search for your name → this page → reassured, and one email to you.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If the page is clear in the first screen, a visitor who gives it under a minute still leaves reassured. If the film space is built in now, your film drops in later without changing anything else.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="A visitor arrives from outreach or a search, reads the page, and is reassured or emails you.">
+        <rect class="d-out" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">A visitor arrives</text><text class="d-s" x="34" y="50">from your outreach, or searching your name</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">under a minute</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The one page, style C</text><text class="d-s" x="34" y="134">result first, film space, trust, contact</text>
+        <line class="d-a" x1="120" y1="146" x2="90" y2="176" marker-end="url(#ar)"/>
+        <line class="d-ah" x1="220" y1="146" x2="250" y2="176" marker-end="url(#arh)"/><text class="d-l" x="170" y="170" text-anchor="middle">effect</text>
+        <rect class="d-out" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">Reassured</text><text class="d-s" x="30" y="218">back to your talk</text>
+        <rect class="d-his" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">An email</text><text class="d-s" x="190" y="218">reaches you</text>
+      </svg>
+      <figcaption>How to read it: the dashed boxes are the visitor, outside the system; green is what reaches your own hand.</figcaption>
+    </figure>
+    <section class="q" data-q="1">
+      <fieldset>
+        <legend>1. Is this the shape to build?</legend>
+        <label class="opt"><input type="radio" name="q1" value="a"><span><b>a.</b> Yes: build the page in this order, to style C, by this journey.
+          <dl><dt>Gains</dt><dd>The team and the plan come next, and the plan is priced on this shape.</dd><dt>Costs you</dt><dd>Nothing now.</dd><dt>Risk</dt><dd>Small: the words are still yours to approve line by line before anything is public.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span><b>b.</b> Change something first (say what in the note).
+          <dl><dt>Gains</dt><dd>The plan is built to the changed shape, not this one.</dd><dt>Costs you</dt><dd>One more short round on this page.</dd><dt>Risk</dt><dd>None beyond the time.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It is your scope and your chosen look put together, with nothing added.</p>
+        <p>If a: the team step comes next, then the plan page · If b: I redraw this page to your note.</p>
+      </div>
+      <label class="box">Note for question 1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>Where the site's own files live</h2>
+    <p>This project keeps one private record online: your rulings, the brief, the research and the digest of your business files. The website's own files are a small part of it, and they will be public by nature once live. Cloudflare can publish a site straight from a folder of an online repository: you connect it once, and every checked change then reaches your address by itself. <span class="fact guessed">guessed</span> from Cloudflare's own pages on its hosting, read today; connecting it has not been tried yet, and is tried with you before the plan is signed.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How the finished site reaches Cloudflare, and what Cloudflare can see.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Without a link from the files to Cloudflare, every change to the site would be a manual upload by you.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The built and checked page → the files Cloudflare reads → your address.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If Cloudflare reads this project, it can see the whole private record, though it publishes only the site's folder. If the site has its own repository, Cloudflare sees only the site, and there is one more thing to keep in step.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="The site's folder sits inside the private record; Cloudflare reads it once you connect it, and publishes only that folder to your address.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The private record</text><text class="d-s" x="34" y="50">rulings, research, and the site's folder</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">you connect it once</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Cloudflare reads it</text><text class="d-s" x="34" y="134">and publishes only the site's folder</text>
+        <line class="d-a" x1="120" y1="146" x2="90" y2="176" marker-end="url(#ar)"/>
+        <line class="d-a" x1="220" y1="146" x2="250" y2="176" marker-end="url(#ar)"/><text class="d-l" x="170" y="170" text-anchor="middle">effect</text>
+        <rect class="d-out" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">Your address</text><text class="d-s" x="30" y="218">the site, public</text>
+        <rect class="d-box" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">The rest</text><text class="d-s" x="190" y="218">stays unpublished</text>
+      </svg>
+      <figcaption>How to read it: green is your one connecting step; the dashed box is the public internet, outside the system. This draws option a.</figcaption>
+    </figure>
+    <section class="q" data-q="2">
+      <fieldset>
+        <legend>2. Where do the site's files live?</legend>
+        <label class="opt"><input type="radio" name="q2" value="a"><span><b>a.</b> In this project, as one folder set apart for the public.
+          <dl><dt>Gains</dt><dd>One place for everything; the way this project already checks and lands work applies to the site unchanged.</dd><dt>Costs you</dt><dd>About 10 minutes, once, to connect Cloudflare.</dd><dt>Risk</dt><dd>Cloudflare, which already runs your domain, can read the private record, though it publishes only the site's folder.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q2" value="b"><span><b>b.</b> In a repository of its own, holding only the site.
+          <dl><dt>Gains</dt><dd>Cloudflare sees the site and nothing else; it could one day be made public on its own.</dd><dt>Costs you</dt><dd>About 10 minutes to connect Cloudflare, plus about 2 to make the new repository.</dd><dt>Risk</dt><dd>Two places to keep in step; the project's checking and landing tools work on this project, so each change to the site needs an extra step to reach the other.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Cloudflare already holds your domain, so letting it read the record adds little, and one place keeps every change checked the same way.</p>
+        <p>If a: the site's folder is named in the brief as the one part that may be public, and checked as such · If b: making the second repository joins your acts, and the plan adds the extra step.</p>
+      </div>
+      <label class="box">Note for question 2<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it; all of them come back to you at the plan sign-off.</p>
+    <ul>
+      <li>The site is hosted on Cloudflare's free hosting, in the Cloudflare account that already runs your domain. Undo: choose another host at the plan.</li>
+      <li>Cloudflare is connected only after you approve the page, so nothing is public until then; its own temporary public address appears at that moment, a little before the switch. Undo: connect it earlier.</li>
+      <li>The font (Inter, free) is kept with the site instead of loaded from Google, so a visitor's browser contacts nobody but your site and no cookie notice is needed. Undo: load it from Google.</li>
+      <li>Your name is set in type until you send the logo across from your laptop. Undo: send the logo.</li>
+      <li>The email address is rhys@foundrynorthstudios.co.uk, proven with one test email at the sign-off sitting. Undo: name another mailbox.</li>
+      <li>Your film, when it is ready, goes in as one small change on your word, not as a new plan. Undo: none needed.</li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted">
+      <li>The brief: the problem, the scope and the facts, as you ruled them on 14 and 15 Oct.</li>
+      <li>The decisions record: the look chosen ("C please"), the email address, going live.</li>
+      <li>The look's three styles and the helper's notes, in the scratch folder outside the project.</li>
+      <li>Cloudflare's documentation on custom domains for its hosting, read 14 Oct.</li>
+    </ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="foundry-north-website · design · sheet 1">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters and notes, to copy by hand"></textarea>
+    <small class="muted">Kept in this browser if the page reloads.</small>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+// His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
+// reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+  var key = 'page · ' + back.getAttribute('data-sheet');
+
+  function field(q, sel) { return q.querySelector(sel); }
+  function save() {
+    var kept = {};
+    qs.forEach(function (q) {
+      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+    });
+    try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var kept;
+    try { kept = JSON.parse(window.localStorage.getItem(key) || '{}') || {}; } catch (e) { return; }
+    qs.forEach(function (q) {
+      var k = kept[q.getAttribute('data-q')];
+      if (!k) return;
+      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      if (w && k.words) w.value = k.words;
+      if (t && k.note) t.value = k.note;
+    });
+  }
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var words = q.querySelector('textarea[data-words]');
+    if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
+    var c = q.querySelector('input[type=radio]:checked');
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('section.q input, section.q textarea').forEach(function (el) {
+    el.addEventListener('input', function () { update(); save(); });
+    el.addEventListener('change', function () { update(); save(); });
+  });
+  restore();
+  update();
+})();
+</script>
