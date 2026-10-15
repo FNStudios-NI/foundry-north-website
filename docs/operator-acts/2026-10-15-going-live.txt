@@ -6,6 +6,8 @@ Why you and not me: it gives Cloudflare read access to a GitHub repository and c
 
 No step needs a terminal. Everything is pressed in the browser, so your phone works too, though a laptop screen is easier.
 
+Make the Pages project in the same Cloudflare account that holds foundrynorthstudios.co.uk: Cloudflare's documentation says the address must be on the account the project is made in. If your sign-in shows more than one account, choose the one that lists foundrynorthstudios.co.uk.
+
 
 What this rests on (read through your Cloudflare key at 06:40 today, 15 Oct)
 --------------------------------------------------------------------------
@@ -120,13 +122,14 @@ IF A DOMAIN WILL NOT GO ACTIVE
 Use this only if a domain is still not "Active" after 15 minutes, or a message in STEP 7 or STEP 8 talked of an existing record.
 While you do this the address still shows an error, as it does today; nothing gets worse.
 
-STEP 10 - DNS Records, for a CAA row
-Why: Cloudflare's documentation warns that a CAA row (one that names who may issue the padlock certificate) can stop the domain going Active.
+STEP 10 - two things that can block it: a CAA row, or something in the way
+Why: Cloudflare's documentation names both. A CAA row (one that names who may issue the padlock certificate) can stop the certificate. And Cloudflare checks the address over the web before it goes Active; Cloudflare Access (a sign-in page put in front of an address), a redirect, or a Worker on the address can block that check.
 
 Open https://dash.cloudflare.com, choose foundrynorthstudios.co.uk, then "DNS", then "Records". Look down the "Type" column for CAA.
+Then, in the same menu for foundrynorthstudios.co.uk, look under "Rules" for any redirect, and under "Workers Routes" for any route on foundrynorthstudios.co.uk or www.
 
-Pass: no row has Type CAA. Go on to STEP 11.
-If a CAA row is there: stop. Do not change it or delete it. Tell me what the row says and that the domain is stuck; that one is mine to work out.
+Pass: no row has Type CAA, and nothing under "Rules" or "Workers Routes" touches foundrynorthstudios.co.uk or www. Go on to STEP 11.
+If a CAA row is there, or a redirect or a Worker route on either address, or you know you have put Cloudflare Access in front of this address: stop. Do not change it or delete it. Tell me what it says and that the domain is stuck; that one is mine to work out.
 
 STEP 11 - DNS Records: delete only these four rows
 Why: the old IONOS rows sit on the same two names the new page needs.
@@ -145,7 +148,10 @@ Pass: those four rows are gone, and the three MX rows, the TXT row, portal and p
 STEP 12 - back to Workers & Pages, the project, "Custom domains"
 Why: with the old rows gone, Cloudflare can add its own row.
 
-If the stuck domain is listed, press the three dots beside it, then "Remove domain". Then add it again as in STEP 7 (www) or STEP 8 (the bare address), and carry on to STEP 9.
+If the stuck domain is listed, take it off in the order Cloudflare's documentation gives:
+first, in DNS, Records, if there is a CNAME row on that name whose Content is the pages.dev address, delete that one row ("Edit", "Delete", "Delete" again) and nothing else;
+then, back in Custom domains, press the three dots beside the domain, then "Remove domain".
+Then add it again as in STEP 7 (www) or STEP 8 (the bare address), and carry on to STEP 9.
 
 Pass: the domain reads "Active" within about 15 minutes. If it still does not, stop and tell me what the Custom domains tab says.
 
@@ -192,11 +198,11 @@ Sources (Cloudflare's documentation, each read 15 Oct 2026)
 - GitHub integration: https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/
   STEP 3 (the app "Cloudflare Workers and Pages"; Repository access, "Only select repositories"; Install & Authorize).
 - Custom domains: https://developers.cloudflare.com/pages/configuration/custom-domains/
-  STEP 7, 8; what it says (and does not say) about the four rows; the CAA warning; STEP 12; STEP 13 and STEP 14 (delete the CNAME row, then three dots, Remove domain).
+  The same-account line at the top; STEP 7, 8; what it says (and does not say) about the four rows; the CAA warning; STEP 12, 13 and 14 (delete the CNAME row, then three dots, Remove domain).
 - Debugging Pages: https://developers.cloudflare.com/pages/configuration/debugging-pages/
-  STEP 7, 8 and 10 (a domain stuck at "Verifying"; missing CAA records; still verifying after 15 minutes).
+  STEP 7, 8 and 10 (a domain stuck at "Verifying"; blocked HTTP validation, from Access, a redirect or a Worker; missing CAA records; still verifying after 15 minutes).
 - Create DNS records: https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
-  STEP 11, 13 (Edit, Delete, Delete again) and STEP 15 (Add record, Type, Proxy status, Save).
+  STEP 11, 12, 13 (Edit, Delete, Delete again) and STEP 15 (Add record, Type, Proxy status, Save).
 
 
 If anything looks different from a Pass line, stop and tell me what it says.
