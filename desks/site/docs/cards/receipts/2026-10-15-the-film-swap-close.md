@@ -31,3 +31,9 @@ none
 
 ## Refused
 none
+
+## Checker run 2026-10-15 — Sonnet 5.5 checker, own session
+Commit: c09671cc78152e4becbd71daf6162dd497371d08
+Exit code: 0
+Verdict: PASS
+Why: Gates cut by me from the cards' code blocks into my own scratch (`C:\Users\3070s\AppData\Local\Temp\fnw-film-swap-checker`), run from the worktree at the commit above: `gate_film.py` → `GATE PASS` (exit 0, the exit code above); `gate_page.py desks/site/public <scratch>/serve` → `GATE PASS`; `gate_og.py desks/site/public` → `GATE PASS`; `gate_words.py` → `GATE PASS`; `gate_logos.py` → `GATE PASS`. Ablation (the worker did not run it): `gate_film.py` against main's film file (24,052,230 bytes, in scratch with the same `index.html`) → `GATE FAIL` "film is not his file byte for byte", exit 1. Diff vs main: exactly two files, the film file (modified, 24,052,230 → 25,959,232 bytes) and this receipt (added). The film's SHA-256 equals his `foundry-north-studios-header-video-low-bitrate-fixed.mp4` (`403BD21B…FBC11`, 25,959,232 bytes both; 26,214,400 limit not reached). Screenshot at 390 wide (`film-390.png` in my scratch, headless Chrome with autoplay allowed): the new film shows in the frame with the waveform drawn over it. Headless showed the frame slightly cropped on the right; the page is untouched by this diff, so I took that as a headless viewport effect, not this card's. `python3.11 tools/fence_check.py --card desks/site/docs/cards/2026-10-15-the-film-swap.md` → "INSIDE: all 2 changed file(s) are in the card's Touches (against main)." Scope question — is anything in this diff not asked for by the card? No: only the film swap and the receipt. His file in Downloads and the main checkout were only read (main checkout status empty). Not run: the card does not name the film or move gates, so I did not cut those.
