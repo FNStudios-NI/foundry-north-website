@@ -101,3 +101,14 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 
 Supersedes: ruling 2 of 14 Oct 05:51 (finished but not live). Unsure and Parked lines settled: the digest's contradiction 4 (the domain) for the email too.
 - **03:12 — the planning master:** The look started on his go ("Sounds good", to "say make the look"): one helper on Sonnet, its order at C:\Users\3070s\AiEngineering\scratch\foundry-north-look-2026-10-15\ORDER.md, writing only there. Started for it, to stop at the wrap: a detached page server (python3.11 http.server, port 8740, pid 1724, stops by ending that process) and a tailnet-only Tailscale path /look (stops with: tailscale serve --bg --set-path /look off). Undo: stop both and delete the scratch folder.
+
+## 2026-10-15 03:20 — Discovery step 4, design: the look chosen, then the design page (the planning master)
+Page: the look (scratch, outside the project: `C:\Users\3070s\AiEngineering\scratch\foundry-north-look-2026-10-15\`, served tailnet-only at `/look/`); the design page follows, `docs/pages/2026-10-15-design-sheet-1.html`.
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | The look is style C, Rose: porcelain base with the rose accent, centred, a rose waveform in the film frame; tagline "An engine that understands you better every month."; the offer called "your own mini studio". The plan is built to it. | C — "C please" | His ruling 3 of "Run 4 closed": the plan is built to the look he chooses. | A new ruling; styles A and B stay in the scratch folder. |
+
+Settled by ruling 1 (the master's call 5 of the facts entry put them inside the styles): the digest's contradictions 1 ("mini studio" against "your engine": "mini studio" on the page), 2 (the accent colour: rose) and 3 (the tagline: "An engine that understands you better every month.").
