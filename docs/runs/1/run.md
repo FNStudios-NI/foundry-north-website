@@ -39,8 +39,8 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 08:42 · session · worker thread, piece 8 the-film, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-film · mcp:5288a6b9-63bd-4ace-80ec-73fa23f4c179 · by hand: archive once merged; seat it releases itself · closed 08:48
 - 08:45 · session · checker for piece 8, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-1 · ends with its task; seat it releases itself · closed 08:48
 - 09:02 · server · the preview, now a byte-range server (C:\Users\3070s\.foundry-north-website\preview\range_server.py, outside the project) on port 8742, replacing pid 20240 (stopped 08:52) so iPhone Safari can play the film · pid 20284 · taskkill · open
-- 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · open
-- 09:37 · session · checker for logos-in, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logos-in-1 · ends with its task; seat it releases itself · open
+- 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · closed 09:40
+- 09:37 · session · checker for logos-in, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logos-in-1 · ends with its task; seat it releases itself · closed 09:40
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -68,6 +68,7 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 - 08:42 · his web copy arrived: foundry-north-studios-header-video-low-bitrate.mp4, 22.9 MiB, 23.6 s, 8.1 Mbps, no audio, fast start · under Cloudflare's 25 MiB; piece 8's card cut
 - 09:02 · the film did not play on his phone · cause found: the preview's plain Python page server answers byte-range requests with the whole file, and iPhone Safari will not play video without ranges (Cloudflare Pages serves ranges, so the live site is not affected) · chose: a 40-line range server outside the project for the preview · turned down: Tailscale serving the folder itself (needs Windows admin, his), installing a server package (software install is his), a worker card (slower for a preview-only tool) · why: the preview is the master's P3, not the site
 - 09:30 · his logos came as a Google Drive link, and the Drive connector is not signed in · chose: the folder is shared by link, so its public listing was read and the 18 PNGs downloaded by their file ids into C:\Users\3070s\.foundry-north-website\logos\ (no sign-in, nothing sent) · turned down: asking him to sign the connector in, or to send them by Tailscale (his time) · checked: none of the names is in his private-words file
+- 09:40 · logos-in went past the card's words in three needed ways (white grounds made transparent; all 18 names heard by screen readers; reduced motion shows all 18 still) · chose: keep all three · turned down: strip them (the multiply example failed in the masked banner; fewer names heard) · and noted for his look: in the faint back row Bradley, Manchester, Leeds and UCL read small; moving them to the front row is one small change on his word
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
