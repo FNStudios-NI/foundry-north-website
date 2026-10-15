@@ -52,6 +52,7 @@ One line per merge into the try-it build, with its undo.
 - 06:26 · P2 tried once, with him reachable: the-page undone by `git revert e2ecbac` (commit a713638, desks/site/public/ gone), then put back by reverting the revert (commit 6142a71); the page stands as landed · undo of the-page from now on: `git revert 6142a71`
 - 06:28 · 2026-10-15-search-preview · squash b377c20 · undo: `git revert b377c20`
 - 06:29 · 2026-10-15-send-site · squash b04f042 · undo: `git revert b04f042`
+- 06:34 · 2026-10-15-live-check · squash b79ae9a · undo: `git revert b79ae9a`
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
