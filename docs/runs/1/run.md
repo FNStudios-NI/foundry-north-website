@@ -36,6 +36,7 @@ One line per order, written before any message says "look".
 ## Merges
 One line per merge into the try-it build, with its undo.
 - 06:25 · 2026-10-15-the-page · squash e2ecbac · undo: `git revert e2ecbac`
+- 06:26 · P2 tried once, with him reachable: the-page undone by `git revert e2ecbac` (commit a713638, desks/site/public/ gone), then put back by reverting the revert (commit 6142a71); the page stands as landed · undo of the-page from now on: `git revert 6142a71`
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
