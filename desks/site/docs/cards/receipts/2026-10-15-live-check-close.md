@@ -54,3 +54,16 @@ exit 1. (Before writing the tool, the real DoH answers were read once with `curl
 
 ## Refused
 none.
+
+## Checker run 2026-10-15 — Sonnet 5.5 checker, own session
+Commit: ff62adcd4258acedeb0b8baba9dc7a25f02dc70a
+Exit code: 0
+Verdict: PASS
+Why: Run by me at the commit above, from the worktree (plain pytest, no PermissionError, so no basetemp needed).
+- Gate `python3.11 -B -m pytest tools/tests/test_live_check.py -q` → `8 passed in 2.63s`, exit 0 (card asks n ≥ 6).
+- The one networked run, `python3.11 tools/live_check.py`, 2026-10-15 06:32 UTC, exit 1: `FAIL page https://foundrynorthstudios.co.uk/ · 525 …`, `FAIL page https://www.foundrynorthstudios.co.uk/ · 525 …`, `FAIL preview · no page to read …`, `PASS mx · mx.zoho.eu (10), mx2.zoho.eu (20), mx3.zoho.eu (50)`, `PASS spf · v=spf1 include:zoho.eu include:_spf-eu.ionos.com ~all`, `PASS portal. · 200 …`, `PASS pick. · 404 …`, `LIVE: FAIL 3`. This matches the card (two page checks FAIL; MX, SPF, portal, pick PASS); the third FAIL is the preview, which has no page to read, as the worker flagged under Unsure.
+- Ablation, in a scratch copy (`C:\Users\3070s\AppData\Local\Temp\fnw-live-check-checker`, nothing left in the worktree): `found == MX` replaced by `True` → `FAILED tools/tests/test_live_check.py::test_changed_mx_fails`, `1 failed, 7 passed`. Red as the card requires.
+- Guard: in the scratch copy I added a test that `live_check.fetch('https://1.1.1.1/')` and `socket.create_connection(('8.8.8.8', 53))` each raise `AssertionError`; `9 passed`, so the guard blocks non-127.0.0.1 connections (and name lookups). The local-server tests pass under it.
+- Fence: `python3.11 tools/fence_check.py --card desks/site/docs/cards/2026-10-15-live-check.md` → `INSIDE: all 3 changed file(s) are in the card's Touches (against main).`
+- Diff read whole (3 files: the tool, its tests, the receipt). Scope question, *is anything in this diff not asked for by the card?* — No. Every asked item is there: the page checks with redirect-following, the preview, MX/SPF/portal/pick, `PASS`/`FAIL` lines with `LIVE:` summary and exit codes, DoH from Cloudflare with `accept: application/dns-json`, stdlib only, `--base`, a head comment. Small extras are within the tool's own function and are declared under Unsure (the `User-Agent` header, the UTF-8 stdout reconfigure as in `flag.py`); the two `main` tests go past the six the card named but only exercise the card's output format. No DNS or Cloudflare write, no secret.
+- Notes, not failures: (1) `tools/live_check.py` is CRLF like its sibling tools, but `tools/tests/test_live_check.py` is LF while the sibling tests are CRLF (a new file, so no diff noise). (2) The worker's stray `C:\Users\3070s\AppData\Local\Temp\x.py` (see Parked/Drift) still exists; I did not touch it, as it is not mine to delete. (3) The main checkout's status was clean.
