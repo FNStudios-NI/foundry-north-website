@@ -40,6 +40,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 08:45 · session · checker for piece 8, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-1 · ends with its task; seat it releases itself · closed 08:48
 - 09:02 · server · the preview, now a byte-range server (C:\Users\3070s\.foundry-north-website\preview\range_server.py, outside the project) on port 8742, replacing pid 20240 (stopped 08:52) so iPhone Safari can play the film · pid 20284 · taskkill · open
 - 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · open
+- 09:37 · session · checker for logos-in, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logos-in-1 · ends with its task; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
