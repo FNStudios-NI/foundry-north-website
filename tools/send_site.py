@@ -17,6 +17,9 @@
 #   It prints SENT: <site commit> from <project commit> and exits 0, or
 #   NOTHING TO SEND (exit 0) if the site already holds exactly these files.
 #   It refuses with REFUSE: <why>, exit 1, having pushed nothing.
+#   The site's commit is made under this checkout's own git identity
+#   (git config user.name and user.email here), which the clone does not
+#   inherit; with none here it refuses before cloning.
 #   With --dry-run it says what would cross and pushes nothing.
 #
 # Why the rule exists
@@ -87,6 +90,18 @@ def public_files():
     return files
 
 
+def identity():
+    """This checkout's git identity, for the site's commit: [-c user.name=..., -c user.email=...]."""
+    found = []
+    for key in ("user.name", "user.email"):
+        code, out = git("config", key)
+        value = out.decode("utf-8", errors="replace").strip()
+        if code != 0 or not value:
+            raise Refuse(f"this checkout has no git {key}; set it here (git config {key} ...) so the site's commit has an author")
+        found += ["-c", f"{key}={value}"]
+    return found
+
+
 def uncommitted():
     code, out = git("status", "--porcelain=v1", "--untracked-files=all", "--", PUBLIC)
     if code != 0:
@@ -151,6 +166,7 @@ def send(repo, dry_run):
     if changes:
         raise Refuse(f"uncommitted changes under {PUBLIC}; commit them first — {changes}")
     project = must("rev-parse", "rev-parse", "HEAD")
+    author = identity()
 
     scratch = tempfile.mkdtemp(prefix="send-site-")
     try:
@@ -167,7 +183,7 @@ def send(repo, dry_run):
                 changed = "\n".join(f"A\t{p}" for p in sorted(files))
             print(f"DRY RUN: would send {len(files)} files from {project[:7]} to {repo}; nothing pushed\n{changed}")
             return 0
-        must("commit", "commit", "-q", "-m", f"Site from foundry-north-website {project}", cwd=clone)
+        must("commit", *author, "commit", "-q", "-m", f"Site from foundry-north-website {project}", cwd=clone)
         site = must("rev-parse", "rev-parse", "HEAD", cwd=clone)
         must("push", "push", "-q", "origin", "HEAD:refs/heads/main", cwd=clone)
     finally:
