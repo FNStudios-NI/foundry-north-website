@@ -73,6 +73,18 @@ h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spac
 
 #trust .big{font-weight:600;font-size:clamp(26px,6.6vw,46px);line-height:1.1;letter-spacing:-.035em;max-width:16ch;margin:22px auto 0}
 #trust .sig{width:56px;height:1px;background:var(--gold);margin:30px auto 0}
+#trust .with{margin-top:56px}
+.banner{margin-top:26px;overflow:hidden;display:grid;gap:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.banner .row{display:flex;width:max-content;will-change:transform}
+.banner .logos{display:flex;align-items:center;list-style:none}
+.banner img{display:block;width:auto;filter:brightness(0)}
+.banner .back{animation:drift 90s linear -30s infinite reverse}
+.banner .back .logos{gap:32px;padding-right:32px}
+.banner .back img{height:20px;opacity:.28}
+.banner .front{animation:drift 45s linear infinite}
+.banner .front .logos{gap:48px;padding-right:48px}
+.banner .front img{height:32px;opacity:.62}
+@keyframes drift{to{transform:translateX(-50%)}}
 
 #contact{padding:110px 0 60px}
 #contact .btn{margin-top:30px}
@@ -82,6 +94,10 @@ h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spac
   html{scroll-behavior:auto}
   .frame .b{animation:none;transform:scaleY(.8)}
   .btn{transition:none}
+  .banner{-webkit-mask-image:none;mask-image:none}
+  .banner .row{animation:none;width:auto}
+  .banner [aria-hidden="true"]{display:none}
+  .banner .front .logos{flex-wrap:wrap;justify-content:center;padding-right:0;row-gap:20px}
 }
 
 @media (min-width:860px){
@@ -201,6 +217,61 @@ h2{font-weight:600;font-size:clamp(28px,7.6vw,52px);line-height:1.06;letter-spac
     <p class="big">Built by filmmakers. Fifteen years of craft.</p>
     <p class="big">The last cut is human. Every time.</p>
     <div class="sig" aria-hidden="true"></div>
+    <p class="lab with">Worked with</p>
+    <div class="banner">
+      <div class="row back" aria-hidden="true">
+        <ul class="logos">
+          <li><img src="logos/standin-01.svg" alt=""></li>
+          <li><img src="logos/standin-02.svg" alt=""></li>
+          <li><img src="logos/standin-03.svg" alt=""></li>
+          <li><img src="logos/standin-04.svg" alt=""></li>
+          <li><img src="logos/standin-05.svg" alt=""></li>
+          <li><img src="logos/standin-06.svg" alt=""></li>
+          <li><img src="logos/standin-07.svg" alt=""></li>
+          <li><img src="logos/standin-08.svg" alt=""></li>
+          <li><img src="logos/standin-09.svg" alt=""></li>
+          <li><img src="logos/standin-10.svg" alt=""></li>
+        </ul>
+        <ul class="logos">
+          <li><img src="logos/standin-01.svg" alt=""></li>
+          <li><img src="logos/standin-02.svg" alt=""></li>
+          <li><img src="logos/standin-03.svg" alt=""></li>
+          <li><img src="logos/standin-04.svg" alt=""></li>
+          <li><img src="logos/standin-05.svg" alt=""></li>
+          <li><img src="logos/standin-06.svg" alt=""></li>
+          <li><img src="logos/standin-07.svg" alt=""></li>
+          <li><img src="logos/standin-08.svg" alt=""></li>
+          <li><img src="logos/standin-09.svg" alt=""></li>
+          <li><img src="logos/standin-10.svg" alt=""></li>
+        </ul>
+      </div>
+      <div class="row front">
+        <ul class="logos">
+          <li><img src="logos/standin-01.svg" alt="University"></li>
+          <li><img src="logos/standin-02.svg" alt="Company"></li>
+          <li><img src="logos/standin-03.svg" alt="University"></li>
+          <li><img src="logos/standin-04.svg" alt="Company"></li>
+          <li><img src="logos/standin-05.svg" alt="University"></li>
+          <li><img src="logos/standin-06.svg" alt="Company"></li>
+          <li><img src="logos/standin-07.svg" alt="University"></li>
+          <li><img src="logos/standin-08.svg" alt="Company"></li>
+          <li><img src="logos/standin-09.svg" alt="University"></li>
+          <li><img src="logos/standin-10.svg" alt="Company"></li>
+        </ul>
+        <ul class="logos" aria-hidden="true">
+          <li><img src="logos/standin-01.svg" alt=""></li>
+          <li><img src="logos/standin-02.svg" alt=""></li>
+          <li><img src="logos/standin-03.svg" alt=""></li>
+          <li><img src="logos/standin-04.svg" alt=""></li>
+          <li><img src="logos/standin-05.svg" alt=""></li>
+          <li><img src="logos/standin-06.svg" alt=""></li>
+          <li><img src="logos/standin-07.svg" alt=""></li>
+          <li><img src="logos/standin-08.svg" alt=""></li>
+          <li><img src="logos/standin-09.svg" alt=""></li>
+          <li><img src="logos/standin-10.svg" alt=""></li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section id="contact">
