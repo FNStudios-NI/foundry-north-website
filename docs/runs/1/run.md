@@ -47,6 +47,7 @@ One line per key point in the signed plan, with his letter, and what happened wh
 - 06:45 · K2 the words sheet · a · his answer: "yes to all" (a quote of the master's K2 line, with his comment): every asked line kept as drafted, W18 "once a month" included; the page's lines are his kept lines, so no continue card is needed
 - 06:45 · K3 the whole page approved for going live · a · stopped and asked him: the page at https://ni-h3-3070.tail552bbe.ts.net/site/, with his approved words
 - 06:52 · K3 · his reply: "almost good to go live. let me go make the video for it" · not yet an approval; asked him, grouped: where the film is hosted, go live now or after the film, and what else "almost" covers
+- 09:30 · K3 the whole page approved for going live · a · his words: "lets get this live and i'll test it for real", with his logos sent; approved for the page with his logos in place of the stand-ins
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
@@ -64,6 +65,7 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 - 08:37 · his film arrived (Taildrop landed it in C:\Users\3070s\Downloads\foundry-north-studios-header-video.mp4): 47.9 MB, 23.7 s, 1920×1080, H.264, 16 Mbps, has an audio track, fast start · checked today: Cloudflare Pages' per-file limit is 25 MiB (developers.cloudflare.com/pages/platform/limits/) · his question: why not this full version · ways: a) same 1080p re-exported at about 8 Mbps with no audio, about 23 MB, his 2 minutes; b) the full file in Cloudflare R2 (free to 10 GB, no charge per view) on a media. address, his about 10 minutes in Cloudflare plus a DNS row · my recommendation: a (it plays sooner on phones; no extra service)
 - 08:42 · his web copy arrived: foundry-north-studios-header-video-low-bitrate.mp4, 22.9 MiB, 23.6 s, 8.1 Mbps, no audio, fast start · under Cloudflare's 25 MiB; piece 8's card cut
 - 09:02 · the film did not play on his phone · cause found: the preview's plain Python page server answers byte-range requests with the whole file, and iPhone Safari will not play video without ranges (Cloudflare Pages serves ranges, so the live site is not affected) · chose: a 40-line range server outside the project for the preview · turned down: Tailscale serving the folder itself (needs Windows admin, his), installing a server package (software install is his), a worker card (slower for a preview-only tool) · why: the preview is the master's P3, not the site
+- 09:30 · his logos came as a Google Drive link, and the Drive connector is not signed in · chose: the folder is shared by link, so its public listing was read and the 18 PNGs downloaded by their file ids into C:\Users\3070s\.foundry-north-website\logos\ (no sign-in, nothing sent) · turned down: asking him to sign the connector in, or to send them by Tailscale (his time) · checked: none of the names is in his private-words file
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
@@ -100,6 +102,7 @@ One line per card, at the review: its done-when line tried, pass or fail. `measu
 ## Next run's list
 New ideas that come up mid-run go here, not into this run, unless they are a blocker.
 - 06:21 · A browser he logs into that the master can use for reads like Zoho and Cloudflare · his question at 06:17; changing what an agent may do is his, so it is a plan item, not a mid-run act
+- 09:30 · the page's speed-ups offered at 09:02 (a still from the film shown first, a 720p film for phones, browser caching rules, preloading the main font, slimmer fonts) · his question; not chosen before going live
 
 ## Handover
 Written before the context fills, at a quiet moment, never in the middle of a merge.
