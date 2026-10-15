@@ -56,6 +56,7 @@ One line per merge into the try-it build, with its undo.
 - 06:34 · 2026-10-15-live-check · squash b79ae9a · undo: `git revert b79ae9a`
 - 06:35 · 2026-10-15-send-site · squash 149af01 · undo: `git revert 149af01`
 - 06:36 · First real send (piece 4's done-when, the master's act): python tools/send_site.py → SENT: 77b6265 from 1c7de56 to foundry-north-site (6 files: index.html, og.png, fonts/ with OFL.txt); unauthenticated GitHub answers 404 for the repository, so it is still private · undo: a send of the previous state, or his deleting the repository's commit (his)
+- 06:39 · 2026-10-15-words · squash 81b9e70 · undo: `git revert 81b9e70`
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
