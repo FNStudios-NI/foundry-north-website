@@ -41,6 +41,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 09:02 · server · the preview, now a byte-range server (C:\Users\3070s\.foundry-north-website\preview\range_server.py, outside the project) on port 8742, replacing pid 20240 (stopped 08:52) so iPhone Safari can play the film · pid 20284 · taskkill · open
 - 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · closed 09:40
 - 09:37 · session · checker for logos-in, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logos-in-1 · ends with its task; seat it releases itself · closed 09:40
+- 09:52 · file · C:\Users\3070s\.foundry-north-website\preview\cf.py, the master's Cloudflare calls through his key (outside the project; the key is read, never printed) · cf-py · nothing runs; left in place · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -102,6 +103,7 @@ One line per merge into the try-it build, with its undo.
 - 08:48 · 2026-10-15-the-film · squash cba2516 · undo: `git revert cba2516`
 - 09:40 · 2026-10-15-logos-in · squash af8bf47 · undo: `git revert af8bf47`
 - 09:41 · Third send: SENT: 8371d4c from 3559355 to foundry-north-site (his film and his 18 logos); the first try refused on a passing stale index flag on index.html right after the landing, clean on the next read · undo: a send of the earlier state
+- 09:52 · Cloudflare (his letter a, through his key): Pages project foundry-north-site created from FNStudios-NI/foundry-north-site, branch main, no build, output the top folder; first deployment success; https://foundry-north-site.pages.dev answers 200 with the page, film 200 (24,052,230 bytes), logos and fonts 200 · undo: delete the Pages project (his, in the dashboard)
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
