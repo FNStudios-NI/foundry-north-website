@@ -34,6 +34,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
 - 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · closed 07:21
 - 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · closed 07:21
+- 08:33 · folder · C:\Users\3070s\.foundry-north-website\inbox (empty, made for his Tailscale send of the film; outside the project) · inbox-folder · left in place; nothing runs · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -54,6 +55,7 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 - 07:18 · the banner-move card contradicted itself (its words gate needs the stand-in alts in words.md; its Goal forbade adding them) · chose: correct the card, two stand-in W lines, same worker · turned down: set the words gate aside (a gate waived is no gate) · why: the card was wrong, not the work
 - 07:35 · his question: why not Frame.io (already paid, keeps it forever) · answered: as far as found (third-party sources, Frame.io's V4 docs not reached), Frame.io gives a share link to its own viewer page, not a player that sits inside the page; its file links are, from memory, signed and expiring · offered: he checks his Share dialog for an embed code; else the master copy stays in Frame.io and a web copy goes in the site's folder
 - 08:29 · his film is 44 MB · told him: fine for git (GitHub warns at 50 MB, refuses at 100 MB), too big for Cloudflare Pages' 25 MB per-file limit (from memory) · recommended: he re-exports a web copy under about 24 MB from his editor (H.264 MP4, 1080p, video bitrate about 180 ÷ length in seconds Mbps, AAC 128 kbps, fast start), master stays in Frame.io · turned down: the master compressing it (no ffmpeg on Pandora; installing software is his, P6), Cloudflare Stream (paid)
+- 08:33 · his film's path is on his laptop (C:\Users\rhysg\Desktop\…\foundry-north-studios-header-video.mp4), not on Pandora · chose: ask him to send it by Tailscale (right-click, Send with Tailscale, to ni-h3-3070), the master collects it with tailscale file get · turned down: a cloud drive (another account, another copy), waiting for the logos (he wants the film in now)
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
@@ -99,6 +101,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 07:05 · running: piece 7 logo-banner (mcp:92221dbf…) · waiting on him: his logos and his film, and where the film is hosted · next step: check and land piece 7; on his logos, a drop-in card; on his film, piece 8's card; then K3 again, K4, K5
 - 07:13 · running: nothing; piece 7's worker thread mcp:92221dbf… kept, not archived, to drop in his real logos when they come · waiting on him: logos (C:\Users\3070s\.foundry-north-website\logos\), his yes that each can be named, the film and its hosting · next step: drop-in, piece 8, then K3 again, K4, K5
 - 07:21 · running: nothing · banner moved and landed · waiting on him: logos, his yes to name them, the film and its hosting · next step: drop-in (piece 7's thread mcp:92221dbf… kept), piece 8, then K3 again, K4, K5
+- 08:33 · waiting on him: the film by Tailscale send, and how it plays (header loop or press-play film); the logos by end of day · next step: tailscale file get into C:\Users\3070s\.foundry-north-website\inbox, check size (< 25 MB), then piece 8's card
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
