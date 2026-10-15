@@ -129,6 +129,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 08:48 · running: nothing · pieces 1 to 8 landed (the film cba2516); the page holds his film and stand-in logos · waiting on him: his logos (by end of day, C:\Users\3070s\.foundry-north-website\logos\) and his yes to name each; his look at the film on a real phone; new lines W12 and W37 for his approval · next step: logo drop-in card (piece 7's thread mcp:92221dbf… kept), send, then K3, K4 (docs/operator-acts/2026-10-15-going-live.txt), K5
 - 09:36 · waiting on him: a, b or c for the Cloudflare steps · running: piece 7 logos-in (mcp:9db655c5…) · next step: land the logos, send, then the Cloudflare steps by his letter
 - 09:41 · waiting on him: a, b or c for the Cloudflare steps (a recommended: he connects GitHub, the master does the rest by his key) · nothing running · foundry-north-site holds 8371d4c, the page as approved
+- 09:59 · waiting on him: his DNS step (then "done"), and later his new film · nothing running · Pages project live at foundry-north-site.pages.dev; both custom domains pending on his CNAMEs · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); on his film, a swap card like piece 8
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
