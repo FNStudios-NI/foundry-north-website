@@ -27,8 +27,7 @@ Ruled lines are marked ruled and stay word for word. His keep, change or drop fo
 ## #film
 
 - **W11** · `Film` · heard, not seen · from: drafted
-- **W12** · `A space for our film, coming soon.` · heard, not seen · from: drafted · redrafted; it read "A 16 by 9 frame. Film coming soon."
-- **W13** · `Film coming soon` · in the frame · from: the brief ("Film coming soon", the placeholder you ruled)
+- **W12** · `Our film: a short loop from the studio.` · heard, not seen · from: drafted · redrafted, for his approval; it read "A space for our film, coming soon."
 
 ## #logos
 
