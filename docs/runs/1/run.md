@@ -22,6 +22,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:26 · session · checker for piece 4, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-send-site-1 · ends with its task; seat it releases itself · open
 - 06:27 · session · worker thread, piece 3 search-preview, Sonnet 5.5 high (light lane), branch task/foundry-north-website/2026-10-15-search-preview · mcp:020e6de0-f34f-4278-8e26-98c71cff0db2 · by hand: archive once merged; seat it releases itself · closed 06:28
 - 06:27 · session · worker thread, piece 6 live-check, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-live-check · mcp:e3693ce5-09a8-4b90-a23c-56f1cb018139 · by hand: archive once merged; seat it releases itself · open
+- 06:29 · session · worker thread, piece 2 words, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-words · mcp:e0e8d850-41dc-4d06-a258-b545bae8c122 · by hand: archive once merged; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
