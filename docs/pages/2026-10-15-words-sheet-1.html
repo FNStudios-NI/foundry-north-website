@@ -1,0 +1,1915 @@
+<meta charset="utf-8">
+<title>foundry-north-website · words · sheet 1</title>
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+/* The read-back bar sits at the bottom; a box being typed in scrolls clear of it. */
+:root { scroll-padding-bottom: 10rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 12px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+/* Phone width: the letters sit beside the button, and the bar is never more than a fifth of the screen;
+   anything below them (the copy-by-hand box) scrolls inside the bar. */
+@media (max-width: 34rem) {
+  .readback { box-sizing: border-box; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); max-height: 20vh; max-height: 20dvh; overflow-y: auto; }
+  .readback button { padding: 10px 12px; max-width: 9rem; }
+  .readback > .fallback, .readback > small { grid-column: 1 / -1; }
+}
+
+/* This sheet: the page line itself, the ruled mark, and the band of the miniature page that holds the line. */
+.pageline { font: 600 1.15rem/1.35 var(--body); background: var(--sheet); border-left: 4px solid var(--accent); padding: 8px 12px; overflow-wrap: anywhere; }
+.ruledmark { font: .72rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--his); }
+.d-on { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.d-band { fill: var(--bg); stroke: currentColor; stroke-opacity: .25; }
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>foundry-north-website</div>
+      <div><b>Stage</b>Words · about 30 minutes · 31 questions</div>
+      <div><b>Part of</b>Design · 4 of 6: the words your design names</div>
+      <div><b>Sheet</b>1, its own link</div>
+    </div>
+    <h1>The words on your page, line by line</h1>
+    <p>Every line a visitor can read or hear on your page, and every line a shared link's preview shows, in page order. Each sits under a small picture of where it is on the page. For each line, tap <b>a</b> to keep it, <b>b</b> to change it to your words, or <b>c</b> to drop it (offered only where the page still works without it). The 5 lines you already ruled (W7, W9, W31, W32, W36) are shown, marked, and not asked.</p>
+  </header>
+
+  <section class="back stack">
+    <h2>What I took from your message</h2>
+    <ul>
+      <li>The plan: all of it, pieces 1 to 6, live at your address (your "1: a").</li>
+      <li>Your stops: this words sheet is key point K2, marked a, a stop for you (your "Yes your recommendations").</li>
+      <li>The email on the page, rhys@foundrynorthstudios.co.uk, receives: "it works now the rhys@". <span class="fact checked">checked</span> your own report this morning.</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <section class="stack">
+    <h2>How your words reach the page</h2>
+    <p class="likeness"><b>Think of it as</b> a read-through before the shoot: each line is read out, and you keep it, rewrite it or cut it. The <b>words list</b> is the script: every line on the page, numbered W1 to W36, with where it came from. Your <b>voice rules</b> are the nine lines and the do's and don'ts gathered from your brand files: "we" and "you", headlines of eight words or fewer, no dashes, no exclamation marks, no hype words.</p>
+    <figure>
+      <svg viewBox="0 0 340 414" role="img" aria-label="Drafted lines go onto this sheet; your letters and words set each line; a next step puts them on the page and checks them; the page goes live only after you approve it.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">The drafted lines</text><text class="d-s" x="34" y="50">written to your voice rules</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">one item each</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">This sheet</text><text class="d-s" x="34" y="134">each line under its picture</text>
+        <line class="d-ah" x1="170" y1="146" x2="170" y2="176" marker-end="url(#arh)"/><text class="d-l" x="180" y="166">you tap</text>
+        <rect class="d-his" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">Your letters and words</text><text class="d-s" x="34" y="218">a keep · b change · c drop</text>
+        <line class="d-a" x1="170" y1="230" x2="170" y2="260" marker-end="url(#ar)"/><text class="d-l" x="180" y="250">you paste</text>
+        <rect class="d-box" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Onto the page</text><text class="d-s" x="34" y="302">the next step, each line checked</text>
+        <line class="d-a" x1="170" y1="314" x2="170" y2="344" marker-end="url(#ar)"/><text class="d-l" x="180" y="334">you approve</text>
+        <rect class="d-out" x="20" y="346" width="300" height="52"/>
+        <text class="d-t" x="34" y="368">Live at your address</text><text class="d-s" x="34" y="386">only after you approve it</text>
+      </svg>
+      <figcaption>How to read it: grey steps run by themselves, the green step is your own taps, the dashed step happens outside the system, once you approve the page.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>W1 · the page&#x27;s title</h2>
+    <p class="pageline">Foundry North: your own mini studio</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Before the page: what a chat app or a search engine shows when your link is shared or found. Nobody sees it on the page itself.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names the page in the browser tab and as the blue link in a search result.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>the start of the page → this → W2, "We turn one interview into content that…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (&quot;your own mini studio&quot;, ruled) and drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="W1 is shown outside the page, by a chat app or a search engine; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-out" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W1</text><text class="d-s" x="190" y="70">tab and search</text>
+        <line class="d-a" x1="150" y1="20" x2="178" y2="44" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature; the dashed box is outside it, a chat app or a search engine showing this line. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W1">
+      <fieldset>
+        <legend>W1. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W1" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W1" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W1, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It says who you are and what you offer in six words, using the offer&#x27;s ruled name.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W2 · the search description</h2>
+    <p class="pageline">We turn one interview into content that sounds like you. An engine that understands you better every month.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Before the page: what a chat app or a search engine shows when your link is shared or found. Nobody sees it on the page itself.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The two lines a search engine shows under the page&#x27;s title.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W1, "Foundry North: your own mini studio" → this → W3, "Foundry North: your own mini studio"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted; its second sentence is your voice line 1</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="W2 is shown outside the page, by a chat app or a search engine; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-out" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W2</text><text class="d-s" x="190" y="70">search result text</text>
+        <line class="d-a" x1="150" y1="20" x2="178" y2="44" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature; the dashed box is outside it, a chat app or a search engine showing this line. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W2">
+      <fieldset>
+        <legend>W2. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W2" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W2" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W2, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It pairs what we do with your tagline, so a searcher reads both before clicking.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W2<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W3 · the link preview&#x27;s title</h2>
+    <p class="pageline">Foundry North: your own mini studio</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Before the page: what a chat app or a search engine shows when your link is shared or found. Nobody sees it on the page itself.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The bold title of the card a chat app (WhatsApp, LinkedIn, iMessage) shows when your link is pasted.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W2, "We turn one interview into content that…" → this → W4, "We turn one interview into content that…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief and drafted (the same as W1)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="W3 is shown outside the page, by a chat app or a search engine; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-out" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W3</text><text class="d-s" x="190" y="70">preview title</text>
+        <line class="d-a" x1="150" y1="20" x2="178" y2="44" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature; the dashed box is outside it, a chat app or a search engine showing this line. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W3">
+      <fieldset>
+        <legend>W3. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W3" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W3" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W3, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Kept the same as W1, so the tab, the search result and the shared card all agree.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W3<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W4 · the link preview&#x27;s text</h2>
+    <p class="pageline">We turn one interview into content that sounds like you. An engine that understands you better every month.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Before the page: what a chat app or a search engine shows when your link is shared or found. Nobody sees it on the page itself.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The grey text under the title on a shared link&#x27;s card.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W3, "Foundry North: your own mini studio" → this → W5, "Foundry North"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted and your voice line 1 (the same as W2)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="W4 is shown outside the page, by a chat app or a search engine; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-out" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W4</text><text class="d-s" x="190" y="70">preview text</text>
+        <line class="d-a" x1="150" y1="20" x2="178" y2="44" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature; the dashed box is outside it, a chat app or a search engine showing this line. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W4">
+      <fieldset>
+        <legend>W4. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W4" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W4" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W4, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Kept the same as W2, for the same reason as W3.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W4<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W5 · the name</h2>
+    <p class="pageline">Foundry North</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The strip across the very top: your name set in type, and the email button.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Tells a visitor whose page this is, in the first second.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W4, "We turn one interview into content that…" → this → W6, "Email us"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (your name set in type, in place of the logo)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W5 sits in the name, button band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-on" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W5</text><text class="d-s" x="190" y="70">the name</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="25" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W5">
+      <fieldset>
+        <legend>W5. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W5" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W5" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W5, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It is the business&#x27;s name.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W5<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W6 · top button</h2>
+    <p class="pageline">Email us</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The strip across the very top: your name set in type, and the email button.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The small button at the top right: the way in for someone who is already sold.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W5, "Foundry North" → this → W7, "Your own mini studio"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W6 sits in the name, button band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-on" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W6</text><text class="d-s" x="190" y="70">top button</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="25" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W6">
+      <fieldset>
+        <legend>W6. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W6" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W6" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W6, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Two words, a plain act; &quot;us&quot; matches the page&#x27;s &quot;we&quot;.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W6<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W7 · over the headline <span class="ruledmark">already ruled</span></h2>
+    <p class="pageline">Your own mini studio</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The top of the page, the first screen a visitor sees.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names the offer above the headline.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W6, "Email us" → this → W8, "Hours of your time. Weeks of content."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>This line stays word for word: you ruled it, so it is shown here and not asked.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief: the offer&#x27;s name, ruled with style C</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W7 sits in the top band; you have already ruled it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-on" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W7</text><text class="d-s" x="190" y="70">over the headline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="47" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Already ruled</text><text class="d-s" x="190" y="162">kept word for word</text>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: you ruled this line already.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>W8 · the headline</h2>
+    <p class="pageline">Hours of your time. Weeks of content.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The top of the page, the first screen a visitor sees.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The biggest words on the page: the result, naming neither buyer.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W7, "Your own mini studio" → this → W9, "An engine that understands you better e…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>your voice line 3, its first sentence cut to seven words</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W8 sits in the top band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-on" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W8</text><text class="d-s" x="190" y="70">the headline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="47" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W8">
+      <fieldset>
+        <legend>W8. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W8" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W8" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W8, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It leads with the result, as your scope ruling asks, in seven words.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W8<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W9 · the tagline <span class="ruledmark">already ruled</span></h2>
+    <p class="pageline">An engine that understands you better every month.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The top of the page, the first screen a visitor sees.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Your tagline, under the headline.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W8, "Hours of your time. Weeks of content." → this → W10, "We turn one interview into content that…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>This line stays word for word: you ruled it, so it is shown here and not asked.</dd></div>
+      <div><dt>Comes from</dt><dd>your voice line 1; the tagline ruled with style C</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W9 sits in the top band; you have already ruled it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-on" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W9</text><text class="d-s" x="190" y="70">the tagline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="47" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Already ruled</text><text class="d-s" x="190" y="162">kept word for word</text>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: you ruled this line already.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>W10 · under the tagline</h2>
+    <p class="pageline">We turn one interview into content that sounds like you.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The top of the page, the first screen a visitor sees.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Says in one plain sentence what the headline means.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W9, "An engine that understands you better e…" → this → W11, "Film"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and the top would hold the headline and the tagline only; a visitor who skims would not be told what we actually do.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W10 sits in the top band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-on" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W10</text><text class="d-s" x="190" y="70">under the tagline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="47" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W10">
+      <fieldset>
+        <legend>W10. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W10" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W10" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W10" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, the top would hold the headline and the tagline only; a visitor who skims would not be told what we actually do.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W10, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It is the one sentence that says what we do, in &quot;we&quot; and &quot;you&quot;.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W10<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W11 · heard, not seen</h2>
+    <p class="pageline">Film</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The film space: a 16:9 frame with the rose waveform, until your film drops in.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The name a screen reader says for the film space. It is never shown.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W10, "We turn one interview into content that…" → this → W12, "A space for our film, coming soon."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and a screen reader would still read W12, only without naming the section first.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W11 sits in the film band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-on" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W11</text><text class="d-s" x="190" y="70">heard, not seen</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="69" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W11">
+      <fieldset>
+        <legend>W11. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W11" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W11" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W11" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, a screen reader would still read W12, only without naming the section first.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W11, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> One word, so a blind visitor knows where they are.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W11<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W12 · heard, not seen</h2>
+    <p class="pageline">A space for our film, coming soon.</p>
+    <p class="muted">Redrafted for this sheet. It read: "A 16 by 9 frame. Film coming soon."</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The film space: a 16:9 frame with the rose waveform, until your film drops in.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>What a screen reader says for the film frame, in place of a picture. It is never shown.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W11, "Film" → this → W13, "Film coming soon"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W12 sits in the film band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-on" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W12</text><text class="d-s" x="190" y="70">heard, not seen</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="69" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W12">
+      <fieldset>
+        <legend>W12. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W12" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W12" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W12, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> I redrafted it: the frame&#x27;s shape means nothing to someone listening; &quot;our film&quot; uses your &quot;we&quot;.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W12<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W13 · in the frame</h2>
+    <p class="pageline">Film coming soon</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The film space: a 16:9 frame with the rose waveform, until your film drops in.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The small label in the film frame, until your film drops in.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W12, "A space for our film, coming soon." → this → W14, "How it works"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and the frame would show the waveform alone, which may read as a broken video.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (&quot;Film coming soon&quot;, the placeholder you ruled)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W13 sits in the film band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-on" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W13</text><text class="d-s" x="190" y="70">in the frame</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="69" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W13">
+      <fieldset>
+        <legend>W13. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W13" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W13" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W13" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, the frame would show the waveform alone, which may read as a broken video.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W13, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It tells a visitor the frame is waiting for something, not broken.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W13<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W14 · section label</h2>
+    <p class="pageline">How it works</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The small rose label above the section&#x27;s headline.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W13, "Film coming soon" → this → W15, "Your own mini studio, in three steps."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and the section would open straight on its headline; the label is a signpost, not a claim.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W14 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W14</text><text class="d-s" x="190" y="70">section label</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W14">
+      <fieldset>
+        <legend>W14. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W14" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W14" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W14" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, the section would open straight on its headline; the label is a signpost, not a claim.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W14, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> A plain signpost, three words.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W14<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W15 · section headline</h2>
+    <p class="pageline">Your own mini studio, in three steps.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The headline over the three steps.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W14, "How it works" → this → W16, "1"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted around the ruled &quot;your own mini studio&quot;</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W15 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W15</text><text class="d-s" x="190" y="70">section headline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W15">
+      <fieldset>
+        <legend>W15. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W15" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W15" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W15, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Seven words, the offer&#x27;s name, and a promise the steps keep.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W15<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W16 · step mark</h2>
+    <p class="pageline">1</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The number in the circle on the first step.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W15, "Your own mini studio, in three steps." → this → W17, "An interview goes in."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W16 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W16</text><text class="d-s" x="190" y="70">step mark</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W16">
+      <fieldset>
+        <legend>W16. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W16" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W16" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W16, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It numbers the step; it is true.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W16<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W17 · step heading</h2>
+    <p class="pageline">An interview goes in.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names the first step: what you give.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W16, "1" → this → W18, "You sit down once a month, on camera. W…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted, from the thesis line in the digest of your files (&quot;an interview goes in, weeks of content come out&quot;)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W17 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W17</text><text class="d-s" x="190" y="70">step heading</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W17">
+      <fieldset>
+        <legend>W17. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W17" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W17" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W17, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It is your own thesis line, four words.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W17<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W18 · step text</h2>
+    <p class="pageline">You sit down once a month, on camera. We ask the questions and listen for how you think.</p>
+    <p class="muted">Redrafted for this sheet. It read: "You sit down once, on camera. We ask the questions and listen for how you think."</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Says what the first step asks of you, and what we do in it.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W17, "An interview goes in." → this → W19, "2"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted; &quot;once a month&quot; from the offer in your files (one session on camera in the month)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W18 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W18</text><text class="d-s" x="190" y="70">step text</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W18">
+      <fieldset>
+        <legend>W18. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W18" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W18" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W18, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> I redrafted it: &quot;once&quot; alone read as once ever, while step 3 says each month&#x27;s run gets sharper.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W18<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W19 · step mark</h2>
+    <p class="pageline">2</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The number in the circle on the second step.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W18, "You sit down once a month, on camera. W…" → this → W20, "Weeks of content come out."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W19 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W19</text><text class="d-s" x="190" y="70">step mark</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W19">
+      <fieldset>
+        <legend>W19. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W19" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W19" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W19, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It numbers the step; it is true.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W19<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W20 · step heading</h2>
+    <p class="pageline">Weeks of content come out.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names the second step: what you get.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W19, "2" → this → W21, "We cut a long video, short clips, capti…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>your voice line 2 (&quot;Weeks out&quot;) and the thesis line</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W20 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W20</text><text class="d-s" x="190" y="70">step heading</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W20">
+      <fieldset>
+        <legend>W20. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W20" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W20" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W20, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It mirrors W17 and says the result.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W20<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W21 · step text</h2>
+    <p class="pageline">We cut a long video, short clips, captions and posts, all in your voice.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Lists what comes out, in plain words.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W20, "Weeks of content come out." → this → W22, "3"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted, from the offer in your files (long-form video, short clips, captions, posts)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W21 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W21</text><text class="d-s" x="190" y="70">step text</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W21">
+      <fieldset>
+        <legend>W21. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W21" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W21" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W21, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Only what the offer says we make; &quot;cut&quot; is one of your voice words.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W21<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W22 · step mark</h2>
+    <p class="pageline">3</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The number in the circle on the third step.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W21, "We cut a long video, short clips, capti…" → this → W23, "It gets sharper every month."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W22 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W22</text><text class="d-s" x="190" y="70">step mark</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W22">
+      <fieldset>
+        <legend>W22. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W22" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W22" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W22, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It numbers the step; it is true.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W22<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W23 · step heading</h2>
+    <p class="pageline">It gets sharper every month.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names the third step: why month three beats month one.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W22, "3" → this → W24, "Each run teaches your mini studio more …"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted, from your voice lines 1 and 2 (&quot;Better every month&quot;)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W23 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W23</text><text class="d-s" x="190" y="70">step heading</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W23">
+      <fieldset>
+        <legend>W23. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W23" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W23" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W23, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It carries the tagline&#x27;s promise into the steps.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W23<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W24 · step text</h2>
+    <p class="pageline">Each run teaches your mini studio more about you and your audience. Month three is sharper than month one.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>How it works: three steps in a row.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Says how the third step works.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W23, "It gets sharper every month." → this → W25, "For founders"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted; its second sentence is your voice line 9</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W24 sits in the how it works band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-on" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W24</text><text class="d-s" x="190" y="70">step text</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="91" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W24">
+      <fieldset>
+        <legend>W24. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W24" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W24" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W24, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Its last sentence is yours, word for word.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W24<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W25 · card headline</h2>
+    <p class="pageline">For founders</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The card for founders.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Lets a founder find the part written for them.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W24, "Each run teaches your mini studio more …" → this → W26, "The work is good and the market cannot …"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (your scope ruling: a section for founders)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W25 sits in the for founders band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-on" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W25</text><text class="d-s" x="190" y="70">card headline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="113" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W25">
+      <fieldset>
+        <legend>W25. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W25" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W25" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W25, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Two words; it is the section you ruled.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W25<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W26 · card text</h2>
+    <p class="pageline">The work is good and the market cannot see it. We build you a mini studio of your own, so what you know reaches the people who need it. You talk to the person doing the work.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The card for founders.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names a founder&#x27;s problem and what we do about it.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W25, "For founders" → this → W27, "For organisations"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted from the digest&#x27;s &quot;what hurts&quot;; its last sentence is your voice line 7</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W26 sits in the for founders band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-on" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W26</text><text class="d-s" x="190" y="70">card text</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="113" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W26">
+      <fieldset>
+        <legend>W26. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W26" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W26" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W26, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It opens on the founder&#x27;s pain, as your files put it, and ends on your own line.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W26<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W27 · card headline</h2>
+    <p class="pageline">For organisations</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The card for organisations.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Lets someone inside an organisation find the part written for them.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W26, "The work is good and the market cannot …" → this → W28, "Teams, schools, companies"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (your scope ruling: a section for organisations)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W27 sits in the for organisations band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-on" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W27</text><text class="d-s" x="190" y="70">card headline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="135" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W27">
+      <fieldset>
+        <legend>W27. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W27" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W27" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W27, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Two words; it is the section you ruled.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W27<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W28 · card subtitle</h2>
+    <p class="pageline">Teams, schools, companies</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The card for organisations.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Shows which organisations are meant.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W27, "For organisations" → this → W29, "Your people have stories worth telling …"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and the card would say &quot;organisations&quot; with no examples; a school&#x27;s comms lead might not see themselves in it.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (&quot;teams, schools, companies&quot;)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W28 sits in the for organisations band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-on" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W28</text><text class="d-s" x="190" y="70">card subtitle</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="135" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W28">
+      <fieldset>
+        <legend>W28. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W28" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W28" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W28" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, the card would say &quot;organisations&quot; with no examples; a school&#x27;s comms lead might not see themselves in it.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W28, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It names schools, one of the two routes in your files, without naming any client.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W28<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W29 · card text</h2>
+    <p class="pageline">Your people have stories worth telling and no time to film them. We build your organisation a mini studio instead. You approve everything that ships.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The card for organisations.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Names an organisation&#x27;s problem and what we do about it.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W28, "Teams, schools, companies" → this → W30, "Why trust us"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted, after the partner pitch in your files (&quot;We build your school an engine instead&quot;) and the offer (you approve what ships)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W29 sits in the for organisations band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-on" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W29</text><text class="d-s" x="190" y="70">card text</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="135" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W29">
+      <fieldset>
+        <legend>W29. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W29" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W29" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W29, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Its &quot;instead&quot; answers the first sentence; its last sentence is a promise the offer keeps.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W29<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W30 · heard, not seen</h2>
+    <p class="pageline">Why trust us</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Why trust us: two short lines, only what is true and public.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The name a screen reader says for the trust section. It is never shown.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W29, "Your people have stories worth telling …" → this → W31, "Built by filmmakers. Fifteen years of c…"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and a screen reader would read the two trust lines without naming the section.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief (&quot;why trust us&quot;)</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W30 sits in the why trust us band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-on" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W30</text><text class="d-s" x="190" y="70">heard, not seen</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="157" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W30">
+      <fieldset>
+        <legend>W30. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W30" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W30" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W30" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, a screen reader would read the two trust lines without naming the section.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W30, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Three words, so a blind visitor knows why the next two lines are there.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W30<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W31 · trust line <span class="ruledmark">already ruled</span></h2>
+    <p class="pageline">Built by filmmakers. Fifteen years of craft.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Why trust us: two short lines, only what is true and public.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The first trust line.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W30, "Why trust us" → this → W32, "The last cut is human. Every time."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>This line stays word for word: you ruled it, so it is shown here and not asked.</dd></div>
+      <div><dt>Comes from</dt><dd>your voice line 3; ruled in the brief</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W31 sits in the why trust us band; you have already ruled it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-on" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W31</text><text class="d-s" x="190" y="70">trust line</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="157" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Already ruled</text><text class="d-s" x="190" y="162">kept word for word</text>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: you ruled this line already.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>W32 · trust line <span class="ruledmark">already ruled</span></h2>
+    <p class="pageline">The last cut is human. Every time.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Why trust us: two short lines, only what is true and public.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The second trust line.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W31, "Built by filmmakers. Fifteen years of c…" → this → W33, "Contact"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>This line stays word for word: you ruled it, so it is shown here and not asked.</dd></div>
+      <div><dt>Comes from</dt><dd>your voice line 8; ruled in the brief</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W32 sits in the why trust us band; you have already ruled it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-on" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-band" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W32</text><text class="d-s" x="190" y="70">trust line</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="157" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Already ruled</text><text class="d-s" x="190" y="162">kept word for word</text>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: you ruled this line already.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>W33 · section label</h2>
+    <p class="pageline">Contact</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Contact, at the foot of the page: one email button.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The small rose label above the last headline.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W32, "The last cut is human. Every time." → this → W34, "Start with an email."</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. If c, the line comes off the page, and the section would open on its headline; the label is a signpost.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W33 sits in the contact band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-on" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W33</text><text class="d-s" x="190" y="70">section label</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="179" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a, b or c</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W33">
+      <fieldset>
+        <legend>W33. Keep, change or drop this line</legend>
+        <label class="opt"><input type="radio" name="W33" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W33" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W33" value="c"><span><b>c.</b> Drop it.
+          <dl><dt>Gains</dt><dd>A shorter, quieter page.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Without it, the section would open on its headline; the label is a signpost.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W33, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> One word, a plain signpost.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · If c: the line comes off the page</p>
+      </div>
+      <label class="box">Note for W33<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W34 · contact headline</h2>
+    <p class="pageline">Start with an email.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Contact, at the foot of the page: one email button.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The last headline: the one thing to do next.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W33, "Contact" → this → W35, "Email Rhys"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W34 sits in the contact band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-on" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W34</text><text class="d-s" x="190" y="70">contact headline</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="179" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W34">
+      <fieldset>
+        <legend>W34. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W34" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W34" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W34, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Four words, a plain next step, no pressure.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W34<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W35 · the email button</h2>
+    <p class="pageline">Email Rhys</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Contact, at the foot of the page: one email button.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The big button at the foot of the page; it opens a new email to you.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W34, "Start with an email." → this → W36, "rhys@foundrynorthstudios.co.uk"</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If a, the line stays as it is. If b, your line replaces it on the page and in the words list, after a check against your voice rules. Dropping it is not offered: the page would break without a line here.</dd></div>
+      <div><dt>Comes from</dt><dd>drafted</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W35 sits in the contact band; your letter sets it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-on" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W35</text><text class="d-s" x="190" y="70">the email button</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="179" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Your letter</text><text class="d-s" x="190" y="162">a or b</text>
+        <line class="d-ah" x1="250" y1="122" x2="250" y2="84" marker-end="url(#arh)"/>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: your letter sets the line.</figcaption>
+    </figure>
+    <section class="q" data-q="W35">
+      <fieldset>
+        <legend>W35. Keep or change this line</legend>
+        <label class="opt"><input type="radio" name="W35" value="a"><span><b>a.</b> Keep it as it is.
+          <dl><dt>Gains</dt><dd>Nothing more to do: the line goes live as drafted.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>It is my draft, not your words; if it does not sound like you, a visitor hears that.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="W35" value="b"><span><b>b.</b> Change it to my words: type the line in the box below.
+          <dl><dt>Gains</dt><dd>The line is in your own words.</dd><dt>Costs you</dt><dd>A minute to type it.</dd><dt>Risk</dt><dd>A new line may break a voice rule (a banned word, a dash, a headline over eight words); the next step checks it and tells you before it goes on the page.</dd></dl></span></label>
+      </fieldset>
+      <label class="box">Your line for W35, if b<textarea data-words placeholder="Type the line as it should read on the page"></textarea></label>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Your name tells a visitor a person reads it, which your voice line 7 promises.</p>
+        <p>If a: the line goes live as it is · If b: your line goes onto the page, checked first · No c: the page needs a line here</p>
+      </div>
+      <label class="box">Note for W35<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>W36 · address shown <span class="ruledmark">already ruled</span></h2>
+    <p class="pageline">rhys@foundrynorthstudios.co.uk</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>Contact, at the foot of the page: one email button.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The address, written out for anyone whose phone does not open email links.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>W35, "Email Rhys" → this → the end of the page</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>This line stays word for word: you ruled it, so it is shown here and not asked.</dd></div>
+      <div><dt>Comes from</dt><dd>the brief; your ruling of the facts step, and your report that this mailbox receives</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 204" role="img" aria-label="A miniature of the page; W36 sits in the contact band; you have already ruled it.">
+        <rect class="d-box" x="20" y="8" width="130" height="188" rx="10"/>
+        <rect class="d-band" x="28" y="16" width="114" height="19"/><text class="d-s" x="34" y="30">name, button</text>
+        <rect class="d-band" x="28" y="38" width="114" height="19"/><text class="d-s" x="34" y="52">top</text>
+        <rect class="d-band" x="28" y="60" width="114" height="19"/><text class="d-s" x="34" y="74">film</text>
+        <rect class="d-band" x="28" y="82" width="114" height="19"/><text class="d-s" x="34" y="96">how it works</text>
+        <rect class="d-band" x="28" y="104" width="114" height="19"/><text class="d-s" x="34" y="118">for founders</text>
+        <rect class="d-band" x="28" y="126" width="114" height="19"/><text class="d-s" x="34" y="140">for organisations</text>
+        <rect class="d-band" x="28" y="148" width="114" height="19"/><text class="d-s" x="34" y="162">why trust us</text>
+        <rect class="d-on" x="28" y="170" width="114" height="19"/><text class="d-s" x="34" y="184">contact</text>
+        <rect class="d-box" x="180" y="30" width="140" height="52"/>
+        <text class="d-t" x="190" y="52">W36</text><text class="d-s" x="190" y="70">address shown</text>
+        <line class="d-a" x1="180" y1="62" x2="144" y2="179" marker-end="url(#ar)"/>
+        <rect class="d-his" x="180" y="122" width="140" height="52"/>
+        <text class="d-t" x="190" y="144">Already ruled</text><text class="d-s" x="190" y="162">kept word for word</text>
+        </svg>
+      <figcaption>How to read it: the tall box is your page in miniature, top to bottom; the blue band is where this line sits. Green is your own hand: you ruled this line already.</figcaption>
+    </figure>
+  </section>
+
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it; all of them come back to you at the review.</p>
+    <ul>
+      <li>W18 redrafted: "You sit down once, on camera." now reads "once a month", since step 3 says each month's run gets sharper and your offer is one session on camera in the month. Undo: b on W18 with the old line.</li>
+      <li>W12 redrafted: what a screen reader says for the film frame no longer names its shape ("A 16 by 9 frame"), which means nothing to a listener. Undo: b on W12 with the old line.</li>
+      <li>The step numbers (W16, W19, W22) and the lines a section cannot lose are offered a or b only, with no c. Undo: write "drop" in that line's note.</li>
+      <li>The preview's title and text (W3, W4) are kept the same as the page's title and search text (W1, W2). Undo: b on either with a different line.</li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted">
+      <li>The page: desks/site/public/index.html, as it stands after the link preview was added.</li>
+      <li>The words list: desks/site/docs/words.md (the same lines, numbered the same).</li>
+      <li>Your voice rules: docs/research/2026-10-13-foundry-north-digest.md § 7, with § 1 to § 3 for the thesis line, the offer and what hurts.</li>
+      <li>The ruled lines: docs/brief.md § Design, and docs/decisions.md (the look, "C please"; the email address).</li>
+    </ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="foundry-north-website · words · sheet 1">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters, words and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters, words and notes, to copy by hand"></textarea>
+    <small class="muted">Kept in this browser if the page reloads.</small>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words (the line he types under b) and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+// His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
+// reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+  var key = 'page · ' + back.getAttribute('data-sheet');
+
+  function field(q, sel) { return q.querySelector(sel); }
+  function save() {
+    var kept = {};
+    qs.forEach(function (q) {
+      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+    });
+    try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var kept;
+    try { kept = JSON.parse(window.localStorage.getItem(key) || '{}') || {}; } catch (e) { return; }
+    qs.forEach(function (q) {
+      var k = kept[q.getAttribute('data-q')];
+      if (!k) return;
+      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      if (w && k.words) w.value = k.words;
+      if (t && k.note) t.value = k.note;
+    });
+  }
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var c = q.querySelector('input[type=radio]:checked');
+    var words = q.querySelector('textarea[data-words]');
+    var w = words ? words.value.trim() : '';
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') + (w ? ' · words: ' + w : '') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('section.q input, section.q textarea').forEach(function (el) {
+    el.addEventListener('input', function () { update(); save(); });
+    el.addEventListener('change', function () { update(); save(); });
+  });
+  restore();
+  update();
+})();
+</script>
