@@ -99,7 +99,7 @@ Ruled 15 Oct 2026 (the look: "C please"; the design page `docs/pages/2026-10-15-
 References he named (rulings 3 and 4 of 14 Oct 2026 02:47): https://land-book.com/websites/95602-kvant-executive-search ; https://foundercontentengine.com/
 
 ## The team
-<not ruled yet>
+Ruled 15 Oct 2026 03:36 (his letter "A"). One desk, `desks/site/`: it owns the website's files, its words, and their sending across to the site's own repository, which Cloudflare publishes; its instructions hold his voice rules and style C. The master cuts light and standard cards itself; the desk's conductor writes any full-lane cards.
 
 ## The plan
 <not ruled yet>

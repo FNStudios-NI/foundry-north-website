@@ -114,3 +114,20 @@ His rulings:
 Settled by ruling 1 (the master's call 5 of the facts entry put them inside the styles): the digest's contradictions 1 ("mini studio" against "your engine": "mini studio" on the page), 2 (the accent colour: rose) and 3 (the tagline: "An engine that understands you better every month.").
 - **03:22 — the planning master:** The design page published: docs/pages/2026-10-15-design-sheet-1.html, page and people checks ALLOW, served tailnet-only at /fnw/ by a second detached page server (python3.11 http.server, port 8741, pid 19480; stops by ending that process; path stops with: tailscale serve --bg --set-path /fnw off). 2 questions.
 - **03:26 — Rhys:** The design page answered (pasted): "1: a" (yes, build the page in this order, to style C, by this journey) and "2: b" (the site's files live in a repository of their own, holding only the site; the master had recommended a). No notes. Effects: making that repository joins his acts; how a checked change here reaches it is a plan piece. The design is written into docs/brief.md § Design. The master's six calls on the page (Cloudflare hosting; connect only after approval; the font kept with the site; name in type; rhys@ mailbox; the film as one small change) stand until the plan sign-off. Undo: a new ruling.
+
+## 2026-10-15 03:36 — Discovery step 5, the team, ruled (the planning master)
+Page: no page (talked through in the chat).
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | One desk, `site`: it owns the website's files, its words, and their sending across to the site's own repository; its instructions hold his voice rules and style C. | A — no words added | The site outlives this era (the film, a form, later pages); a desk keeps its rules and history in one place. | A new ruling; the desk folder is removed. |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | `desks/site/` copied from `desks/_desk/` inline (do it or card it), its name filled in and one line on its job added to its `CLAUDE.md`; its contract is filled at the plan. | Mechanical, under ten minutes, nothing that runs. | Delete `desks/site/`. |
+
+Supersedes: none.
