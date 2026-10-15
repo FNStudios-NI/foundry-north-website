@@ -31,7 +31,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:41 · session · worker thread, piece 5 going-live-act, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-going-live-act · mcp:e63c2bc9-9958-4ab3-989a-17b44215af31 · by hand: archive once merged; seat it releases itself · closed 06:51
 - 06:45 · session · checker for piece 5, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-1 · ends with its task; seat it releases itself · closed 06:48
 - 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · closed 06:51
-- 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · open
+- 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · closed 09:31
 - 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
 - 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · closed 07:21
 - 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · closed 07:21
@@ -39,6 +39,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 08:42 · session · worker thread, piece 8 the-film, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-film · mcp:5288a6b9-63bd-4ace-80ec-73fa23f4c179 · by hand: archive once merged; seat it releases itself · closed 08:48
 - 08:45 · session · checker for piece 8, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-1 · ends with its task; seat it releases itself · closed 08:48
 - 09:02 · server · the preview, now a byte-range server (C:\Users\3070s\.foundry-north-website\preview\range_server.py, outside the project) on port 8742, replacing pid 20240 (stopped 08:52) so iPhone Safari can play the film · pid 20284 · taskkill · open
+- 09:31 · session · worker thread, piece 7 logos-in, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logos-in · mcp:9db655c5-88c9-4e4a-98f6-4b3fed4f495d · by hand: archive once merged; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -74,6 +75,7 @@ Work that cannot go on without him, put to him as ways through, each priced in h
 - 06:27 · Closed: rhys@foundrynorthstudios.co.uk receives (his words, via the planning master at 06:26: "it works now the rhys@ . it was my phone not the email address")
 - 06:27 · Cloudflare read: his letter "4a" via the planning master at 06:26, a limited API token (Zone Read, DNS Read, Pages Edit, this zone only), act file docs/operator-acts/2026-10-15-cloudflare-key.txt, key at C:\Users\3070s\.foundry-north-website\cloudflare-token.txt · next: on his "key saved", the master verifies it and reads the two DNS rows and the Pages projects by the API, never printing the key, before piece 5's card
 - 06:41 · Closed: the Cloudflare read, by the planning master at 06:40 through his key (A 217.160.0.70 and AAAA 2001:8d8:100f:f000::25b on the bare address and www, proxied, IONOS; MX and SPF DNS only; no Pages project)
+- 09:36 · his ask: the master does the Cloudflare steps in a private browser window and hands over only for his sign-ins · ways through: a) the master does steps 4 to 9 through the Cloudflare key he already made (Pages Edit; checked at 09:40: active, zone found, no Pages project yet), no browser and nothing saved; he connects GitHub to Cloudflare once (steps 1 to 3, about 3 min, the only part an API cannot do); any of the four old DNS rows to delete is his (the key reads DNS, cannot change it); b) the T3 shared browser tab he can watch, he types his own sign-ins, the master clicks; whether it keeps the sign-in afterwards is not known; c) as written, he does all steps (20 to 30 min) · my recommendation: a
 
 ## Orders
 One line per order, written before any message says "look".
@@ -115,6 +117,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 07:21 · running: nothing · banner moved and landed · waiting on him: logos, his yes to name them, the film and its hosting · next step: drop-in (piece 7's thread mcp:92221dbf… kept), piece 8, then K3 again, K4, K5
 - 08:33 · waiting on him: the film by Tailscale send, and how it plays (header loop or press-play film); the logos by end of day · next step: tailscale file get into C:\Users\3070s\.foundry-north-website\inbox, check size (< 25 MB), then piece 8's card
 - 08:48 · running: nothing · pieces 1 to 8 landed (the film cba2516); the page holds his film and stand-in logos · waiting on him: his logos (by end of day, C:\Users\3070s\.foundry-north-website\logos\) and his yes to name each; his look at the film on a real phone; new lines W12 and W37 for his approval · next step: logo drop-in card (piece 7's thread mcp:92221dbf… kept), send, then K3, K4 (docs/operator-acts/2026-10-15-going-live.txt), K5
+- 09:36 · waiting on him: a, b or c for the Cloudflare steps · running: piece 7 logos-in (mcp:9db655c5…) · next step: land the logos, send, then the Cloudflare steps by his letter
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
