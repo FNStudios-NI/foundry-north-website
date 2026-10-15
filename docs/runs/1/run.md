@@ -32,8 +32,8 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · closed 06:51
 - 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · open
 - 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
-- 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · open
-- 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · open
+- 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · closed 07:21
+- 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · closed 07:21
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -96,6 +96,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 06:52 · waiting on him: K3 (his three grouped answers: film hosting, live now or after the film, anything else) · nothing running · next step as at 06:51
 - 07:05 · running: piece 7 logo-banner (mcp:92221dbf…) · waiting on him: his logos and his film, and where the film is hosted · next step: check and land piece 7; on his logos, a drop-in card; on his film, piece 8's card; then K3 again, K4, K5
 - 07:13 · running: nothing; piece 7's worker thread mcp:92221dbf… kept, not archived, to drop in his real logos when they come · waiting on him: logos (C:\Users\3070s\.foundry-north-website\logos\), his yes that each can be named, the film and its hosting · next step: drop-in, piece 8, then K3 again, K4, K5
+- 07:21 · running: nothing · banner moved and landed · waiting on him: logos, his yes to name them, the film and its hosting · next step: drop-in (piece 7's thread mcp:92221dbf… kept), piece 8, then K3 again, K4, K5
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
