@@ -31,7 +31,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:45 · session · checker for piece 5, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-1 · ends with its task; seat it releases itself · closed 06:48
 - 06:50 · session · checker for piece 5's fix, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-going-live-2 · ends with its task; seat it releases itself · closed 06:51
 - 07:05 · session · worker thread, piece 7 logo-banner, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner · mcp:92221dbf-4190-402d-8cf6-29e32b2ebcc9 · by hand: archive once merged; seat it releases itself · open
-- 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · open
+- 07:10 · session · checker for piece 7, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-logo-banner-1 · ends with its task; seat it releases itself · closed 07:13
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -48,6 +48,7 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 - 06:48 · piece 5 passed its check with three small parked fixes (STEP 12's order, a second cause of a blocked domain, the same-account note) · chose: same-worker fix before landing · turned down: land as is (he follows the file by hand at K4, so a gap costs him) · why: about ten minutes while he is at K3 anyway
 - 06:52 · where his film is hosted (his question: "frame.io?") · recommended: the film file kept in the site's own folder on Cloudflare Pages if it fits the 25 MB per-file limit (from memory, not checked today), else Cloudflare Stream in his account (paid, from memory about $5 per 1,000 minutes stored and $1 per 1,000 watched) · turned down: Frame.io (a review tool, not a public player), YouTube (ads, suggestions, tracking), Vimeo (a paid plan to drop its branding) · his to choose
 - 07:04 · his two additions before going live (logos banner, the film): taken as his ruling adding pieces 7 and 8 to this run, recorded in docs/decisions.md · chose: build the banner now with plain stand-in marks (no real name or logo until he sends his), inside the trust section, with a reduced-motion fallback · turned down: wait for his logos before building (idle time), put the banner as a new section between others (changes his ruled order) · why: he asked for it built while he collects them
+- 07:13 · the banner's soft fade at both edges (not named in the card) · chose: keep it · turned down: strip it as drift · why: it hides the loop's edge and is how such strips read; cosmetic, one CSS rule to undo
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
@@ -90,6 +91,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 06:51 · running: nothing · merges done: the six pieces' work landed (the-page, search-preview, send-site + fix, live-check, words, going-live-act 7141be2), each with its undo under Merges; foundry-north-site holds 2c09273 · open key points: K3 (asked, waiting), K4, K5 · next step: on his K3 a, open docs/operator-acts/2026-10-15-going-live.txt for him (K4); on his last step, run python tools/live_check.py and show him (K5); then the review
 - 06:52 · waiting on him: K3 (his three grouped answers: film hosting, live now or after the film, anything else) · nothing running · next step as at 06:51
 - 07:05 · running: piece 7 logo-banner (mcp:92221dbf…) · waiting on him: his logos and his film, and where the film is hosted · next step: check and land piece 7; on his logos, a drop-in card; on his film, piece 8's card; then K3 again, K4, K5
+- 07:13 · running: nothing; piece 7's worker thread mcp:92221dbf… kept, not archived, to drop in his real logos when they come · waiting on him: logos (C:\Users\3070s\.foundry-north-website\logos\), his yes that each can be named, the film and its hosting · next step: drop-in, piece 8, then K3 again, K4, K5
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
