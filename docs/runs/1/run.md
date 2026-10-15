@@ -25,6 +25,8 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 
 ## Blockers
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
+- 06:21 · Not yet blocking (needed before K3): rhys@foundrynorthstudios.co.uk not proven to receive; MX reads mx.zoho.eu/mx2/mx3 at 06:22, so the domain points at Zoho. Ways through: a) he sends from his Gmail to rhys@ and reads any bounce, about 3 min (or the master sends it via the Gmail connector on his yes, 0 min of his); b) he checks rhys@ exists and is active in Zoho Mail admin, about 5 min; c) he names another address that receives, 0 min, off-brand · my recommendation: a, then b if a bounces
+- 06:21 · Not yet blocking (needed before piece 5's act file): the Cloudflare DNS rows for the bare address and www, and Workers & Pages, not read · way through: his laptop prompt in https://claude.ai/code/artifact/fbea4d5b-13a0-4575-8328-6271c1184da6, about 10 min · my recommendation: whenever he is at the laptop
 
 ## Orders
 One line per order, written before any message says "look".
@@ -38,9 +40,11 @@ One line per card, at the review: its done-when line tried, pass or fail. `measu
 
 ## Next run's list
 New ideas that come up mid-run go here, not into this run, unless they are a blocker.
+- 06:21 · A browser he logs into that the master can use for reads like Zoho and Cloudflare · his question at 06:17; changing what an agent may do is his, so it is a plan item, not a mid-run act
 
 ## Handover
 Written before the context fills, at a quiet moment, never in the middle of a merge.
+- 06:21 · running: piece 1 the-page (mcp:02ea4f18…, branch task/foundry-north-website/2026-10-15-the-page), piece 4 send-site (mcp:493e4a57…, branch task/foundry-north-website/2026-10-15-send-site) · merges done: none · open key points: none reached · next step: on each worker's end line, a Sonnet checker by delegate_task, then land.py; piece 1's landing also tries the undo with him reachable, then serves the page to his phone (K1 b)
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
