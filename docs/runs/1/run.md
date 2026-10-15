@@ -110,6 +110,7 @@ One line per merge into the try-it build, with its undo.
 - 09:41 · Third send: SENT: 8371d4c from 3559355 to foundry-north-site (his film and his 18 logos); the first try refused on a passing stale index flag on index.html right after the landing, clean on the next read · undo: a send of the earlier state
 - 09:52 · Cloudflare (his letter a, through his key): Pages project foundry-north-site created from FNStudios-NI/foundry-north-site, branch main, no build, output the top folder; first deployment success; https://foundry-north-site.pages.dev answers 200 with the page, film 200 (24,052,230 bytes), logos and fonts 200 · undo: delete the Pages project (his, in the dashboard)
 - 09:53 · Cloudflare: custom domains www.foundrynorthstudios.co.uk and foundrynorthstudios.co.uk added to the Pages project through his key; both read pending, "CNAME record not set" (a domain added by the API does not get its DNS row made for it, and the key cannot write DNS); the four old A/AAAA rows (IONOS) still answer, so nothing has changed for visitors yet · undo: remove the two custom domains
+- 10:03 · 2026-10-15-the-film-swap · squash fbccfa3 · undo: `git revert fbccfa3`
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
