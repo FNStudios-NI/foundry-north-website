@@ -55,6 +55,7 @@ One line per key point in the signed plan, with his letter, and what happened wh
 - 09:30 · K3 the whole page approved for going live · a · his words: "lets get this live and i'll test it for real", with his logos sent; approved for the page with his logos in place of the stand-ins
 - 09:44 · K4 his Cloudflare steps · a · his letter "a": he connects GitHub (walked through in the chat); the master does the rest through his key, each act told to him
 - 09:56 · his look at the pages.dev site: "i want to change the vide slightly but other wise pass" · read at 09:56: the four old rows are still in DNS (his DNS step not yet done), both custom domains pending · asked him: go live now and swap the film after (a send redeploys by itself), or wait for the new film
+- 10:11 · K5 the live check's result · b · told him and showed him: python tools/live_check.py → LIVE: PASS (both addresses 200 with the page, link preview reads, MX, SPF, portal. 200 and pick. 404 as on 14 Oct); his new film answers 200 at the live address (25,959,232 bytes); both custom domains active at 10:11
 
 ## Unforeseen key points
 One line per key point nobody saw coming: what was chosen, the options turned down, and why. The review lays each one out.
@@ -113,6 +114,8 @@ One line per merge into the try-it build, with its undo.
 - 09:53 · Cloudflare: custom domains www.foundrynorthstudios.co.uk and foundrynorthstudios.co.uk added to the Pages project through his key; both read pending, "CNAME record not set" (a domain added by the API does not get its DNS row made for it, and the key cannot write DNS); the four old A/AAAA rows (IONOS) still answer, so nothing has changed for visitors yet · undo: remove the two custom domains
 - 10:03 · 2026-10-15-the-film-swap · squash fbccfa3 · undo: `git revert fbccfa3`
 - 10:04 · Fourth send: SENT: 2a416d3 from 8839556 to foundry-north-site (his new film); Cloudflare redeploys pages.dev from it · undo: a send of the earlier state
+- 10:08 · DNS (his key, his word of 10:08): deleted A and AAAA rows of foundrynorthstudios.co.uk and www (217.160.0.70, 2001:8d8:100f:f000::25b); added CNAME foundrynorthstudios.co.uk and CNAME www → foundry-north-site.pages.dev, proxied; no other row touched · undo: delete the two CNAMEs and re-add the four rows, proxied
+- 10:11 · LIVE at 10:11: https://foundrynorthstudios.co.uk and https://www.foundrynorthstudios.co.uk serve the page from Cloudflare Pages · undo: the DNS undo above (the error page returns)
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
