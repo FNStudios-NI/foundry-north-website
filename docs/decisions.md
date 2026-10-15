@@ -131,3 +131,6 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 | 1 | `desks/site/` copied from `desks/_desk/` inline (do it or card it), its name filled in and one line on its job added to its `CLAUDE.md`; its contract is filled at the plan. | Mechanical, under ten minutes, nothing that runs. | Delete `desks/site/`. |
 
 Supersedes: none.
+
+## 2026-10-15 03:40 — Discovery step 6, the plan page published (the planning master)
+- **03:40 — the planning master:** The plan page docs/pages/2026-10-15-plan-sheet-1.html published at /fnw/, page, people and plan checks ALLOW. Six pieces (dashed in docs/brief.md § The plan), 3 questions: the path, his letters for K1 to K5, the signature and start. Week read 18% used at 03:37 (five-hour window 6%), resets 19 Oct 21:00 UTC. The ❓ of the Cloudflare address is offered as a known risk (piece 5), tried with him at the sitting.
