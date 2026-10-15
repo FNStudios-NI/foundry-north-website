@@ -1,0 +1,593 @@
+<meta charset="utf-8">
+<title>foundry-north-website · plan · sheet 1</title>
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+/* The read-back bar sits at the bottom; a box being typed in scrolls clear of it. */
+:root { scroll-padding-bottom: 10rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 12px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+/* Phone width: the letters sit beside the button, and the bar is never more than a fifth of the screen;
+   anything below them (the copy-by-hand box) scrolls inside the bar. */
+@media (max-width: 34rem) {
+  .readback { box-sizing: border-box; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); max-height: 20vh; max-height: 20dvh; overflow-y: auto; }
+  .readback button { padding: 10px 12px; max-width: 9rem; }
+  .readback > .fallback, .readback > small { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>foundry-north-website</div>
+      <div><b>Stage</b>Plan · 6 of 6 · about 12 minutes · 3 questions</div>
+      <div><b>Sheet</b>1, its own link</div>
+    </div>
+    <h1>The plan: from here to your site live at your address</h1>
+    <p>Six pieces of work, your acts with their minutes, where you want to be stopped, and the budget. Your signature on this page lets the build run without you, stopping only where you choose.</p>
+  </header>
+
+  <section class="back stack">
+    <h2>What I took from your messages</h2>
+    <ul>
+      <li>The team: one desk, "site" (your "A"). It holds the site's files, words and rules; it is made.</li>
+      <li>The design: built in the order drawn, to style C (your "1: a").</li>
+      <li>The site's files live in a repository of their own (your "2: b"). Making it is your act below; sending each checked change across to it is piece 5.</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <section class="stack">
+    <h2>How the run goes</h2>
+    <p class="likeness"><b>Think of it as</b> a shoot day with a call sheet: the crew works through the list, and stops only at the moments you marked to be called in. The <b>run</b> is the build, done by agents after you sign; a <b>key point</b> is one of those moments.</p>
+    <figure>
+      <svg viewBox="0 0 340 500" role="img" aria-label="You sign; the page, the words and the search basics are built; you approve the words and the page on the preview; the send-across tool puts the site in its own repository; you connect Cloudflare and switch the address; the live check confirms it.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">You sign, then a short sitting</text><text class="d-s" x="34" y="50">the site's repository, a test email</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">go</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Pieces 1 to 3 built</text><text class="d-s" x="34" y="134">the page, the words, search basics</text>
+        <line class="d-a" x1="170" y1="146" x2="170" y2="176" marker-end="url(#ar)"/><text class="d-l" x="180" y="166">preview link</text>
+        <rect class="d-his" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">You approve</text><text class="d-s" x="34" y="218">the words line by line, then the page</text>
+        <line class="d-a" x1="170" y1="230" x2="170" y2="260" marker-end="url(#ar)"/><text class="d-l" x="180" y="250">approved</text>
+        <rect class="d-box" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Pieces 4 and 5</text><text class="d-s" x="34" y="302">sent to its repository; your act file</text>
+        <line class="d-ah" x1="170" y1="314" x2="170" y2="344" marker-end="url(#arh)"/><text class="d-l" x="180" y="334">your clicks</text>
+        <rect class="d-his" x="20" y="346" width="300" height="52"/>
+        <text class="d-t" x="34" y="368">You connect and switch</text><text class="d-s" x="34" y="386">in Cloudflare, by the act file</text>
+        <line class="d-a" x1="170" y1="398" x2="170" y2="428" marker-end="url(#ar)"/><text class="d-l" x="180" y="418">public</text>
+        <rect class="d-out" x="20" y="430" width="300" height="52"/>
+        <text class="d-t" x="34" y="452">Piece 6: the live check</text><text class="d-s" x="34" y="470">your address answers; email untouched</text>
+      </svg>
+      <figcaption>How to read it: grey is done for you, green is your own hand, the dashed step looks at the public internet from outside.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>Which path</h2>
+    <p>Three ways to spend your time, each priced the same way: the same agents, at most four at a time, the same checks. Hours of building are agents' hours, not yours.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The whole era: how much of it runs now.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Your time is the scarcest thing; each path buys a different result for it.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your scope and design → the path → what the run builds, and what is left for later.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If all of it, the error page is replaced this era. If a first slice, the site is finished but the error stays until the going-live step. If the small version, the words go up as drafted, without your line-by-line pass.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 200" role="img" aria-label="Three paths compared on a line of your hours: the small version about half an hour, the first slice about one hour, all of it about one and a half hours.">
+        <line class="d-a" x1="20" y1="170" x2="320" y2="170"/>
+        <text class="d-l" x="20" y="190">0 h</text><text class="d-l" x="300" y="190">2 h</text>
+        <rect class="d-box" x="20" y="14" width="80" height="40"/><text class="d-t" x="28" y="32">Small</text><text class="d-s" x="28" y="48">~½ h of yours</text>
+        <rect class="d-box" x="20" y="64" width="150" height="40"/><text class="d-t" x="28" y="82">First slice</text><text class="d-s" x="28" y="98">~1 h, not live</text>
+        <rect class="d-his" x="20" y="114" width="225" height="40"/><text class="d-t" x="28" y="132">All of it</text><text class="d-s" x="28" y="148">~1½ h, live</text>
+      </svg>
+      <figcaption>How to read it: each bar's length is your own time; green marks the recommended path.</figcaption>
+    </figure>
+    <section class="q" data-q="1">
+      <fieldset>
+        <legend>1. Which path?</legend>
+        <label class="opt"><input type="radio" name="q1" value="a"><span><b>a.</b> All of it: pieces 1 to 6, live at your address.
+          <dl><dt>Gains</dt><dd>The problem is fixed: the error page is replaced by your site.</dd><dt>Costs you</dt><dd>About 1½ hours, spread over the day, at the moments below; about 10% of your week's allowance; about 5 hours of agents' running time.</dd><dt>Risk</dt><dd>One part untried until your sitting: whether Cloudflare hands over the bare address without first asking you to remove two old records (see piece 5).</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span><b>b.</b> A first slice: pieces 1 to 3, on the private preview only.
+          <dl><dt>Gains</dt><dd>The finished site to look at, with no change to your domain this run.</dd><dt>Costs you</dt><dd>About 1 hour; about 6% of your week; about 3 running hours.</dd><dt>Risk</dt><dd>The error page stays; going live becomes a second run.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="c"><span><b>c.</b> The small version first: all six pieces, the words as drafted, no line-by-line pass.
+          <dl><dt>Gains</dt><dd>Live sooner, with less of your time.</dd><dt>Costs you</dt><dd>About ½ hour; about 9% of your week; about 4½ running hours.</dd><dt>Risk</dt><dd>Words you have not read go public under your name.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> It is your scope as ruled, and your line-by-line read of the words is what keeps "nothing faked" true.</p>
+        <p>If a: the run goes to your address, stopping at your marks · If b: it stops at the preview, and going live is the next plan · If c: your words pass is skipped and the page goes live once you approve it as a whole.</p>
+      </div>
+      <label class="box">Note for question 1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="stack">
+    <h2>The pieces</h2>
+    <p class="muted">Each piece carries a mark: ✅ proven (seen working on your machines), 📄 documented (the tool's own documentation), ⚠ known risk (untried, with what happens if it fails). Nothing on this plan is a plain guess. Each has a lane: <b>light</b> (a Sonnet helper, then the scripts), <b>standard</b> (a worker, a Sonnet inspector, then the scripts) or <b>full</b> (an Opus worker, a fresh Opus checker, then the scripts).</p>
+  </section>
+
+  <section class="item stack" data-piece="1" data-mark="proven" data-lane="standard" data-touches="desks/site/public/">
+    <h2>Piece 1 · The page, built to style C</h2>
+    <p>The one scrolling page in the order you ruled, to the Rose look, phone first, with the film space built in and the free font kept with the site.</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>✅ proven: a static page served to your phone from this machine worked today (the look); the font downloads (checked today).</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>The website, in the site desk's public folder.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>There is no page; the address shows an error.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The look (style C) and the design → this page → the words (piece 2) fill it; the preview shows it.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If it is built to the look with the film space in place, your film later drops in with no other change.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>standard: an Opus worker, a Sonnet inspector, then the scripts. Kind: screen.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 2.5% of your week. Size: medium. None of your time until the preview.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="The look and the design feed the page, which the preview shows you.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Style C and the design</text><text class="d-s" x="34" y="50">what you chose and ruled</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">built to</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The page</text><text class="d-s" x="34" y="134">phone first, film space, local font</text>
+      </svg>
+      <figcaption>How to read it: grey steps are done for you.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack" data-piece="2" data-mark="proven" data-lane="standard" data-touches="desks/site/public/ desks/site/docs/words.md docs/pages/">
+    <h2>Piece 2 · The words, for your line-by-line approval</h2>
+    <p>Every line on the page drafted from your voice rules and your July words, then put to you on a sheet: each line with keep, change, or your own words.</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>✅ proven: sheets with letters, notes and the copy button reached your phone and came back today (the design sheet).</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>The website's words.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Words you have not read would go public under your name.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your voice rules → the drafted lines → your sheet → the page (piece 1).</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If you change a line, the change lands before anything is public; nothing is published that you did not pass.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>standard: a worker, a Sonnet inspector that checks each line against your banned words and the "nothing faked" rule, then the scripts. Kind: document.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 1.5% of your week. Size: small. About 30 minutes of yours.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Drafted lines go to your sheet; your approved lines go on the page.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Drafted lines</text><text class="d-s" x="34" y="50">from your voice rules</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">you pass each</text>
+        <rect class="d-his" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Your words sheet</text><text class="d-s" x="34" y="134">keep, change, or your own</text>
+      </svg>
+      <figcaption>How to read it: green is your own hand.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack" data-piece="3" data-mark="documented" data-lane="light" data-touches="desks/site/public/">
+    <h2>Piece 3 · Search basics and the link preview</h2>
+    <p>The page's title and description for search, and the picture and line that show when the link is pasted into LinkedIn, WhatsApp or an email.</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>📄 documented: the link-preview tags are the Open Graph standard (ogp.me), read by LinkedIn and WhatsApp; seen working only once the site is public (piece 6 checks it).</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>The website's head: what search and shared links show.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>An outreach link that shows a bare address looks unfinished before anyone clicks.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The page (piece 1) → these tags and one picture → your outreach links.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If the preview shows a proper title and picture, more of the people you contact click through.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>light: a Sonnet helper, then the scripts. Kind: screen.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 0.5% of your week. Size: small. None of your time.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="The page's tags make the preview that appears when you share the link.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Title, line, picture</text><text class="d-s" x="34" y="50">in the page's head</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">shared link</text>
+        <rect class="d-out" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">LinkedIn, WhatsApp, email</text><text class="d-s" x="34" y="134">show a proper preview</text>
+      </svg>
+      <figcaption>How to read it: the dashed box is outside the system.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack" data-piece="4" data-mark="proven" data-lane="standard" data-touches="tools/send_site.py desks/site/docs/contract.md">
+    <h2>Piece 4 · The send-across to the site's own repository</h2>
+    <p>A small tool that copies the checked public folder, and only that folder, into the site's own repository and pushes it, so Cloudflare sees the site and nothing else (your "2: b").</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>✅ proven: pushing from this machine to a repository on your GitHub account worked today (this project's record). The site's repository does not exist yet: asked today, GitHub answered "Repository not found", as expected until you make it.</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>Between this project and the site's repository.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Without it, each change to the site would be copied across by hand.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The checked page (pieces 1 to 3) → this tool → the site's repository → Cloudflare.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If only the public folder crosses, nothing private can reach Cloudflare. Later changes (your film) reach your address in one step.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>standard: an Opus worker, a Sonnet inspector, then the scripts (never light: it is a tool). Kind: tool.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 1.5% of your week. Size: small. None of your time.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="The public folder is copied to the site's repository; the private record stays behind.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">This project</text><text class="d-s" x="34" y="50">the record, and the public folder</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">the tool</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Copies the public folder</text><text class="d-s" x="34" y="134">nothing else crosses</text>
+        <line class="d-a" x1="120" y1="146" x2="90" y2="176" marker-end="url(#ar)"/>
+        <line class="d-a" x1="220" y1="146" x2="250" y2="176" marker-end="url(#ar)"/><text class="d-l" x="170" y="170" text-anchor="middle">effect</text>
+        <rect class="d-out" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">Site repository</text><text class="d-s" x="30" y="218">Cloudflare reads it</text>
+        <rect class="d-box" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">The record</text><text class="d-s" x="190" y="218">stays private</text>
+      </svg>
+      <figcaption>How to read it: the dashed box is outside this project.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack" data-piece="5" data-mark="risk" data-lane="standard" data-touches="docs/operator-acts/">
+    <h2>Piece 5 · Your going-live act file</h2>
+    <p>Your Cloudflare steps written as an act file like the repository one: connect Cloudflare's hosting to the site's repository, then add your bare address and www to it. Each step with its Pass line. It is built and checked as a piece, never written by me.</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>⚠ known risk. Documented: Cloudflare adds the address's record by itself when the domain is already in your account (developers.cloudflare.com, Pages custom domains). Not documented: what it does with the two old records now pointing the bare address and www at the error. It cannot be tried without your Cloudflare sign-in. If it fails: Cloudflare refuses the address or the error persists; the act file's fallback step has you delete those two old records (about 2 minutes), never the email or portal ones, and add the address again. Tried first with you watching at the sign-off sitting, not on launch day.</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>Going live: your hands in Cloudflare.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Without exact steps, a dashboard change near your email and portal is done from memory.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The site's repository (piece 4) → your clicks by this file → your address shows the site → the live check (piece 6).</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If each step has a Pass line, you can see at once if anything differs, and stop. If the old records need removing, only those two go.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>standard: a worker, a Sonnet inspector that checks every step against Cloudflare's documentation, then the scripts. Kind: document.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 1% of your week. Size: small. About 20 to 30 minutes of yours, when you follow it.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 240" role="img" aria-label="Your clicks connect Cloudflare and add the address; if Cloudflare refuses, the fallback removes the two old records and tries again.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">You connect, add the address</text><text class="d-s" x="34" y="50">by the act file, step by step</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">your clicks</text>
+        <rect class="d-out" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Cloudflare</text><text class="d-s" x="34" y="134">takes the bare address and www</text>
+        <line class="d-a" x1="120" y1="146" x2="90" y2="176" marker-end="url(#ar)"/>
+        <line class="d-ah" x1="220" y1="146" x2="250" y2="176" marker-end="url(#arh)"/><text class="d-l" x="170" y="170" text-anchor="middle">or refuses</text>
+        <rect class="d-out" x="20" y="178" width="140" height="52"/>
+        <text class="d-t" x="30" y="200">Your site, live</text><text class="d-s" x="30" y="218">the error is gone</text>
+        <rect class="d-his" x="180" y="178" width="140" height="52"/>
+        <text class="d-t" x="190" y="200">Fallback</text><text class="d-s" x="190" y="218">remove 2 old records</text>
+      </svg>
+      <figcaption>How to read it: green is your own hand; dashed is Cloudflare, outside the system.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack" data-piece="6" data-mark="proven" data-lane="standard" data-touches="tools/live_check.py">
+    <h2>Piece 6 · The live check</h2>
+    <p>A small tool run after your switch: your bare address and www answer with your page, the link preview reads correctly, and your email records and the portal answer exactly as they did before.</p>
+    <dl class="parts">
+      <div data-part="mark"><dt>Mark</dt><dd>✅ proven: the same lookups (the domain's records, each address's answer) were run from this machine today and gave clear results.</dd></div>
+      <div data-part="area"><dt>Area</dt><dd>Going live: proof from outside.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>"It looks fine on my phone" is not proof that email and the portal were left alone.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your switch (piece 5) → this check → the run's review.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If anything answers differently from today's reading, you are told at once, with what changed.</dd></div>
+      <div data-part="lane"><dt>Lane</dt><dd>standard: an Opus worker, a Sonnet inspector, then the scripts (a tool). Kind: tool.</dd></div>
+      <div data-part="cost"><dt>Cost</dt><dd>About 1% of your week. Size: small. None of your time.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="The check reads your address, email records and portal from outside and compares them with today's reading.">
+        <rect class="d-out" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your address, email, portal</text><text class="d-s" x="34" y="50">read from outside</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">compared</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Against today's reading</text><text class="d-s" x="34" y="134">any difference is named</text>
+      </svg>
+      <figcaption>How to read it: dashed is the public internet, outside the system.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stack">
+    <h2>How big each piece is</h2>
+    <p class="muted">A build hour is one agent working for an hour. The biggest unknown is piece 5's two old records. Calendar time: at most three agents beside me. Pieces 1, 3 and 2 share the page's folder, so they run one after another, in that order; pieces 4, 5 and 6 run beside them.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Piece</th><th>Size</th><th>Build hours</th><th>Your hours</th></tr></thead>
+        <tbody>
+          <tr><td>1 The page</td><td>M</td><td>1½</td><td>0</td></tr>
+          <tr><td>2 The words</td><td>S</td><td>1</td><td>½</td></tr>
+          <tr><td>3 Search basics</td><td>S</td><td>½</td><td>0</td></tr>
+          <tr><td>4 The send-across</td><td>S</td><td>1</td><td>0</td></tr>
+          <tr><td>5 Your act file</td><td>S</td><td>½</td><td>½ (following it)</td></tr>
+          <tr><td>6 The live check</td><td>S</td><td>½</td><td>0</td></tr>
+          <tr><td>The sitting, and approving the page</td><td></td><td>0</td><td>½</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td></td><td>5</td><td>1½</td></tr></tfoot>
+      </table>
+    </div>
+    <p>Run side by side, about 3 hours of running time, plus the time the run waits on you at your stops. Dates rest on when you sign: signed today, 15 Oct, it can be live today if you are free at your stops.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Budget and hard stop</h2>
+    <dl class="parts">
+      <div data-budget><dt>Budget</dt><dd>10% of your week, the plan's own estimate. Your week read 18% used at 03:37 today, and resets on 19 Oct. When the budget is spent, the piece in hand finishes and nothing new starts.</dd></div>
+      <div data-hard-stop><dt>Hard stop</dt><dd>The planned end plus 50%: about 4½ running hours from go, not counting time waiting on you.</dd></div>
+    </dl>
+    <p class="muted">These are the defaults. To change either, write the new number in a note when you sign; otherwise they stand.</p>
+  </section>
+
+  <section class="stack">
+    <h2>Tried before you sign</h2>
+    <dl class="parts" data-acts-tried>
+      <div><dt>The permission probe</dt><dd>This session runs with full access. Commit and push: done many times today ✅. Run the check tools: page and people checks ran today ✅. Serve a private page to your phone: done today ✅. Start a worker in its own copy (T3's thread launch): available to this session, not yet used in this project; tried at the sitting. Land a checked piece (the landing tool): present and answers; first used on piece 1. Undo a landed piece: a plain reverse commit, tried at the sitting.</dd></div>
+      <div><dt>Your own acts</dt><dd>Make the site's repository: the same reminder form you followed for this project's repository today, which worked ✅; GitHub answers "Repository not found" for it now, as it should until it is made. The test email: sent by you at the sitting; your domain's mail is Zoho, read today ✅. Connecting Cloudflare and adding the address: ⚠ piece 5, untried without your sign-in, tried with you at the sitting.</dd></div>
+    </dl>
+  </section>
+
+  <section class="item stack">
+    <h2>Your key points</h2>
+    <p>The moments where the run would want you. For each: <b>a</b> stop there and wait for me · <b>b</b> tell me and show me on my phone, but carry on · <b>c</b> power through. My suggested letter is after each; question 2 asks for yours.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The run, after your signature.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>You choose your stops in advance instead of watching every step.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your letters → the signed plan → where the run stops or tells you.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>An <b>a</b> pauses the run there until you answer; a <b>b</b> sends you a link and carries on; a <b>c</b> carries on silently.</dd></div>
+    </dl>
+    <ul>
+      <li><b>K1</b> · the page first on the preview, before the words pass · suggested <b>b</b></li>
+      <li><b>K2</b> · the words sheet, line by line · suggested <b>a</b> (it is your words)</li>
+      <li><b>K3</b> · the whole page approved for going live · suggested <b>a</b></li>
+      <li><b>K4</b> · your Cloudflare steps · <b>a</b> (only your hands can do it)</li>
+      <li><b>K5</b> · the live check's result · suggested <b>b</b></li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Your letters set which moments stop the run and which only tell you.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your letters</text><text class="d-s" x="34" y="50">a, b or c for each key point</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">set</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Where the run stops</text><text class="d-s" x="34" y="134">or only tells you</text>
+      </svg>
+      <figcaption>How to read it: your words, in green, cause what the arrow points to.</figcaption>
+    </figure>
+    <section class="q" data-q="2">
+      <h3>2. Your letters for K1 to K5</h3>
+      <label class="box">Your words<textarea data-words placeholder="For example: K1 b, K2 a, K3 a, K4 a, K5 b (or 'as suggested')"></textarea></label>
+      <label class="box">Note for question 2<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>Your signature, and when it starts</h2>
+    <p>Agents at once: four at most, me included, as your cap. Your acts, in one list (approve all, or note any you want changed):</p>
+    <ul>
+      <li>At the sitting, right after you sign: make the site's repository (about 2 minutes, from a reminder file) · send one test email to rhys@foundrynorthstudios.co.uk from your phone and say it arrived (about 3 minutes) · watch the first worker start and the first landing and undo (about 10 minutes).</li>
+      <li>During the run: the words sheet (about 30 minutes) · the page on the preview (about 10 minutes) · the Cloudflare steps by the act file (about 20 to 30 minutes).</li>
+    </ul>
+    <p>The calls I've made through discovery, for you to confirm or undo now: Cloudflare's free hosting in your account · Cloudflare connected only after you approve the page · the font kept with the site, not loaded from Google · your name set in type until the logo comes · rhys@foundrynorthstudios.co.uk as the address · your film as one small change on your word · the site's public folder is the only part of this project that may be public.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The whole run.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Your signature is the approval for everything above and nothing else, so the run can go on without you.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your signature → the sitting → a fresh master runs the plan → your stops → the review.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If now: the sitting starts in this thread at once, then a fresh master takes the run. If tracks: the plan waits for the machine to have room, which for this small run is no different, so now is simpler.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Your signature starts the sitting, then the run.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">You sign</text><text class="d-s" x="34" y="50">path, stops, start, calls</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">starts</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The sitting, then the run</text><text class="d-s" x="34" y="134">a fresh master takes over</text>
+      </svg>
+      <figcaption>How to read it: green is your own hand.</figcaption>
+    </figure>
+    <section class="q" data-q="3">
+      <fieldset>
+        <legend>3. Do you sign, and when does it start?</legend>
+        <label class="opt"><input type="radio" name="q3" value="a"><span><b>a.</b> Sign, start now, approve all your acts and my calls.
+          <dl><dt>Gains</dt><dd>The sitting begins straight away; live today if you are free at your stops.</dd><dt>Costs you</dt><dd>About 15 minutes now for the sitting.</dd><dt>Risk</dt><dd>Only piece 5's, tried with you at the sitting.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q3" value="b"><span><b>b.</b> Sign, put it on the tracks: start when the machine has room, approve all.
+          <dl><dt>Gains</dt><dd>Nothing to do this minute.</dd><dt>Costs you</dt><dd>The same 15 minutes, later, when the sitting comes due.</dd><dt>Risk</dt><dd>The run cannot start until the sitting is held with you, so it waits on you either way.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q3" value="c"><span><b>c.</b> Not yet: change something first (say what in the note).
+          <dl><dt>Gains</dt><dd>The plan changes before anything runs.</dd><dt>Costs you</dt><dd>One more round on this page.</dd><dt>Risk</dt><dd>None beyond the time.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> The sitting needs you either way, and the run is small enough to finish today.</p>
+        <p>If a: the sitting starts here at once · If b: the plan waits for room, then the sitting · If c: I redo the plan to your note.</p>
+      </div>
+      <label class="box">Note for question 3 (a new budget or hard stop goes here too)<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it; your signature in question 3 confirms or undoes them.</p>
+    <ul>
+      <li>The site's public folder sits inside the site desk, and is named in the brief as the one part of this project that may be public. Undo: name another place.</li>
+      <li>The private preview runs from this machine for the length of the run, on your own network only, and stops at the run's end. Undo: none needed.</li>
+      <li>The site's repository is called foundry-north-site, private until going live, since Cloudflare reads private repositories. Undo: give it another name in your note.</li>
+    </ul>
+  </section>
+
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted">
+      <li>The brief: problem, scope, facts, design and team as you ruled them on 14 and 15 Oct.</li>
+      <li>The decisions record: every ruling and call of discovery.</li>
+      <li>Today's readings on this machine: the domain's records and answers, the private network, the week's allowance (18% used at 03:37), the free font, GitHub's answer for the site's repository.</li>
+      <li>Cloudflare's documentation on custom domains for its hosting; the Open Graph standard for link previews.</li>
+    </ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="foundry-north-website · plan · sheet 1">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters and notes, to copy by hand"></textarea>
+    <small class="muted">Kept in this browser if the page reloads.</small>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+// His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
+// reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+  var key = 'page · ' + back.getAttribute('data-sheet');
+
+  function field(q, sel) { return q.querySelector(sel); }
+  function save() {
+    var kept = {};
+    qs.forEach(function (q) {
+      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+    });
+    try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var kept;
+    try { kept = JSON.parse(window.localStorage.getItem(key) || '{}') || {}; } catch (e) { return; }
+    qs.forEach(function (q) {
+      var k = kept[q.getAttribute('data-q')];
+      if (!k) return;
+      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      if (w && k.words) w.value = k.words;
+      if (t && k.note) t.value = k.note;
+    });
+  }
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var words = q.querySelector('textarea[data-words]');
+    if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
+    var c = q.querySelector('input[type=radio]:checked');
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('section.q input, section.q textarea').forEach(function (el) {
+    el.addEventListener('input', function () { update(); save(); });
+    el.addEventListener('change', function () { update(); save(); });
+  });
+  restore();
+  update();
+})();
+</script>
