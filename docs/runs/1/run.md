@@ -34,6 +34,8 @@ One line per key point nobody saw coming: what was chosen, the options turned do
 Work that cannot go on without him, put to him as ways through, each priced in his time. Other work carries on.
 - 06:21 · Not yet blocking (needed before K3): rhys@foundrynorthstudios.co.uk not proven to receive; MX reads mx.zoho.eu/mx2/mx3 at 06:22, so the domain points at Zoho. Ways through: a) he sends from his Gmail to rhys@ and reads any bounce, about 3 min (or the master sends it via the Gmail connector on his yes, 0 min of his); b) he checks rhys@ exists and is active in Zoho Mail admin, about 5 min; c) he names another address that receives, 0 min, off-brand · my recommendation: a, then b if a bounces
 - 06:21 · Not yet blocking (needed before piece 5's act file): the Cloudflare DNS rows for the bare address and www, and Workers & Pages, not read · way through: his laptop prompt in https://claude.ai/code/artifact/fbea4d5b-13a0-4575-8328-6271c1184da6, about 10 min · my recommendation: whenever he is at the laptop
+- 06:27 · Closed: rhys@foundrynorthstudios.co.uk receives (his words, via the planning master at 06:26: "it works now the rhys@ . it was my phone not the email address")
+- 06:27 · Cloudflare read: his letter "4a" via the planning master at 06:26, a limited API token (Zone Read, DNS Read, Pages Edit, this zone only), act file docs/operator-acts/2026-10-15-cloudflare-key.txt, key at C:\Users\3070s\.foundry-north-website\cloudflare-token.txt · next: on his "key saved", the master verifies it and reads the two DNS rows and the Pages projects by the API, never printing the key, before piece 5's card
 
 ## Orders
 One line per order, written before any message says "look".
@@ -43,6 +45,7 @@ One line per order, written before any message says "look".
 One line per merge into the try-it build, with its undo.
 - 06:25 · 2026-10-15-the-page · squash e2ecbac · undo: `git revert e2ecbac`
 - 06:26 · P2 tried once, with him reachable: the-page undone by `git revert e2ecbac` (commit a713638, desks/site/public/ gone), then put back by reverting the revert (commit 6142a71); the page stands as landed · undo of the-page from now on: `git revert 6142a71`
+- 06:28 · 2026-10-15-search-preview · squash b377c20 · undo: `git revert b377c20`
 
 ## It works
 One line per card, at the review: its done-when line tried, pass or fail. `measures.py` reads it, and the review page shows it first.
