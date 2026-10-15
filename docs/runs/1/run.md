@@ -8,6 +8,7 @@
 - Seat released: <hh:mm, at the wrap> · `python tools/cap_check.py release 20261015-061818-master-19820-92e9`
 - 06:18 · Window read at Go (claude -p, rate_limit_event): week 18% used, five-hour window 16%. Budget 10% of his week: the run wraps at 28% of the week.
 - 06:39 · Window read at 06:37: week 0.19 used (wrap at 0.28)
+- 08:48 · Window read: week 0.2 used (wrap at 0.28)
 
 ## Shutdown list
 Everything the run starts, written here as it starts: sessions, seats, background processes, watches, scheduled wake-ups and page servers. At any stop, `python tools/shutdown.py` stops each item and confirms nothing is left. Why: run 2 left the signal box running and two daily wake-ups that only a deletion stops.
@@ -35,8 +36,8 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 07:15 · session · worker thread, piece 7 continue (banner move), Opus 5.5 high, branch task/foundry-north-website/2026-10-15-logo-banner-move · mcp:24c65ad8-0bf7-4b29-b457-dadcccb5798a · by hand: archive once merged; seat it releases itself · closed 07:21
 - 07:19 · session · checker for the banner move, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-banner-move-1 · ends with its task; seat it releases itself · closed 07:21
 - 08:33 · folder · C:\Users\3070s\.foundry-north-website\inbox (empty, made for his Tailscale send of the film; outside the project) · inbox-folder · left in place; nothing runs · open
-- 08:42 · session · worker thread, piece 8 the-film, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-film · mcp:5288a6b9-63bd-4ace-80ec-73fa23f4c179 · by hand: archive once merged; seat it releases itself · open
-- 08:45 · session · checker for piece 8, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-1 · ends with its task; seat it releases itself · open
+- 08:42 · session · worker thread, piece 8 the-film, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-film · mcp:5288a6b9-63bd-4ace-80ec-73fa23f4c179 · by hand: archive once merged; seat it releases itself · closed 08:48
+- 08:45 · session · checker for piece 8, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-1 · ends with its task; seat it releases itself · closed 08:48
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -108,6 +109,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 07:13 · running: nothing; piece 7's worker thread mcp:92221dbf… kept, not archived, to drop in his real logos when they come · waiting on him: logos (C:\Users\3070s\.foundry-north-website\logos\), his yes that each can be named, the film and its hosting · next step: drop-in, piece 8, then K3 again, K4, K5
 - 07:21 · running: nothing · banner moved and landed · waiting on him: logos, his yes to name them, the film and its hosting · next step: drop-in (piece 7's thread mcp:92221dbf… kept), piece 8, then K3 again, K4, K5
 - 08:33 · waiting on him: the film by Tailscale send, and how it plays (header loop or press-play film); the logos by end of day · next step: tailscale file get into C:\Users\3070s\.foundry-north-website\inbox, check size (< 25 MB), then piece 8's card
+- 08:48 · running: nothing · pieces 1 to 8 landed (the film cba2516); the page holds his film and stand-in logos · waiting on him: his logos (by end of day, C:\Users\3070s\.foundry-north-website\logos\) and his yes to name each; his look at the film on a real phone; new lines W12 and W37 for his approval · next step: logo drop-in card (piece 7's thread mcp:92221dbf… kept), send, then K3, K4 (docs/operator-acts/2026-10-15-going-live.txt), K5
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.
