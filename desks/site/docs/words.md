@@ -33,6 +33,8 @@ Ruled lines are marked ruled and stay word for word. His keep, change or drop fo
 ## #logos
 
 - **W37** · `Worked with` · over the logos banner · from: drafted · new, for his approval
+- **W38** · `University` · a logo's alt text, heard, not seen · from: piece 7's stand-in logos · stand-in, replaced by his logos' names
+- **W39** · `Company` · a logo's alt text, heard, not seen · from: piece 7's stand-in logos · stand-in, replaced by his logos' names
 
 ## #how
 
