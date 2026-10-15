@@ -84,7 +84,19 @@ Being read and talked through (14 Oct 2026, read on Pandora about 05:50). Each f
 - Today's error page is Cloudflare's own (Server: cloudflare, served from London), 525. Checked: `curl -I`, 07:30 UTC.
 
 ## Design
-Not ruled yet. References he has named (rulings 3 and 4 of 14 Oct 2026 02:47): a design he likes, https://land-book.com/websites/95602-kvant-executive-search ; a company like his, https://foundercontentengine.com/
+Ruled 15 Oct 2026 (the look: "C please"; the design page `docs/pages/2026-10-15-design-sheet-1.html`: letters 1 a, 2 b).
+
+**The look: style C, Rose.** Porcelain base (`#e7ede6`, ink `#0e1512`, body `#4a5750`) with the rose accent (`#e9b4b7`, deep `#d1808c`, hot `#c46b7a`, labels `#9c6f79`, hairline `#c99c85`); centred and airy; ink pill buttons; rose only on the engine things (the waveform in the film frame, the step marks); rose-gold hairlines, warm shadows. Tagline "An engine that understands you better every month." The offer is called "your own mini studio". The look is `C:\Users\3070s\AiEngineering\scratch\foundry-north-look-2026-10-15\style-c-rose.html`, with the helper's `NOTES.md` beside it: reference for the build, not its code.
+
+**The page, in order:** the name "Foundry North" set in type with the email button · the top, leading with the result, naming neither buyer · the film space ("Film coming soon", 16:9, built so the film drops in) · how it works in three steps · for founders · for organisations (teams, schools, companies) · why trust us (only what is true and public: "Built by filmmakers. Fifteen years of craft.", "The last cut is human. Every time.") · contact, one email button to `mailto:rhys@foundrynorthstudios.co.uk`. Phone first. Search basics and the link preview. Words drafted from his voice rules (digest § 7) and approved by him line by line before going live.
+
+**The journey (the design page's picture):** built → the private preview on his phone (tailnet only) → he approves the words and the page (his hand) → Cloudflare publishes it once he connects it and switches the address (his hand) → a visitor at foundrynorthstudios.co.uk and `www.` → an email to his Zoho inbox. Nothing is public until both of his steps are done.
+
+**Where the site's files live: a repository of its own, holding only the site** (his letter "b" on question 2; the master had recommended a). Cloudflare sees the site and nothing else. Making that repository is his act (about 2 minutes); how a checked change in this project reaches it is a piece of the plan.
+
+**Deliberately left out** (from the scope): more pages, a form, a booking tool, a price, visitor counting, client stories, any change to the email, the portal or the other sub-addresses. The film waits for his film.
+
+References he named (rulings 3 and 4 of 14 Oct 2026 02:47): https://land-book.com/websites/95602-kvant-executive-search ; https://foundercontentengine.com/
 
 ## The team
 <not ruled yet>
