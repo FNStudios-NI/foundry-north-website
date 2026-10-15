@@ -16,6 +16,7 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 06:18 · tailnet route · tailscale serve paths /fnw (→8741) and /look (→8740) on ni-h3-3070.tail552bbe.ts.net · serve-fnw-look · by hand: tailscale serve --https=443 --set-path=/fnw off, and the same for /look · open
 - 06:21 · session · worker thread, piece 1 the-page, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-the-page · mcp:02ea4f18-25d8-4959-828c-74c5b83df295 · by hand: t3_thread_organize archive once merged; its seat it releases itself · open
 - 06:21 · session · worker thread, piece 4 send-site, Opus 5.5 high, branch task/foundry-north-website/2026-10-15-send-site · mcp:493e4a57-7c27-4dbe-bcd2-d82eedd2d920 · by hand: t3_thread_organize archive once merged; its seat it releases itself · open
+- 06:24 · session · checker for piece 1, Sonnet 5.5 high, delegate_task child of the master · node:delegated-task:command%3Amcp%3A39a76e3d-ba11-4707-a14d-f07b6a4d2b53%3Adelegate-task%3Afnw-run1-check-the-page-1 · ends with its task; seat it releases itself · open
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
