@@ -134,3 +134,28 @@ Supersedes: none.
 
 ## 2026-10-15 03:40 — Discovery step 6, the plan page published (the planning master)
 - **03:40 — the planning master:** The plan page docs/pages/2026-10-15-plan-sheet-1.html published at /fnw/, page, people and plan checks ALLOW. Six pieces (dashed in docs/brief.md § The plan), 3 questions: the path, his letters for K1 to K5, the signature and start. Week read 18% used at 03:37 (five-hour window 6%), resets 19 Oct 21:00 UTC. The ❓ of the Cloudflare address is offered as a known risk (piece 5), tried with him at the sitting.
+
+## 2026-10-15 03:48 — The plan signed, and his note on grouping questions (the planning master)
+Page: `docs/pages/2026-10-15-plan-sheet-1.html`.
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | The path: all of it, pieces 1 to 6, live at his address. | 1: a | The problem is fixed this era; his line-by-line pass keeps "nothing faked" true. | A new ruling before Go; after Go, a cut-off. |
+| 2 | Key points as suggested: K1 b (the page first on the preview) · K2 a (the words sheet) · K3 a (the page approved for going live) · K4 a (his Cloudflare steps) · K5 b (the live check's result). | 2 words: "Yes your recommendations" | He chooses his stops in advance. | A new letter for any key point. |
+| 3 | Signed: start now; all his acts approved; all the master's discovery calls confirmed. Budget 10% of his week, hard stop about 4½ running hours from Go (not counting waits on him), the page's defaults, unchanged. Four agents at most. | 3: a | His signature is the approval for everything on the plan and nothing else. | Stop the run; a new plan. |
+| 4 | **His note on the way of working, for the log:** many of discovery's talked questions could have been grouped, cutting the back and forth. From now on, questions that do not depend on each other's answers are put together in one message. | "A note I would like to leave for the log for the session up to the message before, I think many of these questions could have been grouped and reduced the amount of back and forth. Can that be added to the log so we waste less time next time ." | Discovery took about 20 single-question turns (problem 4, sharing 1, scope 8, facts 4, team 1, plus read-backs); each costs him a phone round trip. | A new ruling. |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | Ruling 4 applies at once: the sign-off sitting's acts are put to him in one message. | His words: "so we waste less time next time". | A new ruling. |
+
+Review note for the template (handover § 8; carried into the run record's review notes at Go):
+- 2026-10-15 03:48 · Rhys, after a discovery of about 20 single-question turns: "many of these questions could have been grouped and reduced the amount of back and forth" · the line it should become, in `operator.md` § Asking him to decide and the conductor skill's § 2: "In a talked step, put together in one message every question that does not depend on another's answer, each numbered with its letters; one question at a time only where the next question depends on this answer. Why: his note of 15 Oct 2026 on foundry-north-website: about 20 single-question turns of discovery 'could have been grouped and reduced the amount of back and forth'."
+
+Supersedes: none.
+- **03:50 — the planning master:** The sign-off sitting opened. Written for it: docs/runs/1/plan-signed.md; the brief's Held apart line now names desks/site/public; a register People row (his private business facts, pointer outside the project) so the people check can hold that folder (it refused a held-apart folder with no rows); his act file docs/operator-acts/2026-10-15-site-repository.txt, opened in Notepad. My call: the sitting's agent acts (a worker in its own worktree, a checker, a landing and its undo) are tried by the execution master on piece 1 at Go, with him reachable, not at the sitting: tools/land.py writes its line into docs/runs/1/run.md, which exists only from Go (run skill 1.6), and the permission probe found every class allowed in this full-access session. Undo: hold them at the sitting after Go's record is written. His three hand acts are put to him in one message (his ruling 4 of 03:48).
+- **03:50 — the planning master:** Review note for the template: the run skill's 1.3 asks for a merge and its undo at the sign-off sitting, but tools/land.py needs docs/runs/<n>/run.md, which 1.6 writes only at Go, after the sitting · the line it should become, in the run skill's 1.3: "The sitting tries the acts that need his hands; the first landing and its undo are tried at Go, on the first piece, with him reachable, since the landing tool writes into the run record that Go creates."

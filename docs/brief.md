@@ -1,6 +1,6 @@
 # Brief — foundry-north-website
 Shared: never
-Held apart: none
+Held apart: desks/site/public
 
 ## The problem
 Ruled 14 Oct 2026 02:58 ("yes" to the read-back).

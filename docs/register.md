@@ -12,3 +12,4 @@ Every third person this project touches, by role only ("the user"). Their name, 
 
 | role | pointer to their details, outside the project | ends on |
 |---|---|---|
+| his private business facts (client counts, revenue, the trial and first client runs: the digest's Private lines), which never go on the public site | `C:\Users\3070s\.foundry-north-website\private-words.txt` | none |

@@ -1,0 +1,63 @@
+MAKE THE PRIVATE GITHUB REPOSITORY FOR THE SITE, foundry-north-site  -  your act, about 2 minutes, in your web browser on any machine
+==========================================================================
+
+What it unlocks: the website gets a repository of its own, holding only the site, which Cloudflare will publish (your answer "2: b" on the design page).
+Why you and not me: making a repository on your GitHub account is yours; this machine's sign-in may only push to one that already exists.
+
+
+STEP 1 - in your web browser, signed in to GitHub
+Why: this is GitHub's own page for making a new repository.
+
+Open this address:
+
+https://github.com/new
+
+Pass: you see a page headed "Create a new repository".
+
+
+STEP 2 - on that page, the box labelled "Repository name"
+Why: the name says it is the site of this project, and nothing else.
+
+Type this name:
+
+foundry-north-site
+
+Pass: beside or under the box, GitHub says the name is available.
+
+
+STEP 3 - on that page, the choice between "Public" and "Private"
+Why: it stays private until going live; Cloudflare can read a private repository once you connect it.
+
+Choose "Private".
+
+Pass: "Private" is the one selected, and "Public" is not.
+
+
+STEP 4 - on that page, the three things below that choice
+Why: the repository must be empty. If GitHub puts even one file in it, my first push is refused.
+
+Leave all three as they start:
+  the README       - off, not added
+  the .gitignore   - none chosen
+  the license      - none chosen
+
+Pass: no README is added, and no .gitignore and no license is chosen.
+
+
+STEP 5 - on that page, the green button at the bottom
+Why: this makes the repository.
+
+Press "Create repository".
+
+Pass: you see a page headed "Quick setup", showing an address that ends "/foundry-north-site.git".
+
+
+STEP 6 - in the session that opened this file
+Why: the run sends the site there; I check the address answers.
+
+Copy the address from the "Quick setup" box (the one that starts "https://" and ends "/foundry-north-site.git") and paste it to me.
+
+Pass: I answer that GitHub finds the repository.
+
+
+If anything looks different from a Pass line, stop and tell me what it says.
