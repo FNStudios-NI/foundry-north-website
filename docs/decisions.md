@@ -78,3 +78,25 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 Supersedes: none. Unsure and Parked lines settled: the digest's contradictions 5 (a price on the page) and 7 (search); contradiction 6 (who the buyer is) settled by ruling 3: both, neither named first.
 - **08:29 — Rhys:** Scope changed at the facts step: going live moves into this era. Asked, after the fact that the bare address and www answer Cloudflare error 525 today (a keep finished but not live, b bring going live back in): his letter "B", no words added. The era ends with the finished page at foundrynorthstudios.co.uk, seen first on the private preview; the switch is his act. Supersedes ruling 2 of this entry. Undo: a new ruling; the page stays on the preview.
 - **02:04 — Rhys:** Facts step, the email button's address (asked to type the address enquiries should reach): his words "Go with : mailto:rhys@foundrynorth.studio". Read straight after: foundrynorth.studio is not a registered domain (1.1.1.1 answers Non-existent domain; the .studio registry's RDAP answers 404 Object not found), so mail to that address cannot arrive. Put back to him before it is used. Undo: a new ruling.
+
+## 2026-10-15 03:02 — Discovery step 3, facts, read and talked through (the planning master)
+Page: no page (talked through in the chat). The facts, each marked checked or documented with its source, are `docs/brief.md` § Facts. The two rulings made during this step (going live moved in; the email address) are lines under the scope entry above, stamped 08:29 and 02:04.
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | Going live is in this era (scope changed). | B — no words added | The bare address and `www.` show Cloudflare error 525 today; the site's job is undone while that stands. | A new ruling; the page stays on the preview. |
+| 2 | The email button uses an address on `foundrynorthstudios.co.uk` (mail already runs through Zoho), not `rhys@foundrynorth.studio`. | A — no words added, after his first answer "Go with : mailto:rhys@foundrynorth.studio" was found to be an unregistered domain | Mail to an unregistered domain bounces, and anyone could buy the name. | A new ruling. |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | The address is `rhys@foundrynorthstudios.co.uk`, carrying his chosen "rhys@" onto the domain he ruled; that the mailbox exists and receives is tried once with him at the sign-off sitting (a test email). | He named "rhys@" and then the domain; asking again costs him a turn. | He names another mailbox. |
+| 2 | The site is hosted on Cloudflare Pages in his existing Cloudflare account, built from the site's folder of this repository, connected once by him in the dashboard. | The domain is already on Cloudflare; free; nothing to install on Pandora (no Node here). | Choose another host at the plan. |
+| 3 | Whether Pages takes the bare address cleanly over today's proxied A records is a ❓, tried before the plan is signed, with his Cloudflare sign-in. | It is the one untried part of going live. | None needed. |
+| 4 | The look uses his name set in type, not the logo: the logo files are on the laptop only and predate the current colours. | Keeps the questions to about five, as he asked how many remained. | He sends the logo across; it replaces the type. |
+| 5 | The open brand contradictions (the accent colour, the tagline, "your engine" against "mini studio") are put inside the look's two or three styles, settled by the one he picks, not asked one by one. | Fewer questions; he chooses by seeing, as his ruling 3 of "Run 4 closed" asks. | Ask any of them on its own. |
+
+Supersedes: ruling 2 of 14 Oct 05:51 (finished but not live). Unsure and Parked lines settled: the digest's contradiction 4 (the domain) for the email too.
