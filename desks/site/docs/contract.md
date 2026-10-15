@@ -4,4 +4,5 @@ What this desk hands the rest of the project. Other desks build against it, so c
 Why: the desks share one repo, and this file is the seam between them.
 
 ## What it hands the rest
-<each thing: what it is, where it lives, its shape, and the one stand-in (fake) others test against, if any>
+- **The site: `desks/site/public/`.** The website's files, at the top of that folder as the site serves them. It is the only part of this project that may be public.
+- **The way across: `tools/send_site.py`.** The only way the site crosses to `foundry-north-site`, its own repository, which Cloudflare publishes. It sends what git holds in `desks/site/public/` at `HEAD` and nothing else, and refuses a symbolic link or an uncommitted change in that folder. Stand-in for tests: a local bare repository, given with `--repo`.
