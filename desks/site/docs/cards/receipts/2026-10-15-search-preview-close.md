@@ -33,3 +33,9 @@ none
 none
 
 Scratch: `C:\Users\3070s\AppData\Local\Temp\fnw-search-preview-worker` (holds the gate scripts, the frame, a serve copy and og.png), removed by that exact name only.
+
+## Checker run 2026-10-15 — the master (light lane: the scripts, re-run by the master), own session
+Commit: ecdcfbff3a849ed605cf4a8d83afcfaeb533fed0
+Exit code: 0
+Verdict: PASS
+Why: light lane, so the gate is re-run by the master, not by a checker. At ecdcfbf, the card's gate_og.py printed GATE PASS (exit 0); piece 1's gate_page.py still printed GATE PASS (exit 0); fence_check --card printed INSIDE (3 files). Ablation: gate_og.py on main's desks/site/public failed (description, canonical and the rest missing). The diff only adds the head tags and og.png, as the card asked (1200 × 630, Inter on porcelain, viewed). Scratch C:\Users\3070s\AppData\Local\Temp\fnw-search-preview-master is removed by name.
