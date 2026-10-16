@@ -135,6 +135,7 @@ New ideas that come up mid-run go here, not into this run, unless they are a blo
 - 09:30 · the page's speed-ups offered at 09:02 (a still from the film shown first, a 720p film for phones, browser caching rules, preloading the main font, slimmer fonts) · his question; not chosen before going live
 - 09:07 · the traffic fixes, his approve all of 16 Oct (docs/decisions.md): a still shown first and a smaller phone film; robots.txt, sitemap.xml, an icon and a 404 page; www sent to the bare address; then the sitemap sent to Search Console
 - 09:07 · new words for the title, description and opening line carrying what buyers search for (video content for founders, video production, where he works), for his line-by-line approval · his approve all of 16 Oct
+- 11:51 · the public name becomes "Foundry North Studios" in the title, link preview and the name in type · his "yes" of 16 Oct (docs/decisions.md)
 
 ## Handover
 Written before the context fills, at a quiet moment, never in the middle of a merge.
