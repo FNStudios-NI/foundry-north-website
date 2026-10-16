@@ -196,3 +196,4 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 
 Supersedes: the scope's Out line "Visitor counting and cookie banners" for counting only (Cloudflare's counting sets no cookie, so still no banner).
 - **09:29 — Rhys:** "all at once please": his acts given in one message. My call, so nothing waits on me mid-way: he adds the Google ownership row himself in Cloudflare (or by Google's Cloudflare button), then edits the key once (the two Analytics Read lines added, DNS set back to Read). Undo: a new ruling.
+- **10:39 — Rhys:** "ive done 1": Google Search Console set up for the domain (his act). Checked after: the google-site-verification TXT row answers on 1.1.1.1.
