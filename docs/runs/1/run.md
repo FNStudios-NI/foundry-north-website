@@ -44,6 +44,9 @@ Everything the run starts, written here as it starts: sessions, seats, backgroun
 - 09:52 · file · C:\Users\3070s\.foundry-north-website\preview\cf.py, the master's Cloudflare calls through his key (outside the project; the key is read, never printed) · cf-py · nothing runs; left in place · closed 10:13
 - 10:00 · session · worker thread, film swap, Sonnet 5.5 high, branch task/foundry-north-website/2026-10-15-the-film-swap · mcp:c16de818-4250-45d8-8d6b-d13f59f85ec0 · by hand: archive once merged; seat it releases itself · closed 10:04
 - 10:02 · session · checker for the film swap, Sonnet 5.5 high, delegate_task child of the master · fnw-run1-check-film-swap-1 · ends with its task; seat it releases itself · closed 10:04
+- 12:03 · seat 20261016-120326-master-19292-084e (the review and planning master, this thread) · stops with: python tools/cap_check.py release 20261016-120326-master-19292-084e
+- 12:06 · server · page server for docs/ (the review and the run 2 plan), python3.11 http.server port 8741, detached · pid 19544 · stops with: taskkill /PID 19544 /F
+- 12:06 · route · tailnet-only path /fnw to port 8741 · stops with: tailscale serve --https=443 --set-path=fnw off
 
 ## Key points he marked
 One line per key point in the signed plan, with his letter, and what happened when the run reached it.
@@ -153,6 +156,7 @@ Written before the context fills, at a quiet moment, never in the middle of a me
 - 09:59 · waiting on him: his DNS step (then "done"), and later his new film · nothing running · Pages project live at foundry-north-site.pages.dev; both custom domains pending on his CNAMEs · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); on his film, a swap card like piece 8
 - 10:04 · waiting on him: his DNS step (four old rows still in DNS at 10:05; both domains pending) · nothing running · next step: on "done", watch both domains to active, run tools/live_check.py, show him (K5); then the review
 - 10:13 · wrap on his word ("wrap, i will do the review later") · running: nothing; every worker and checker thread archived, every seat but the master's released · merges done: 11 cards landed, each with its undo under Merges; the site LIVE at both addresses since 10:11 · open: the review (docs/runs/1/review.html not yet written), his key back to DNS Read (his), W12 and W37 for his say · next step: a fresh master with /run carry on from the handover writes the review page (pages.md § The review page), publishes it on a page server, and closes with the Run 1 closed entry
+- 12:03 · taken over at this time by a fresh master in this thread (the traffic talk), to write the review and close run 1, then plan run 2 (his letter a of 16 Oct: build the traffic fixes now, then wrap)
 
 ## Review notes
 One line per lesson, as it happens, from `docs/blanks/review-note.md`.

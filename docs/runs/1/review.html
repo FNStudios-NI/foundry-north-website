@@ -1,0 +1,582 @@
+<meta charset="utf-8">
+<title>foundry-north-website · Review of run 1 · about 5 minutes · 5 questions</title>
+<!--
+  The review of run 1, copied from docs/blanks/page.html (its style, script, read-back and copy button kept as they are).
+  The rules for this page are in pages.md, § Every page and § The review page.
+  Removed from the blank, as this page does not need them: the "last answer grew the project" block, the sizes table,
+  the budget and hard stop, "Tried before you sign", the text-box question, and the copy-a-list-to-send block.
+-->
+<style>
+:root {
+  --bg: #f2f4f6;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #5a6875;
+  --line: #ccd5dd;
+  --accent: #1f5c8a;
+  --accent-soft: #e2edf6;
+  --his: #0d7752;
+  --his-soft: #dcf2e8;
+  --warn: #9c4f0e;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1419; --sheet: #182129; --ink: #e3eaef; --muted: #95a6b2; --line: #2d3a44;
+  --accent: #74b4e2; --accent-soft: #1c3343; --his: #58cc9d; --his-soft: #133429; --warn: #eea461;
+  color-scheme: dark; }
+
+/* The read-back bar sits at the bottom; a box being typed in scrolls clear of it. */
+:root { scroll-padding-bottom: 10rem; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 42rem; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 28px; }
+h1, h2, h3 { line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+p, ul { margin: 0; }
+ul { padding-left: 1.2em; display: grid; gap: 6px; }
+.stack { display: grid; gap: 12px; }
+.muted { color: var(--muted); }
+.tag { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.titleblock { border: 2px solid var(--ink); display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); font-family: var(--mono); font-size: .8rem; }
+.titleblock div { padding: 6px 10px; border-right: 1px solid var(--line); border-top: 1px solid var(--line); }
+.titleblock b { display: block; font-weight: 500; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.back { border-left: 4px solid var(--his); background: var(--sheet); padding: 12px 14px; }
+.likeness { border-left: 4px solid var(--accent); padding: 4px 12px; }
+.fact { font-family: var(--mono); font-size: .72rem; padding: 1px 6px; border: 1px solid currentColor; white-space: nowrap; }
+.fact.checked { color: var(--his); }
+.fact.guessed { color: var(--warn); }
+
+figure { margin: 0; display: grid; gap: 8px; }
+figure svg { width: 100%; max-width: 26rem; height: auto; display: block; margin: 0 auto; color: var(--ink); }
+figcaption { font-size: .9rem; color: var(--muted); }
+.d-box { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; }
+.d-his { fill: var(--his-soft); stroke: var(--his); stroke-width: 2; }
+.d-out { fill: var(--sheet); stroke: currentColor; stroke-opacity: .5; stroke-dasharray: 5 4; }
+.d-t { fill: currentColor; font: 600 14px var(--body); }
+.d-s { fill: currentColor; fill-opacity: .72; font: 12px var(--body); }
+.d-l { fill: currentColor; fill-opacity: .75; font: 12px var(--mono); }
+.d-a { stroke: currentColor; stroke-width: 1.5; fill: none; }
+.d-ah { stroke: var(--his); stroke-width: 2; fill: none; }
+.d-mk { fill: currentColor; }
+.d-mkh { fill: var(--his); }
+
+.item { border-top: 2px solid var(--ink); padding-top: 16px; }
+.parts { margin: 0; display: grid; gap: 8px; }
+.parts div { display: grid; gap: 2px; padding-left: 12px; border-left: 3px solid var(--line); }
+.parts dt { font: .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.parts dd { margin: 0; }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tfoot td { font-weight: 700; border-bottom: 2px solid var(--ink); }
+
+.q { background: var(--sheet); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 16px; display: grid; gap: 12px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+legend { font-size: 1.2rem; font-weight: 700; padding: 0; margin-bottom: 6px; }
+.opt { display: grid; grid-template-columns: auto 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); cursor: pointer; }
+.opt:has(input:checked) { border-color: var(--his); background: var(--his-soft); }
+.opt input { margin-top: 5px; accent-color: var(--his); }
+.opt dl { margin: 4px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: .9rem; }
+.opt dt { font: .68rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.opt dd { margin: 0; }
+.rec { background: var(--accent-soft); padding: 10px 12px; font-size: .95rem; display: grid; gap: 4px; }
+label.box { display: grid; gap: 4px; font: .72rem var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem/1.5 var(--body); text-transform: none; letter-spacing: 0; padding: 8px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+textarea[data-words] { min-height: 6rem; }
+textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calls { border: 1px dashed var(--muted); padding: 14px 16px; }
+button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
+.fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
+
+.readback { position: sticky; bottom: 0; background: var(--sheet); border: 2px solid var(--ink); padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; }
+.readback code { font: 1.05rem var(--mono); }
+.readback small { display: block; color: var(--muted); }
+/* Phone width: the letters sit beside the button, and the bar is never more than a fifth of the screen;
+   anything below them (the copy-by-hand box) scrolls inside the bar. */
+@media (max-width: 34rem) {
+  .readback { box-sizing: border-box; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); max-height: 20vh; max-height: 20dvh; overflow-y: auto; }
+  .readback button { padding: 10px 12px; max-width: 9rem; }
+  .readback > .fallback, .readback > small { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="stack">
+    <div class="titleblock">
+      <div><b>Project</b>foundry-north-website</div>
+      <div><b>Stage</b>Review of run 1 · about 5 minutes · 5 questions</div>
+      <div><b>Sheet</b>The review, its own link</div>
+    </div>
+    <h1>Run 1: your site is live. Four choices to look over, and one score.</h1>
+    <p>Run 1 built your one-page site and put it live at your address. This page shows what was tried and how, then four choices I made along the way that could shape your later work, each with the options I turned down. Tap a letter for each, add a note if you like, then copy your letters at the bottom.</p>
+  </header>
+
+  <section class="back stack">
+    <h2>What I took from your message</h2>
+    <ul>
+      <li><b>"approve all"</b> to my five traffic suggestions: counting visitors, and telling Google about the site (yours); the fixes and new opening words (built in run 2, the words shown to you line by line first); and sending people to the site (yours, ongoing; I draft posts when you ask).</li>
+      <li><b>Done by you:</b> Google Search Console (Google's free tool that tells Google your site exists and shows what people searched to find it) is set up for your domain <span class="fact checked">checked: Google's ownership line answers</span>; your key edit is done <span class="fact checked">checked: the key now reads visitor figures</span>; the visitor counter is on; and your Google Business Profile is made (Belfast, Northern Ireland and Dublin; Video production service).</li>
+      <li><b>"yes":</b> the public name becomes "Foundry North Studios" everywhere. Run 2's words carry it, and you rename your Google profile to match.</li>
+      <li><b>"i don't want to pay it if i can avoid it":</b> no paid trade mark filing for now.</li>
+      <li><b>"a":</b> build the traffic fixes now as run 2, then wrap. This review closes run 1 first.</li>
+    </ul>
+    <p class="muted">If I read any of these wrong, say so in a note box below.</p>
+  </section>
+
+  <section class="stack">
+    <h2>The measures</h2>
+    <p class="muted">Worked out by the measures tool from the run's own record and session logs, not estimated. <span class="fact checked">checked: run today</span></p>
+    <dl class="parts">
+      <div><dt>Share of the plan finished</dt><dd><b>100%: 6 of 6 planned pieces landed.</b> The two pieces you added mid-run (the logo banner and your film) landed too. In all, 11 work orders were done; 5 of them were for those two added pieces, which the signed plan did not hold.</dd></div>
+      <div><dt>Surprises after go</dt><dd><b>26: 17 key points nobody saw coming, and 9 blocker lines.</b> The tool counts lines, so 2 of the 9 are blockers being closed and 1 is the run pausing for this review.</dd></div>
+      <div><dt>Usage per piece</dt><dd>Below, as the share of the run's own total. A token is the unit of text an AI model reads and writes; the tool weights each kind by how much it counts. Each piece's share of <i>your week</i> is not available: the tool does not give it. The run record read your week at 18% used at go and 20% at 08:48 on 15 Oct. Your own time is not measured, by your ruling.</dd></div>
+    </dl>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Piece</th><th>Weighted tokens</th><th>Share</th><th>Sessions</th></tr></thead>
+        <tbody>
+          <tr><td>The page</td><td>443,074</td><td>2.8%</td><td>2</td></tr>
+          <tr><td>Search basics and link preview</td><td>135,783</td><td>0.9%</td><td>1</td></tr>
+          <tr><td>The send-across</td><td>830,326</td><td>5.3%</td><td>3</td></tr>
+          <tr><td>The live check</td><td>456,466</td><td>2.9%</td><td>2</td></tr>
+          <tr><td>The words</td><td>975,663</td><td>6.3%</td><td>2</td></tr>
+          <tr><td>Your going-live act file</td><td>951,063</td><td>6.1%</td><td>3</td></tr>
+          <tr><td>The logo banner</td><td>697,677</td><td>4.5%</td><td>2</td></tr>
+          <tr><td>The banner moved</td><td>597,863</td><td>3.8%</td><td>2</td></tr>
+          <tr><td>Your film</td><td>542,392</td><td>3.5%</td><td>2</td></tr>
+          <tr><td>Your 18 logos in</td><td>899,157</td><td>5.8%</td><td>2</td></tr>
+          <tr><td>Your new film swapped in</td><td>257,403</td><td>1.7%</td><td>2</td></tr>
+          <tr><td>The masters (running the run)</td><td>6,903,533</td><td>44.3%</td><td>1</td></tr>
+          <tr><td>The rest</td><td>1,877,028</td><td>12.1%</td><td>3</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td>15,567,429</td><td></td><td></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="muted">The logs the tool read run from go on 15 Oct to midday today, so the masters' share likely includes today's traffic talk. <span class="fact guessed">guessed: from the logs' time span</span> The tool could not match the run record's "It works" lines to its work orders (it lists each as not tried), so the lines below are read from the record itself.</p>
+  </section>
+
+  <section class="item stack">
+    <h2>It works</h2>
+    <p>Each line of the signed plan's "done when", tried, with how. All pass. Your site is live at <b>foundrynorthstudios.co.uk</b> and <b>www.foundrynorthstudios.co.uk</b>, both since 10:11 on 15 Oct, and the visitor counter has been on since 16 Oct. <span class="fact checked">checked: the run record and the live check</span></p>
+    <ul>
+      <li><b>The page · pass.</b> Tried by opening the live page: in the order you ruled, with your film, your logos and the Rose look. Each later checker re-ran its check: it fits a phone 360 pixels wide, its typeface is kept with the site, and nothing loads from Google.</li>
+      <li><b>The words · pass.</b> Your "yes to all" on the words sheet; the words check passed at every later landing. Two new lines wait for your say (question 2).</li>
+      <li><b>Search basics and the link preview · pass.</b> The live check found the preview picture (what shows when the link is shared) answering at your address.</li>
+      <li><b>The send-across · pass.</b> The site's public files sent to the site's own store on GitHub, and Cloudflare published the last send.</li>
+      <li><b>Your going-live act file · pass.</b> Its steps were done in the end through your key (your letter a); its undo for the address change stands.</li>
+      <li><b>The live check · pass.</b> The live check tool visits the live site and tries 7 things: 7 of 7 passed (both addresses show the page, the link preview reads, your email settings and your other two sub-addresses answer as before).</li>
+      <li><b>The logo banner · pass.</b> Your 18 logos moving in two rows between the film and "How it works", on the live site.</li>
+      <li><b>Your film · pass.</b> Your new film answers at the live address (about 26 MB) and plays muted and looping.</li>
+    </ul>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The whole site, as a visitor meets it.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>A run can land every piece while the thing itself does not work. This proves it works before anything else is judged.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your film and logos → built and checked here → sent to the site's store → published by Cloudflare → your address → visitors, now counted.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>All eight lines pass, so run 1 closes on your letters below. Had one failed, it would be a choice on this page.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 410" role="img" aria-label="How the live site works: your film and logos are built and checked here, sent to the site's store on GitHub, published by Cloudflare's free hosting, and served at your address. Every step passed.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mk" d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="arh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="d-mkh" d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs>
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your film and logos</text><text class="d-s" x="34" y="50">sent from your laptop and Drive</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">you send</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Built and checked here</text><text class="d-s" x="34" y="134">11 work orders, each checked</text>
+        <text class="d-l" x="310" y="116" text-anchor="end">pass</text>
+        <line class="d-a" x1="170" y1="146" x2="170" y2="176" marker-end="url(#ar)"/><text class="d-l" x="180" y="166">a send</text>
+        <rect class="d-box" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">The site's store on GitHub</text><text class="d-s" x="34" y="218">only the public files</text>
+        <text class="d-l" x="310" y="200" text-anchor="end">pass</text>
+        <line class="d-a" x1="170" y1="230" x2="170" y2="260" marker-end="url(#ar)"/><text class="d-l" x="180" y="250">publishes</text>
+        <rect class="d-out" x="20" y="262" width="300" height="52"/>
+        <text class="d-t" x="34" y="284">Cloudflare's free hosting</text><text class="d-s" x="34" y="302">serves the page, counts visitors</text>
+        <text class="d-l" x="310" y="284" text-anchor="end">pass</text>
+        <line class="d-a" x1="170" y1="314" x2="170" y2="344" marker-end="url(#ar)"/><text class="d-l" x="180" y="334">your address</text>
+        <rect class="d-out" x="20" y="346" width="300" height="52"/>
+        <text class="d-t" x="34" y="368">foundrynorthstudios.co.uk</text><text class="d-s" x="34" y="386">and www., both live</text>
+        <text class="d-l" x="310" y="368" text-anchor="end">pass</text>
+      </svg>
+      <figcaption>How to read it: green is your own hand, grey steps run here, dashed steps are outside services. Each arrow runs from a cause to its effect; every step reads pass.</figcaption>
+    </figure>
+  </section>
+
+  <section class="item stack">
+    <h2>Where the film lives</h2>
+    <p>Your film file sits with the site on Cloudflare's free hosting (Cloudflare Pages), which caps each file at 25 MiB (a MiB is about 1.05 MB). <span class="fact checked">checked: Cloudflare's limits page, 15 Oct</span> So a film must be exported small: today's is 720p, about 26 MB, just under the cap. <span class="fact checked">checked: read off the file</span></p>
+    <p class="likeness"><b>Think of it as</b> a cinema that takes reels up to a set size. R2, the other option, is Cloudflare's file storage: a hired lock-up for your full-quality masters, with its own door.</p>
+    <p>Turned down as well: <b>Cloudflare Stream</b> (paid per minute stored and watched), <b>YouTube or Vimeo</b> (ads and suggestions, or a paid plan to drop their branding), and <b>Frame.io</b> (a review tool that gives a link to its own viewer page, not a player inside yours). <span class="fact guessed">guessed: from the master's notes of 15 Oct, not read off their pages today</span></p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The film at the top of your page.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>A film has to be stored somewhere a visitor's phone can play it at once, without ads or another company's branding.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your editor's export → the site's files → Cloudflare's free hosting → the visitor's phone.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>Kept with the site, each new film must be exported under 25 MiB. Moved to R2, it can be full quality, but it needs a new address and your time in Cloudflare.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 258" role="img" aria-label="Your small export goes to Cloudflare's free hosting, capped at 25 MiB per file. Option a keeps it there and plays now, with a still and a phone copy in run 2. Option b moves films to R2 storage later for full quality at a new address.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your film, exported small</text><text class="d-s" x="34" y="50">today's: 720p, about 26 MB</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">a: with the site</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Cloudflare's free hosting</text><text class="d-s" x="34" y="134">each file capped at 25 MiB</text>
+        <line class="d-a" x1="110" y1="146" x2="90" y2="176" marker-end="url(#ar)"/>
+        <line class="d-a" x1="230" y1="146" x2="250" y2="176" marker-end="url(#ar)"/>
+        <rect class="d-box" x="15" y="178" width="150" height="68"/>
+        <text class="d-t" x="25" y="200">Plays now (a)</text><text class="d-s" x="25" y="218">run 2: a still first</text><text class="d-s" x="25" y="236">and a phone copy</text>
+        <rect class="d-out" x="175" y="178" width="150" height="68"/>
+        <text class="d-t" x="185" y="200">R2 storage (b)</text><text class="d-s" x="185" y="218">full quality, later</text><text class="d-s" x="185" y="236">at a new address</text>
+      </svg>
+      <figcaption>How to read it: your export, in green, feeds the hosting; the arrows lead to each letter's effect. The dashed box is a service outside the site.</figcaption>
+    </figure>
+    <section class="q" data-q="1">
+      <fieldset>
+        <legend>1. Where should your films live?</legend>
+        <label class="opt"><input type="radio" name="q1" value="a"><span><b>a.</b> Keep them with the site, exported small.
+          <dl><dt>Gains</dt><dd>No extra service and no new address; plays straight away on phones. Run 2 adds a still shown first and a smaller phone version.</dd><dt>Costs you</dt><dd>A couple of minutes in your editor for each new film, to export it under 25 MiB.</dd><dt>Risk</dt><dd>A longer or sharper film will not fit; today's is 720p, not full 1080p.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q1" value="b"><span><b>b.</b> Move films to R2 storage later, at full quality.
+          <dl><dt>Gains</dt><dd>Full-quality films with room to spare (free up to 10 GB). <span class="fact guessed">guessed: the master's notes of 15 Oct</span></dd><dt>Costs you</dt><dd>About 10 minutes of yours in Cloudflare, plus a new address for the films, and a piece in a later run.</dd><dt>Risk</dt><dd>A second service to look after, and bigger files start slower on phones.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> The site is a showreel front door: a quick start on a phone matters more than full 1080p, and it keeps one service, not two.</p>
+        <p>If a: films stay with the site, and run 2 adds the still and the phone copy · If b: a later run adds a piece moving films to R2, and you spend about 10 minutes in Cloudflare making the storage and its address.</p>
+      </div>
+      <label class="box">Note for question 1<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>Two lines of words still waiting for your yes</h2>
+    <p>Every line on your site is approved by you, one by one. Two came in after your words sheet, so they are on the page but not yet yours:</p>
+    <ul>
+      <li><b>W12</b>, heard, not seen: "Our film: a short loop from the studio." It is what a screen reader (the voice that reads a page aloud for blind visitors) says for the film. It replaced "A space for our film, coming soon."</li>
+      <li><b>W37</b>, seen: "Worked with", the heading above your logos.</li>
+    </ul>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The site's words.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>Nothing goes on your site in words you have not approved.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>The words list → your yes → the live page.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>Your yes makes both lines yours. New words from you go in through run 2, shown to you before they go live.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 258" role="img" aria-label="The two lines, W12 heard by screen readers and W37 seen above the logos, wait on your letter, which sets what the live page says.">
+        <rect class="d-box" x="15" y="10" width="150" height="68"/>
+        <text class="d-t" x="25" y="32">W12, heard</text><text class="d-s" x="25" y="50">what a screen reader</text><text class="d-s" x="25" y="68">says for the film</text>
+        <rect class="d-box" x="175" y="10" width="150" height="68"/>
+        <text class="d-t" x="185" y="32">W37, seen</text><text class="d-s" x="185" y="50">the heading above</text><text class="d-s" x="185" y="68">your logos</text>
+        <line class="d-a" x1="90" y1="78" x2="140" y2="110" marker-end="url(#ar)"/>
+        <line class="d-a" x1="250" y1="78" x2="200" y2="110" marker-end="url(#ar)"/>
+        <rect class="d-his" x="20" y="112" width="300" height="52"/>
+        <text class="d-t" x="34" y="134">Your letter on question 2</text><text class="d-s" x="34" y="152">a keeps both · b your own words</text>
+        <line class="d-ah" x1="170" y1="164" x2="170" y2="194" marker-end="url(#arh)"/><text class="d-l" x="180" y="184">sets</text>
+        <rect class="d-box" x="20" y="196" width="300" height="52"/>
+        <text class="d-t" x="34" y="218">The live page</text><text class="d-s" x="34" y="236">changed only on your yes, in run 2</text>
+      </svg>
+      <figcaption>How to read it: both lines wait on your letter, in green, which sets what the live page says.</figcaption>
+    </figure>
+    <section class="q" data-q="2">
+      <fieldset>
+        <legend>2. Keep the two new lines, W12 and W37?</legend>
+        <label class="opt"><input type="radio" name="q2" value="a"><span><b>a.</b> Keep both as they are.
+          <dl><dt>Gains</dt><dd>Both lines become yours; nothing changes on the site.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>None beyond the words being mine, not yours.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q2" value="b"><span><b>b.</b> Change them: your words in the note box.
+          <dl><dt>Gains</dt><dd>The lines in your own words.</dd><dt>Costs you</dt><dd>A minute to write them, and a yes when run 2 shows them to you.</dd><dt>Risk</dt><dd>Small: one more line for run 2.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Both are short and plain, and they say what is there.</p>
+        <p>If a: both are marked approved in the words list · If b: run 2 puts your words in and shows them to you before they go live.</p>
+      </div>
+      <label class="box">Note for question 2<textarea data-note placeholder="Your words for W12 or W37, if b (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>The logo banner's faint back row</h2>
+    <p>The banner runs in two rows: a bold front row and a faint back row moving at a different speed, for depth. In the back row, Bradley, Manchester, Leeds and UCL read small. <span class="fact checked">checked: seen when your logos went in, 15 Oct</span></p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The logo banner, between the film and "How it works".</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The names that matter most to you should be the ones a visitor reads.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your 18 logos → which row each sits in → what a visitor reads at a glance.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If those four move forward, four from the front row take their place at the back.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 286" role="img" aria-label="Below your film, the logo banner has a bold front row and a faint back row holding Bradley, Manchester, Leeds and UCL. Your letter b would swap those four into the front row.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your film</text><text class="d-s" x="34" y="50">the loop at the top of the page</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">then</text>
+        <rect class="d-box" x="20" y="94" width="300" height="96"/>
+        <text class="d-t" x="34" y="116">The logo banner</text>
+        <rect class="d-box" x="34" y="126" width="272" height="24"/>
+        <text class="d-t" x="44" y="143">Front row: bold</text>
+        <rect class="d-out" x="34" y="156" width="272" height="24"/>
+        <text class="d-s" x="44" y="173">Faint: Bradley, Manchester, Leeds, UCL</text>
+        <line class="d-ah" x1="170" y1="222" x2="170" y2="192" marker-end="url(#arh)"/><text class="d-l" x="180" y="212">b: swap</text>
+        <rect class="d-his" x="20" y="224" width="300" height="52"/>
+        <text class="d-t" x="34" y="246">Your letter</text><text class="d-s" x="34" y="264">a leaves it · b swaps four forward</text>
+      </svg>
+      <figcaption>How to read it: the faint back row is drawn dashed; your letter, in green, is the cause that would swap it.</figcaption>
+    </figure>
+    <section class="q" data-q="3">
+      <fieldset>
+        <legend>3. Leave the banner's rows as they are?</legend>
+        <label class="opt"><input type="radio" name="q3" value="a"><span><b>a.</b> Leave it as it is.
+          <dl><dt>Gains</dt><dd>Nothing to change; the rows keep the balance they have now.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>Those four names read small.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q3" value="b"><span><b>b.</b> Swap those four into the bold front row in run 2.
+          <dl><dt>Gains</dt><dd>Bradley, Manchester, Leeds and UCL read bold.</dd><dt>Costs you</dt><dd>Nothing, unless you want to name which four go back (in the note); otherwise I pick.</dd><dt>Risk</dt><dd>Four other names drop to the faint row. One small change in run 2.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a.</b> Every name is on the banner and heard by screen readers; choose b only if those four matter most to you.</p>
+        <p>If a: the banner stays as it is · If b: run 2 swaps the four forward and four others back, and shows you on your phone.</p>
+      </div>
+      <label class="box">Note for question 3<textarea data-note placeholder="Which four go back, if b (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>A fact only you can confirm: your key's DNS line</h2>
+    <p>DNS is the internet's address book: the lines that say which building your address points to. To go live on 15 Oct, you raised the key's DNS line from "Read" to "Edit" so I could change those lines. In today's key edit you added the two counting lines; the plan was to set DNS back to "Read" at the same time. <span class="fact guessed">guessed: I cannot see a key's permissions from here</span></p>
+    <p class="likeness"><b>Think of it as</b> a hotel key card: it opens only the doors it is set for. A card that can only look is safer if it is ever lost.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The limited Cloudflare key I use, kept outside this project.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>I no longer need to change your address lines, so the key should not be able to.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Your key edit → what the key may do → your address lines in Cloudflare.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>If DNS is back on Read, nothing more is needed. If it is still Edit, a lost key could point your address elsewhere, until one minute of yours sets it back.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 258" role="img" aria-label="Your key edit today sets what the master's Cloudflare key may do. If DNS is on Read, it can only look; if not, one minute of yours sets it back.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your key edit today</text><text class="d-s" x="34" y="50">two counting lines added</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">and DNS set to</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The master's Cloudflare key</text><text class="d-s" x="34" y="134">your zone only, kept outside the project</text>
+        <line class="d-a" x1="110" y1="146" x2="90" y2="176" marker-end="url(#ar)"/>
+        <line class="d-a" x1="230" y1="146" x2="250" y2="176" marker-end="url(#ar)"/>
+        <rect class="d-box" x="15" y="178" width="150" height="68"/>
+        <text class="d-t" x="25" y="200">a: Read</text><text class="d-s" x="25" y="218">can look at your</text><text class="d-s" x="25" y="236">address lines only</text>
+        <rect class="d-his" x="175" y="178" width="150" height="68"/>
+        <text class="d-t" x="185" y="200">b: one minute</text><text class="d-s" x="185" y="218">you set DNS back</text><text class="d-s" x="185" y="236">to Read in Cloudflare</text>
+      </svg>
+      <figcaption>How to read it: your edit, in green, sets what the key may do; the arrows lead to each answer's effect.</figcaption>
+    </figure>
+    <section class="q" data-q="4">
+      <fieldset>
+        <legend>4. During today's key edit, did you set the key's DNS line back to "Read"?</legend>
+        <label class="opt"><input type="radio" name="q4" value="a"><span><b>a.</b> Yes.
+          <dl><dt>Gains</dt><dd>The key can do no more than it needs; this is closed.</dd><dt>Costs you</dt><dd>Nothing.</dd><dt>Risk</dt><dd>None.</dd></dl></span></label>
+        <label class="opt"><input type="radio" name="q4" value="b"><span><b>b.</b> No, or not sure.
+          <dl><dt>Gains</dt><dd>We find out and close it.</dd><dt>Costs you</dt><dd>One more step of about 1 minute: open the key in Cloudflare and set DNS to Read.</dd><dt>Risk</dt><dd>Until then, the key can change your address lines.</dd></dl></span></label>
+      </fieldset>
+      <div class="rec">
+        <p><b>My recommendation: a</b>, if it is true: a key that can only read is the safer state. Answer as it is; b costs you only a minute.</p>
+        <p>If a: nothing more to do · If b: I send you the one-minute step, and the key goes back to read-only.</p>
+      </div>
+      <label class="box">Note for question 4<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="item stack">
+    <h2>Run 1, as you lived it</h2>
+    <p>The run went from go at 06:18 to its wrap at 10:14 on 15 Oct, about 4 hours, with your stops along the way: the words sheet, your logos and film, the Cloudflare steps and the address change.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The run itself: how it felt to work this way.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>A run can score well on merges and still be a bad day for you; this is the one measure only you can give.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>Run 1 → your score → how the next runs are shaped.</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>A low score, with a line on why, changes how run 2 asks things of you.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 258" role="img" aria-label="Run 1 leads to your score from 1 to 5, which shapes how the next runs are run.">
+        <rect class="d-box" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Run 1, 15 Oct</text><text class="d-s" x="34" y="50">about 4 hours, 8 pieces, site live</text>
+        <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">you rate it</text>
+        <rect class="d-his" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">Your score, 1 to 5</text><text class="d-s" x="34" y="134">and a line on why, if you like</text>
+        <line class="d-ah" x1="170" y1="146" x2="170" y2="176" marker-end="url(#arh)"/><text class="d-l" x="180" y="166">shapes</text>
+        <rect class="d-box" x="20" y="178" width="300" height="52"/>
+        <text class="d-t" x="34" y="200">The next runs</text><text class="d-s" x="34" y="218">kept beside the other measures</text>
+      </svg>
+      <figcaption>How to read it: the run leads to your score, in green, and your score shapes the runs after it.</figcaption>
+    </figure>
+    <section class="q" data-q="5">
+      <fieldset>
+        <legend>5. How much did you enjoy run 1, from 1 to 5?</legend>
+        <label class="opt"><input type="radio" name="q5" value="1"><span><b>1.</b> Not at all</span></label>
+        <label class="opt"><input type="radio" name="q5" value="2"><span><b>2.</b> Not much</span></label>
+        <label class="opt"><input type="radio" name="q5" value="3"><span><b>3.</b> It was fine</span></label>
+        <label class="opt"><input type="radio" name="q5" value="4"><span><b>4.</b> Good</span></label>
+        <label class="opt"><input type="radio" name="q5" value="5"><span><b>5.</b> Loved it</span></label>
+      </fieldset>
+      <label class="box">Note for question 5<textarea data-note placeholder="A line on why (optional)"></textarea></label>
+    </section>
+  </section>
+
+  <section class="stack">
+    <h2>What was merged, and how each is undone</h2>
+    <p class="muted">No question here. Name any you want undone in a note above.</p>
+    <h3>Built into the site: 11 work orders</h3>
+    <p class="muted">Each is undone by taking it back out of the project's history, then sending the site again.</p>
+    <ul>
+      <li>The page, built to the Rose look. Undo tried once on 15 Oct with you reachable, then put back.</li>
+      <li>Search basics and the link preview.</li>
+      <li>The send-across tool. Landed twice: the second a fix so the first real send could save its work.</li>
+      <li>The live check.</li>
+      <li>The words you approved.</li>
+      <li>Your going-live act file.</li>
+      <li>The logo banner, first with stand-in marks.</li>
+      <li>The banner moved to sit between the film and "How it works".</li>
+      <li>Your film in the film frame.</li>
+      <li>Your 18 logos in place of the stand-ins.</li>
+      <li>Your new film swapped in.</li>
+    </ul>
+    <h3>Sent to the site's store on GitHub</h3>
+    <p class="muted">Each is undone by sending the earlier version again. The record's "It works" line counts five sends; its list of merges names these four.</p>
+    <ul>
+      <li>First send: the page as built.</li>
+      <li>Second send: your approved words.</li>
+      <li>Third send: your film and your 18 logos.</li>
+      <li>Fourth send: your new film.</li>
+    </ul>
+    <h3>Going live</h3>
+    <ul>
+      <li>Cloudflare's hosting project made from the site's store. Undo: delete the project (yours, in Cloudflare).</li>
+      <li>Your two addresses added to it. Undo: remove them from the project.</li>
+      <li>The going-live address change: the four old lines pointing at your old host removed, two new lines pointing at Cloudflare added; no other line touched. Undo: delete the two new lines and put the four old ones back (the old error page returns).</li>
+      <li>The visitor counter switched on, 16 Oct, with one re-publish of the same files. Undo: switch counting off in Cloudflare (yours).</li>
+    </ul>
+  </section>
+
+  <section class="calls stack">
+    <h2>Calls I'm making</h2>
+    <p class="muted">These are mine, not your rulings. Each stands until you undo it.</p>
+    <ul>
+      <li>Run 2 (the traffic fixes, your "a") is planned straight after this review; its plan page arrives beside this one, for your signature. Undo: say "wait", and run 2 waits.</li>
+      <li>Your letters on this page close run 1: each is written into the record as your ruling, and run 2 is planned on them. Undo: a new letter on any question, at any time.</li>
+    </ul>
+  </section>
+
+  <section class="readback" aria-live="polite" data-sheet="foundry-north-website · Review of run 1">
+    <div><span class="muted">Your letters:</span> <code id="letters"></code><small id="notecount"></small></div>
+    <button type="button" id="copyall">Copy my letters and notes</button>
+    <textarea class="fallback" readonly hidden aria-label="Your letters and notes, to copy by hand"></textarea>
+    <small class="muted">Kept in this browser if the page reloads.</small>
+  </section>
+
+  <section class="stack">
+    <h2>Where this comes from</h2>
+    <ul class="muted">
+      <li>docs/runs/1/run.md: It works, Merges, Unforeseen key points, Blockers, Key points, Review notes</li>
+      <li>docs/runs/1/plan-signed.md: the six planned pieces and their key points</li>
+      <li>docs/decisions.md: the entries from 2026-10-15 03:48 to the end (the traffic talk and your answers of 16 Oct)</li>
+      <li>tools/measures.py docs/runs/1, run today: share finished, surprises, usage per piece</li>
+      <li>desks/site/docs/words.md: lines W12 and W37</li>
+      <li>pages.md, § Every page and § The review page; docs/blanks/page.html</li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+// The read-back. It finds every question (section.q) by itself, so adding one needs no change here.
+// The button copies his letters, his words and his notes together. If the browser refuses the clipboard,
+// the text is shown in a box already selected, so he can long-press and copy it himself.
+// His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
+// reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+(function () {
+  var back = document.querySelector('.readback');
+  var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
+  var key = 'page · ' + back.getAttribute('data-sheet');
+
+  function field(q, sel) { return q.querySelector(sel); }
+  function save() {
+    var kept = {};
+    qs.forEach(function (q) {
+      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+    });
+    try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
+  }
+  function restore() {
+    var kept;
+    try { kept = JSON.parse(window.localStorage.getItem(key) || '{}') || {}; } catch (e) { return; }
+    qs.forEach(function (q) {
+      var k = kept[q.getAttribute('data-q')];
+      if (!k) return;
+      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      if (w && k.words) w.value = k.words;
+      if (t && k.note) t.value = k.note;
+    });
+  }
+
+  function answer(q) {
+    var n = q.getAttribute('data-q');
+    var words = q.querySelector('textarea[data-words]');
+    if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
+    var c = q.querySelector('input[type=radio]:checked');
+    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+  }
+  function note(q) {
+    var t = q.querySelector('textarea[data-note]');
+    return t && t.value.trim() ? q.getAttribute('data-q') + ' note: ' + t.value.trim() : '';
+  }
+  function fullText() {
+    var lines = [back.getAttribute('data-sheet')];
+    qs.forEach(function (q) { lines.push(answer(q).line); var k = note(q); if (k) lines.push(k); });
+    return lines.join('\n');
+  }
+  function update() {
+    document.getElementById('letters').textContent = qs.map(function (q) { return answer(q).short; }).join(' · ');
+    var k = qs.filter(note).length;
+    document.getElementById('notecount').textContent = k ? k + (k === 1 ? ' note' : ' notes') + ' will be copied too' : 'No notes yet';
+  }
+
+  function copy(text, btn, box) {
+    var label = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', label);
+    function said(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = label; }, 2000); }
+    function byHand() {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t); t.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(t);
+      if (ok) return said('Copied');
+      box.hidden = false; box.value = text; box.focus(); box.select();
+      said('Copy refused: long-press the text below to copy');
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { box.hidden = true; said('Copied'); }, byHand);
+    } catch (e) { byHand(); }
+  }
+
+  document.getElementById('copyall').addEventListener('click', function () {
+    copy(fullText(), this, back.querySelector('.fallback'));
+  });
+  document.querySelectorAll('button[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.getElementById(btn.getAttribute('data-copy'));
+      var text = Array.prototype.map.call(src.querySelectorAll('li'), function (li) { return '- ' + li.textContent.trim(); }).join('\n');
+      copy(text, btn, btn.parentNode.querySelector('.fallback'));
+    });
+  });
+  document.querySelectorAll('section.q input, section.q textarea').forEach(function (el) {
+    el.addEventListener('input', function () { update(); save(); });
+    el.addEventListener('change', function () { update(); save(); });
+  });
+  restore();
+  update();
+})();
+</script>
