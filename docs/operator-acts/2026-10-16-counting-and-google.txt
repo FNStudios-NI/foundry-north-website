@@ -1,0 +1,136 @@
+COUNT YOUR VISITORS, AND TELL GOOGLE YOUR SITE EXISTS  -  your act, about 30 minutes, in a browser (phone or laptop)
+==========================================================================
+
+What it unlocks: you can see how many people visit and where they came from; Google starts showing your site in search and on Maps.
+Why you and not me: these need your Cloudflare and Google sign-ins, and changing what my key may do is always yours (your "approve all", 16 Oct).
+
+Nothing here changes how the site looks. Nothing here costs money. There is nothing to type into a terminal.
+Do the four parts in order; Part C needs me for a moment in the middle.
+
+
+PART A - let my key read the visitor numbers (about 3 minutes)
+--------------------------------------------------------------
+
+STEP 1 - in the browser, signed in to Cloudflare
+Why: this is where your keys live.
+
+Open: https://dash.cloudflare.com/profile/api-tokens
+
+Pass: you see "foundry-north-website master" in the list.
+
+
+STEP 2 - on that page
+Why: we add two "read only" lines to the key you already made. The key itself stays the same; nothing to copy or save.
+
+Press the three dots beside "foundry-north-website master", then "Edit".
+Press "+ Add more" twice and fill in the two new lines:
+  Zone      |  Analytics          |  Read
+  Account   |  Account Analytics  |  Read
+Leave every other line as it is.
+
+Pass: the permissions list now has those two lines added, and still shows "DNS | Edit".
+
+
+STEP 3 - the bottom of the form
+Why: Cloudflare shows a summary before saving.
+
+Press "Continue to summary", then "Update token".
+
+Pass: you are back on the API Tokens page with no error.
+
+
+PART B - switch on the visitor counter (about 2 minutes)
+--------------------------------------------------------
+
+STEP 4 - in Cloudflare
+Why: Cloudflare's own counter is free and sets no cookies, so the site still needs no cookie banner.
+
+Go to Workers & Pages (in the left menu), press "foundry-north-site", then the "Metrics" tab.
+Under "Web Analytics", press "Enable".
+
+Pass: Web Analytics shows as enabled.
+
+Then tell me "counting on". I re-publish the same site once so the counter starts (Cloudflare only adds it on the next publish).
+
+
+PART C - Google Search Console (about 5 minutes)
+------------------------------------------------
+This is Google's free tool for site owners: it shows which searches bring people to you, and tells Google to read your site now.
+
+STEP 5 - in the browser, signed in to the Google account you use for the business
+Why: the account you use here is the one that sees the reports.
+
+Open: https://search.google.com/search-console
+
+Pass: you see "Select property type" or a page with "Add property" in the top-left menu (if so, press it).
+
+
+STEP 6 - choose the left box, "Domain"
+Why: "Domain" covers every address of the site in one go (with and without www).
+
+Type:  foundrynorthstudios.co.uk
+Press "Continue".
+
+Pass: you see "Verify domain ownership via DNS record", with a line starting "google-site-verification=".
+
+
+STEP 7 - copy that line and send it to me in the chat
+Why: Google proves you own the domain by finding that line in your domain's settings. I add it through your key. It is not a secret: anyone can read it once it is there.
+
+If Google shows a button to verify through Cloudflare instead, that works too: press it, follow it, and skip to STEP 8's Pass line.
+
+Press "Copy" beside the line, and paste it to me. Leave the Google page open. Do NOT press "Verify" yet.
+
+Pass: I answer "row added".
+
+
+STEP 8 - back on the Google page
+Why: Google now looks for the row.
+
+Press "Verify".
+
+Pass: you see "Ownership verified". (If it says it could not find it, wait 10 minutes and press Verify again; if it still fails, tell me what it says.)
+
+
+STEP 9 - set my key back to reading DNS only
+Why: I needed to edit DNS for going live and for Google's row; after this I do not. A key that can do less is safer.
+
+Open https://dash.cloudflare.com/profile/api-tokens, three dots beside "foundry-north-website master", "Edit".
+Change the line  Zone | DNS | Edit  to  Zone | DNS | Read.  Then "Continue to summary", "Update token".
+
+Pass: back on the API Tokens page with no error. Tell me "key back to read".
+
+
+PART D - Google Business Profile (about 15 to 20 minutes, then Google checks you over a few days)
+-------------------------------------------------------------------------------------------------
+This is the panel people see on Google Search and Maps. For a small studio it is often the biggest single source of searches.
+
+STEP 10 - in the browser, the same Google account
+Why: only the owner can claim the business.
+
+Open: https://business.google.com/create
+
+Pass: Google asks for your business name.
+
+
+STEP 11 - fill in the form as Google asks
+Why: each answer decides which searches you show up for.
+
+  Business name:   Foundry North
+  Category:        Video production service  (type "video production" and pick it from the list)
+  A location customers can visit?  Choose "No" if you work at your clients' places and not from a public studio. Then add the towns or regions you serve.
+  Phone and website:  https://foundrynorthstudios.co.uk
+
+Pass: Google reaches a page about verifying your business.
+
+
+STEP 12 - verify
+Why: Google checks that the business is real before it shows the profile.
+
+Choose whichever way Google offers (often a short video of your workplace, sometimes a phone call or a postcard).
+
+Pass: Google says your profile is being reviewed, or that it is verified.
+
+
+When you have finished all four parts, tell me "done", plus anything Google asked that you weren't sure about.
+If anything looks different from a Pass line, stop and tell me what it says.

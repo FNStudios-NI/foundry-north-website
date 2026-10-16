@@ -133,6 +133,8 @@ One line per card, at the review: its done-when line tried, pass or fail. `measu
 New ideas that come up mid-run go here, not into this run, unless they are a blocker.
 - 06:21 · A browser he logs into that the master can use for reads like Zoho and Cloudflare · his question at 06:17; changing what an agent may do is his, so it is a plan item, not a mid-run act
 - 09:30 · the page's speed-ups offered at 09:02 (a still from the film shown first, a 720p film for phones, browser caching rules, preloading the main font, slimmer fonts) · his question; not chosen before going live
+- 09:07 · the traffic fixes, his approve all of 16 Oct (docs/decisions.md): a still shown first and a smaller phone film; robots.txt, sitemap.xml, an icon and a 404 page; www sent to the bare address; then the sitemap sent to Search Console
+- 09:07 · new words for the title, description and opening line carrying what buyers search for (video content for founders, video production, where he works), for his line-by-line approval · his approve all of 16 Oct
 
 ## Handover
 Written before the context fills, at a quiet moment, never in the middle of a merge.

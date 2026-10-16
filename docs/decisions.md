@@ -174,3 +174,24 @@ Supersedes: none.
 - **09:44 — Rhys:** The Cloudflare steps: "a. walk me through it please": he connects GitHub to Cloudflare (allowing foundry-north-site only); the master then creates the Pages project and adds www and the bare address through his Cloudflare key (Pages Edit), handing back anything the key cannot do (the four old DNS rows, if Cloudflare needs them gone). No browser is driven by the master. Undo: a new ruling.
 - **09:59 — Rhys:** "1. a 2. ill tell you when you have it": go live now with today's film; his DNS step (four old rows out, two CNAMEs in) is his next act; the film swap follows when he sends the new export. Undo: a new ruling.
 - **10:08 — Rhys:** "key updated": his Cloudflare key's DNS permission raised from Read to Edit (this zone only), so the master makes the going-live DNS change: delete only the four A/AAAA rows of the bare address and www (217.160.0.70, 2001:8d8:100f:f000::25b), add CNAME @ and CNAME www to foundry-north-site.pages.dev, proxied. Undo: the reverse (the act file's STEPs 13 to 15); he may set the key back to DNS Read.
+
+## 2026-10-16 09:06 — Traffic: the site read, and his approve all (the master, between runs)
+Page: no page (talked through in the chat).
+
+Read first, at his ask ("Can you do analytics on my page and see what your top suggestions to start getting more traffic"), 16 Oct about 04:35 by the computer's clock: no visitor counting is on the site (scope Out, Later list); his Cloudflare key is refused the traffic figures (it lacks Zone Analytics Read); `/robots.txt`, `/sitemap.xml`, `/favicon.ico` and any made-up address answer 200 with the page itself (no such files, no 404 page); the bare address and `www.` both answer 200, with no redirect between them; the film is 25,959,232 bytes, `preload="auto"`, no still shown first; the title and opening lines hold none of the words a buyer searches for.
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | All five suggestions approved. His hands: (1) counting, Cloudflare Web Analytics switched on, and Zone Analytics Read and Account Analytics Read added to the master's key for a weekly report; (2) Google Search Console for the domain, and a Google Business Profile. The master's: the ownership row Search Console asks for, added through his key; and in the next run, (3) the fixes (a still and a smaller phone film, robots.txt, a sitemap, an icon, a 404 page, one address) and (4) new words for the title and opening line, for his line-by-line approval. (5) Sending people to the site is his ongoing work; the master drafts posts or outreach lines on his ask. | "approve all" | Traffic cannot be judged without counting, and Google cannot show a site it has not been told of. | A new ruling; the key's two added permissions are removed in Cloudflare (his). |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | Pieces 3 and 4 wait for run 2 (run 1's review comes first), not rule 34's one small change: they are several pieces across the film, the files and the words. | Rule 34 is one checked piece; this is a plan. | He asks for one of them now as a small change. |
+| 2 | His acts go in one file, `docs/operator-acts/2026-10-16-counting-and-google.txt`. The sitemap is sent to Google only once run 2 has made it. | His ruling 4 of 15 Oct 03:48: grouped, one message. | None needed. |
+| 3 | Web Analytics takes effect on the next deployment: after he switches it on, the master starts one through his key (Pages Edit), with no change to the site. | Cloudflare's docs: the snippet is added "on the next deployment". | None needed; a redeploy of the same files. |
+
+Supersedes: the scope's Out line "Visitor counting and cookie banners" for counting only (Cloudflare's counting sets no cookie, so still no banner).
