@@ -200,3 +200,27 @@ Supersedes: the scope's Out line "Visitor counting and cookie banners" for count
 - **11:51 — Rhys:** "so that's it setup": Google Business Profile made (his act; Belfast, Northern Ireland and Dublin; Video production service). The name: he saw https://foundrynorthstudio.com/ ("Foundry North Studio", custom software and business tools for UK businesses; that .com registered 24 Aug 2026). Read after: foundrynorth.com is a US advertising agency (Minneapolis); the UK register has FOUNDRY NORTH LTD 17139415 (IT consultancy, Wetherby, 7 Apr 2026) and FOUNDRY NORTH WORKS LTD 17176604 (Bingley, 23 Apr 2026); his foundrynorthstudios.co.uk was registered 16 Oct 2025. The UK trade mark register refused the master's read (403); a web search found no FOUNDRY NORTH mark. His answers: 2 "yes": "Foundry North Studios" is the public name everywhere (the next run's words carry it; he renames his Google profile to match). 3 "i don't want to pay it if i can avoid it": no trade mark filing for now. Undo: a new ruling.
 - 11:52 · Counting checked: the key reads zone analytics and Web Analytics (his key edit done); one Pages redeploy of the same commit 2a416d3 (deployment 65b11a04) put the Web Analytics script on the live page. Undo: disable Web Analytics in the Pages project (his).
 - 12:11 · The run 1 review page and the run 2 plan page published at /fnw/ (tailnet only), page, people and plan checks ALLOW; 5 and 4 questions. Run 2's four pieces are docs/brief.md § The plan, run 2.
+
+## 2026-10-16 12:29 — Run 1 closed
+Page: `docs/runs/1/review.html` (and `docs/pages/2026-10-16-plan-sheet-1.html`, left unsigned).
+
+His rulings:
+
+| # | Ruled | His letter and words | Why | Undo |
+|---|---|---|---|---|
+| 1 | The film stays with the site on Cloudflare's free hosting (25 MiB a file); R2 not now. | a — "one note, last time i went to export a smaller version i changed the settings to 720p and the size in mb was the same" | No extra service; the phone version and a still come with the traffic fixes. His note: a file's size follows its bitrate and length, not its picture size, so the master gives a bitrate with the next export ask. | A new ruling; films move to R2. |
+| 2 | W12 "Our film: a short loop from the studio." and W37 "Worked with" kept. | a — no words added | The last two lines waiting for his yes. | A new ruling. |
+| 3 | The logo banner's back row left as it is. | a — no words added | | A new ruling. |
+| 4 | His key's DNS line is back to Read. | a — no words added | The master no longer changes DNS. | He raises it again in Cloudflare. |
+| 5 | Every merged piece of run 1 kept; none undone. | no undo named | The review is his pass over the master's decisions. | Any listed undo, on his word. |
+| 6 | Run 2 (the traffic fixes) is held: "hold off on the fixs then can be added to the next run". The plan page stays unsigned; its four pieces stay in `docs/brief.md` § The plan, run 2, and on run 1's Next run's list. | "hold off on the fixs then can be added to the next run" | His call; it supersedes his letter "a" of 16 Oct (build now, then wrap). | A new ruling; the plan page can be signed as it stands. |
+
+My calls (not ruled by him; he confirms or undoes each at the plan sign-off; never ruled by silence):
+
+| # | Call | Why | Undo |
+|---|---|---|---|
+| 1 | Measures from `tools/measures.py`: 6 of 6 planned pieces landed (100%); 26 surprise lines (17 unforeseen key points, 9 blocker lines). | Counted by the tool, never estimated. | None needed. |
+| 2 | Wrapped at once: the page server, the /fnw route and the master's seat stopped by the shutdown list. | Nothing runs while nothing waits. | Start them again for the next run's pages. |
+
+Enjoyment: 4 — no words added.
+Supersedes: his letter "a" of 16 Oct (build the traffic fixes now). Unsure and Parked lines settled: W12 and W37; the key back to DNS Read.
