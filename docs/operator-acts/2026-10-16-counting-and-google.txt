@@ -1,3 +1,5 @@
+REPLACED, DO NOT RUN: the steps are now given one round at a time in the chat, in a shorter order (16 Oct).
+
 COUNT YOUR VISITORS, AND TELL GOOGLE YOUR SITE EXISTS  -  your act, about 30 minutes, in a browser (phone or laptop)
 ==========================================================================
 
