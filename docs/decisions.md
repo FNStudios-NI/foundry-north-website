@@ -195,3 +195,4 @@ My calls (not ruled by him; he confirms or undoes each at the plan sign-off; nev
 | 3 | Web Analytics takes effect on the next deployment: after he switches it on, the master starts one through his key (Pages Edit), with no change to the site. | Cloudflare's docs: the snippet is added "on the next deployment". | None needed; a redeploy of the same files. |
 
 Supersedes: the scope's Out line "Visitor counting and cookie banners" for counting only (Cloudflare's counting sets no cookie, so still no banner).
+- **09:29 — Rhys:** "all at once please": his acts given in one message. My call, so nothing waits on me mid-way: he adds the Google ownership row himself in Cloudflare (or by Google's Cloudflare button), then edits the key once (the two Analytics Read lines added, DNS set back to Read). Undo: a new ruling.
