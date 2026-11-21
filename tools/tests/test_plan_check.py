@@ -166,3 +166,95 @@ def test_every_fault_listed(tmp_path):
     assert code == 1
     assert len(out) == 6, out
     assert all(line.startswith("REFUSE: ") for line in out), out
+
+
+# Piece 2 creates a schedule; his act edits it (run 6 lesson 21).
+CREATES = ITEMS[:1] + [{"data-piece": "2", "data-mark": "documented", "data-lane": "standard",
+                        "data-touches": "desks/road/scripts/sync.py",
+                        "data-creates": "schedule:morning-report"}] + ITEMS[2:]
+
+
+def acts(*lis):
+    return "<ol>" + "".join(f"<li {attrs}>Set its model</li>" for attrs in lis) + "</ol>"
+
+
+def test_act_editing_what_a_piece_creates_ordered_too_early_refused(tmp_path):
+    html = page(CREATES, extra=acts('data-act="1" data-edits="schedule:morning-report" data-after="go"'))
+    refused_once(tmp_path, html, "act 1 edits schedule:morning-report", "which piece 2 creates",
+                 "ordered before it", "Put 2 in its data-after")
+
+
+def test_act_ordered_after_the_piece_that_creates_what_it_edits_allowed(tmp_path):
+    html = page(CREATES, extra=acts('data-act="1" data-edits="schedule:morning-report" data-after="2"'))
+    assert run(tmp_path, html) == (0, ["ALLOW"])
+
+
+def test_act_with_no_edits_refused(tmp_path):
+    html = page(CREATES, extra=acts('data-act="1" data-edits="none" data-after="go"', 'data-act="2" data-after="go"'))
+    refused_once(tmp_path, html, "act 2 does not say what it edits", 'data-edits="none"')
+
+
+def test_page_with_no_act_allowed(tmp_path):
+    html = page(CREATES)
+    assert "data-act=" not in html
+    assert run(tmp_path, html) == (0, ["ALLOW"])
+
+
+# The trials of a signed plan (contract 8; his ruling 4 of 17 Nov 07:43 and call 2).
+TRIALS = [
+    "the options board a stage earlier · file: desks/hero-film/workflow.md · measure: shots he sends back at the first cut · reads: shots sent back",
+    "planned frames · file: desks/hero-film/workflow.md · measure: shots re-rendered after his notes · reads: re-renders",
+    "the kit first · file: desks/hero-film/workflow.md · measure: props drawn more than one way · reads: props drawn twice",
+    "plates at full size · file: desks/hero-film/workflow.md · measure: his notes on edges and hands · reads: edge notes",
+    "the act checks · file: template · measure: sightings per check · reads: sightings",
+]
+
+
+def signed_plan(trials=TRIALS, section=True):
+    text = "# Plan for run 3 — test\n\n## The path\n- the film · hero-film\n\n"
+    if section:
+        text += "## Trials\n" + "".join(f"- {t}\n" for t in trials) + "\n"
+    return text + "## Budget and hard stop\n- Budget: 5% of his week\n"
+
+
+def run_md(tmp_path, text):
+    path = tmp_path / "plan-signed.md"
+    path.write_text(text, encoding="utf-8")
+    done = subprocess.run([sys.executable, "-B", TOOL, str(path)], capture_output=True, text=True, encoding="utf-8")
+    return done.returncode, done.stdout.splitlines()
+
+
+def test_a_plan_with_five_trials_allowed(tmp_path):
+    assert run_md(tmp_path, signed_plan()) == (0, ["ALLOW"])
+
+
+def test_a_plan_with_no_trials_section_allowed(tmp_path):
+    assert run_md(tmp_path, signed_plan(section=False)) == (0, ["ALLOW"])
+
+
+def test_a_trial_with_no_measure_refused(tmp_path):
+    trials = TRIALS[:4] + ["the act checks · file: template · reads: sightings"]
+    code, out = run_md(tmp_path, signed_plan(trials))
+    assert code == 1 and out == ['REFUSE: trial "the act checks" has no measure:. '
+                                 "Write what its measure says, so the trial can be judged."], out
+
+
+def test_a_trial_with_no_reads_refused(tmp_path):
+    trials = TRIALS[:4] + ["the act checks · file: template · measure: sightings per check"]
+    code, out = run_md(tmp_path, signed_plan(trials))
+    assert code == 1 and len(out) == 1 and out[0].startswith('REFUSE: trial "the act checks" has no reads:'), out
+
+
+def test_two_trials_reading_the_same_thing_with_case_and_spaces_aside_refused_naming_both(tmp_path):
+    trials = TRIALS[:4] + ["the options board in the player · file: desks/hero-film/workflow.md · "
+                           "measure: shots he asks back · reads: Shots  Sent back "]
+    code, out = run_md(tmp_path, signed_plan(trials))
+    assert code == 1 and len(out) == 1, out
+    assert out[0].startswith('REFUSE: trials "the options board a stage earlier" and '
+                             '"the options board in the player" both read "Shots  Sent back"'), out
+
+
+def test_a_sixth_trial_refused(tmp_path):
+    trials = TRIALS + ["the render queue · file: desks/hero-film/workflow.md · measure: minutes waiting · reads: minutes waiting"]
+    code, out = run_md(tmp_path, signed_plan(trials))
+    assert code == 1 and len(out) == 1 and out[0].startswith("REFUSE: the plan carries 6 trials. Five at most"), out

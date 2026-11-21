@@ -24,6 +24,10 @@ _new_project = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_new_project)
 ADOPT_WRITES = _new_project.ADOPT_WRITES
 
+# git may use local files only, here and in every tool a test runs: where_am_i.py's template line falls back to
+# git ls-remote of the template's home online, and no test may touch the network (worker-rules.md rule 7).
+os.environ["GIT_ALLOW_PROTOCOL"] = "file"
+
 # The record a fresh project starts with: no rulings, and a register whose People table is empty.
 RECORD = {
     "docs/decisions.md": "# Decisions — test\n\nAppend-only.\n",

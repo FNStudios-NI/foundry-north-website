@@ -9,18 +9,30 @@
 # What it reads
 #   - docs/runs/<n>/run.md, the run record:
 #       its title "# Run <n> — foundry-north-website" for the project's name;
-#       "## Go", the line "- Start: <yyyy-mm-dd hh:mm>", where the logs begin;
+#       "## Go", where the logs begin: the line "- Start: <yyyy-mm-dd hh:mm>", or
+#         with none record.py's stamped "- <hh:mm> · Start (Go): ...", dated the
+#         day git first holds this run.md: record.py writes no other start (L034);
 #       "## Merges", one line per card landed, as land writes it
 #         ("- <hh:mm> · <yyyy-mm-dd>-<card> · ...") or as 0.4.0's were written
 #         by hand ("- <hh:mm> · <desk> <card> · ...");
 #       "## It works", one line per card tried, written by the review master
-#         with record.py ("- <hh:mm> · <card> · pass | fail · <how it was tried>");
+#         with record.py ("- <hh:mm> · <card> · pass | fail · <who looked> · <how>");
 #       "## Unforeseen key points" and "## Blockers", the surprises.
-#   - docs/runs/<n>/plan-signed.md: the lines under "## The path". A number
-#     opening a line, or opening a clause after ": " or "· ", is a piece, counted
-#     once however the lines group them ("- Round 1: 1 land · 2 the forms",
-#     "- 1 · the usage counter · template"); with no numbers, each line is one
-#     piece ("- <task> · <desk>").
+#     A line holding a placeholder (<hh:mm>, <card>, <…>) is the blank's
+#     example, never a record line: copied blanks were counted (design
+#     0.9.0, Part 7).
+#   - docs/runs/<n>/plan-signed.md: the lines under "## The path", in three
+#     forms, read alike when one plan mixes them. Dashed lines: a number
+#     opening a line, or opening a clause after ": " or "· ", is a piece
+#     ("- Round 1: 1 land · 2 the forms", "- 1 · the usage counter · template");
+#     with no numbers, each line is one piece ("- <task> · <desk>"). A numbered
+#     list: a line opening with its number, a dot and a space ("1. **The
+#     look** · template · full"). A table: a row whose first cell is the
+#     piece's number ("| 1 | The gatherer | ..."), its header and "|---|" rows
+#     no piece. A number counts once however the lines group it, and a line
+#     indented under a piece ("   Touches: ...") is never a piece of its own.
+#     A run with no plan-signed.md says "plan: none" and measures the rest
+#     (a fault met in engine-motion-graphics' runs 4 and 5; design 0.9.0, Part 1).
 #   - docs/decisions*.md at the project's top, the archive files too: the
 #     heading "## <yyyy-mm-dd hh:mm> — Run <n> closed", where a closed run's
 #     logs end.
@@ -29,6 +41,9 @@
 #     "Order:" line, the piece of the plan the card landed. A piece counts
 #     once however many cards it was cut into. A card that names no piece of
 #     the plan, or whose one file is not found, is named and left out.
+#   - Each landed card's own receipt (as land.py finds it from the card's
+#     Touches): its "Run: ..." lines, stamped by land.py from the session
+#     logs, printed under Usage per finished piece.
 #   - The session logs, Claude Code's *.jsonl files under --logs (by default
 #     ~/.claude/projects/), between the run's Start and its close, or now for
 #     a run not closed, or --until. Only the tokens of replies stamped inside
@@ -64,23 +79,35 @@
 import argparse
 import datetime as dt
 import glob
+import importlib.util
 import json
 import os
 import re
+import subprocess
 import sys
 
 HEADING = re.compile(r"^##\s+(.*?)\s*$")
 TITLE = re.compile(r"^#\s+Run\s+\S+\s+[—-]+\s+(\S+)")
 START = re.compile(r"^\s*-\s*Start:\s*(\d{4}-\d{2}-\d{2} \d{2}:\d{2})")
+STAMPED_START = re.compile(r"^\s*-\s*(\d{2}:\d{2})\s*·\s*Start \(Go\):")
+NO_START = "no start under ## Go: no '- Start: yyyy-mm-dd hh:mm' line, and no '- hh:mm · Start (Go): ...' line in a record git holds"
 SLUG = re.compile(r"^[a-z0-9][a-z0-9.-]*$")
 VERDICT = re.compile(r"^(pass|fail)$", re.IGNORECASE)
 DATED = re.compile(r"^\d{4}-\d{2}-\d{2}-")
 PIECE = re.compile(r"(?:^- |: |· )(\d+)(?=\s|$)")
+LISTED = re.compile(r"^(\d+)\.\s")
+ROW = re.compile(r"^\|\s*(\d+)\s*\|")
 # A heading in decisions.md that closes a run, as where_am_i.py reads it.
 CLOSED = re.compile(r"^## (\d{4}-\d{2}-\d{2} \d{2}:\d{2}).*\bRun (\d+) closed\b", re.IGNORECASE)
 ORDER = re.compile(r"\bOrder:(.*)")
 NAMED = re.compile(r"\bpiece (\d+)\b")
 DATE_GLOB = "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-"
+PLACEHOLDER = re.compile(r"<[^<>\s][^<>]*>")  # the blank's <hh:mm>, <card>, <…>
+
+_spec = importlib.util.spec_from_file_location("land_for_measures", os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "land.py"))
+land = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(land)  # its reading of a card's own receipt
 
 
 def sections(text):
@@ -97,7 +124,8 @@ def sections(text):
 
 
 def bullets(lines):
-    return [line.strip() for line in lines if line.strip().startswith("- ")]
+    """The record's lines, never the blank's examples (a line holding <hh:mm>, <card> or <…>)."""
+    return [line.strip() for line in lines if line.strip().startswith("- ") and not PLACEHOLDER.search(line)]
 
 
 def fields(line):
@@ -105,10 +133,15 @@ def fields(line):
 
 
 def pieces(lines):
-    """The plan's pieces, by number: each number opening a line or a clause
-    after ': ' or '· ' once; with no numbers, one per line, counted from 1."""
-    path = bullets(lines)
+    """The plan's pieces, by number, each once: on a dashed line, each number
+    opening it or a clause after ': ' or '· '; on a numbered line, its number;
+    in a table, a row's first cell. A line indented under a piece is none.
+    With no numbers, one per dashed line, counted from 1."""
+    top = [line for line in lines if line[:1] not in (" ", "\t")]
+    path = bullets(top)
     numbers = {int(n) for line in path for n in PIECE.findall(line)}
+    numbers |= {int(m.group(1)) for m in map(LISTED.match, top) if m}
+    numbers |= {int(m.group(1)) for m in map(ROW.match, top) if m}
     return numbers or set(range(1, len(path) + 1))
 
 
@@ -127,6 +160,29 @@ def local_time(text):
     return dt.datetime.strptime(text, "%Y-%m-%d %H:%M").astimezone()
 
 
+def first_held(record_path):
+    """The day git first holds this file, on this machine's clock; None when it holds it not."""
+    folder, name = os.path.split(os.path.abspath(record_path))
+    try:
+        done = subprocess.run(["git", "log", "--reverse", "--format=%ad", "--date=format-local:%Y-%m-%d", "--", name],
+                              cwd=folder, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    days = done.stdout.split()
+    return days[0] if done.returncode == 0 and days else None
+
+
+def start_of(record_path, go):
+    """The run's start, 'yyyy-mm-dd hh:mm', from the lines under ## Go: the '- Start:'
+    line when there is one, else the stamped Start (Go) line; None when neither reads."""
+    written = next((m.group(1) for m in map(START.match, go) if m), None)
+    if written:
+        return written
+    stamped = next((m.group(1) for m in map(STAMPED_START.match, go) if m), None)
+    day = first_held(record_path) if stamped else None
+    return f"{day} {stamped}" if day else None
+
+
 def closed_at(root, run):
     """The time in the heading of the run's 'Run <n> closed' entry in
     docs/decisions*.md, the earliest if it is there twice; None if not closed."""
@@ -143,21 +199,41 @@ def closed_at(root, run):
     return min(times) if times else None
 
 
-def named_pieces(root, desk, card):
-    """The pieces a landed card names: each 'piece <n>' on the 'Order:' line
-    of its own file. Empty when it names none, or when no one file is found."""
+def card_file(root, desk, card):
+    """A landed card's own file, or None when no one file is found."""
     name = (glob.escape(card) if DATED.match(card) else DATE_GLOB + glob.escape(card)) + ".md"
     top = glob.escape(root)
     found = glob.glob(os.path.join(top, "desks", glob.escape(desk) if desk else "*", "docs", "cards", name)) \
         + glob.glob(os.path.join(top, "docs", "cards", name))
-    if len(found) != 1:
+    return found[0] if len(found) == 1 else None
+
+
+def named_pieces(root, desk, card):
+    """The pieces a landed card names: each 'piece <n>' on the 'Order:' line
+    of its own file. Empty when it names none, or when no one file is found."""
+    found = card_file(root, desk, card)
+    if found is None:
         return set()
-    with open(found[0], encoding="utf-8", errors="replace") as f:
+    with open(found, encoding="utf-8", errors="replace") as f:
         for line in f:
             m = ORDER.search(line)
             if m:
                 return {int(n) for n in NAMED.findall(m.group(1))}
     return set()
+
+
+def run_lines(root, desk, card):
+    """The 'Run:' lines land.py stamped in a landed card's own receipt, above
+    its first '## ' heading; [] when there are none or no receipt is found."""
+    found = card_file(root, desk, card)
+    try:
+        receipt = os.path.join(root, land.receipt_in_touches(found)) if found else None
+        with open(receipt, encoding="utf-8", errors="replace") as f:
+            text = f.read()
+    except (land.Refuse, OSError, TypeError):
+        return []
+    head = text.split("\n## ", 1)[0]
+    return [line.strip()[len("Run: "):] for line in head.splitlines() if line.startswith("Run: ")]
 
 
 def read_log(path):
@@ -270,9 +346,9 @@ def main(argv):
     title = next((TITLE.match(l) for l in record.splitlines() if TITLE.match(l)), None)
     root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(args.run))))
     project = title.group(1) if title else os.path.basename(root)
-    start = next((START.match(l).group(1) for l in page.get("Go", []) if START.match(l)), None)
+    start = start_of(record_path, page.get("Go", []))
     if start is None:
-        print(f"no '- Start: yyyy-mm-dd hh:mm' line under ## Go in {record_path}")
+        print(f"{NO_START}, in {record_path}")
         return 1
     lo = local_time(start)
     number = os.path.basename(os.path.abspath(args.run))
@@ -300,7 +376,7 @@ def main(argv):
         if len(f) >= 3 and VERDICT.match(f[2]):
             got = card_of(f[1])
             if got:
-                tried[got[1]] = (f[2].lower(), f[3] if len(f) > 3 else "")
+                tried[got[1]] = (f[2].lower(), " · ".join(f[3:]))  # who looked · how
     for c in cards:
         word, how = tried.get(c, ("not tried", ""))
         print(f"- {label[c]} · {word}" + (f" · {how}" if how else ""))
@@ -316,8 +392,14 @@ def main(argv):
         share = 100 * t / whole if whole else 0.0
         print(f"- {label.get(who, who)} · {t:,.0f} · {share:.1f}% · {sessions.get(who, 0)} sessions")
     print(f"- total · {whole:,.0f}")
+    print("Run lines, as land.py stamped them in each card's receipt:")
+    for desk, card in landed:
+        for line in run_lines(root, desk, card) or ["no Run line"]:
+            print(f"- {label[card]} · {line}")
 
     print("\n## Share finished")
+    if not os.path.exists(plan_path):
+        print("plan: none")
     planned = pieces(plan.get("The path", []))
     done, unnamed = set(), []
     for desk, card in landed:

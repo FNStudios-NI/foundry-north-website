@@ -77,3 +77,38 @@ def test_a_card_on_another_branch_adds_nothing(repo):
     assert out.startswith("OUTSIDE"), out
     assert "other.txt" in out, out
     assert "continue.txt" not in out.splitlines()[1:], out
+
+
+def run_main(repo, *args):
+    done = subprocess.run([sys.executable, "-B", TOOL, "--main", *args],
+                          cwd=repo, capture_output=True, text=True)
+    return done.returncode, done.stdout + done.stderr
+
+
+def test_main_alone_still_calls_a_stray_outside(repo):
+    (repo / "specs" / "guide.md").parent.mkdir()
+    (repo / "specs" / "guide.md").write_text("left uncommitted\n", encoding="utf-8")
+    code, out = run_main(repo)
+    assert code == 1, out
+    assert out.startswith("OUTSIDE"), out
+    assert "specs/guide.md" in out.splitlines(), out
+
+
+def test_main_with_a_card_names_a_stray_and_passes(repo):
+    (repo / "specs" / "guide.md").parent.mkdir()
+    (repo / "specs" / "guide.md").write_text("left uncommitted\n", encoding="utf-8")
+    code, out = run_main(repo, "--card", os.path.join("cards", "first.md"))
+    assert code == 0, out
+    assert out.startswith("INSIDE"), out
+    assert "STRAY: specs/guide.md" in out.splitlines(), out
+
+
+@pytest.mark.parametrize("path", ["cards/other.md", "continue.txt"])
+def test_main_with_a_card_refuses_a_tracked_change_or_a_touched_file(repo, path):
+    # cards/other.md is tracked; continue.txt is untracked but in the branch's fence.
+    (repo / path).write_text("a change\n", encoding="utf-8")
+    code, out = run_main(repo, "--card", os.path.join("cards", "first.md"))
+    assert code == 1, out
+    assert out.startswith("OUTSIDE"), out
+    assert path in out.splitlines(), out
+    assert "STRAY" not in out, out

@@ -11,12 +11,22 @@
 #     <section class="item" data-piece="<n>"
 #              data-mark="proven | documented | assumed | risk"
 #              data-lane="light | standard | full"
-#              data-touches="<paths, space-separated>">
+#              data-touches="<paths, space-separated>"
+#              data-creates="<names, space-separated>">
 #   An item block with no data-piece (the evidence under a question) is
 #   not a plan item. The budget is the text of the element marked
 #   data-budget; the hard stop, the text of the one marked data-hard-stop;
 #   the record of the acts tried, the text of the one marked
 #   data-acts-tried.
+#   Each of his acts is an element in the page's list of his acts:
+#     <li data-act="<n>"
+#         data-edits="<names, space-separated, or none>"
+#         data-after="<the piece numbers that land before it, or go>">
+#   data-creates names what a piece creates, data-edits what an act
+#   edits; a name is any word the plan uses for the thing (a path,
+#   schedule:morning-report), compared letter for letter. go is at Go,
+#   before any piece. A name, a piece list or a number still a
+#   <placeholder> is read as nothing, as an empty value is.
 #
 # What it refuses, and why
 #   a. An item marked assumed (data-mark="assumed", ❓). Every assumed item
@@ -41,10 +51,29 @@
 #      command of his acts, dry-run or its refusal looked for. The job
 #      scout's plan was signed with neither, and every block after his
 #      signature was an act or a door nobody had tried.
+#   g. An act whose data-edits names a thing a piece's data-creates names,
+#      when that piece is not in the act's data-after. The Manager's plan
+#      filed his Settings act first, but T3 sets model and workspace per
+#      task, so the schedules his act edits had to exist first; the plan
+#      page said nothing of what an act edits, so no check could see it
+#      (run 6 lesson 21).
+#   h. An act with no data-edits at all. The check asks what each act
+#      edits (the same lesson); an act that edits nothing says "none".
+#   A page with no act (no element marked data-act) gives neither.
 #   A mark or lane that is not one of the words above counts as none.
 #
+# The trials (design of 17 Nov 2026, Part 3; his ruling 4 of 17 Nov 07:43
+# and call 2): two trials on one project could not be told apart when
+# quality moved. A signed plan (docs/runs/<n>/plan-signed.md) may carry
+#   ## Trials
+#   - <what is on trial> · file: <the workflow file, or template> · measure: <what it says> · reads: <a short name>
+# and is refused for each line with no measure: or no reads:, for two lines
+# whose reads: match with case and spaces aside (naming both), and for more
+# than five lines. A plan with no ## Trials reads as before. A .md plan is
+# read for its trials only; a page is read as above.
+#
 # How to run it
-#   python template/tools/plan_check.py <plan page>
+#   python template/tools/plan_check.py <plan page or plan-signed.md>
 #   It prints ALLOW and exits 0, or one "REFUSE: ..." line per fault and
 #   exits 1.
 #
@@ -75,6 +104,11 @@ def heavy_path(path):
     """True if the path is a tool, a skill, or under template/."""
     p = "/" + path.replace("\\", "/").strip().lstrip("./").strip("/") + "/"
     return "/tools/" in p or "/skills/" in p or p.startswith("/template/")
+
+
+def words(value):
+    """The space-separated words of an attribute, a <placeholder> read as nothing."""
+    return PLACEHOLDER.sub(" ", value or "").split()
 
 
 def check(html):
@@ -120,6 +154,65 @@ def check(html):
                 faults.append(f"the {name} ({attr}) is still a placeholder (\"{page_check.short(text)}\"). "
                               "Write the real one in.")
 
+    creators = [(" ".join(words(item.attrs.get("data-piece"))) or "(no number)",
+                 words(item.attrs.get("data-creates"))) for item in nodes if is_plan_item(item)]
+    for act in (n for n in nodes if "data-act" in n.attrs):
+        number = " ".join(words(act.attrs.get("data-act"))) or "(no number)"
+        if "data-edits" not in act.attrs:
+            faults.append(f"act {number} does not say what it edits. Give it data-edits=\"<names>\" "
+                          "or data-edits=\"none\".")
+            continue
+        edits = words(act.attrs.get("data-edits"))
+        after = words(act.attrs.get("data-after"))
+        for name in ([] if edits == ["none"] else edits):
+            for p, creates in creators:
+                if name in creates and p not in after:
+                    faults.append(f"act {number} edits {name}, which piece {p} creates, but is ordered "
+                                  f"before it. Put {p} in its data-after, or move the act.")
+
+    return faults
+
+
+MOST_TRIALS = 5
+
+
+def _field(parts, key):
+    """The value of the first ' · '-part starting '<key>:', a <placeholder> read as nothing."""
+    for part in parts:
+        if part.startswith(key + ":"):
+            return PLACEHOLDER.sub("", part[len(key) + 1:]).strip()
+    return ""
+
+
+def trial_faults(text):
+    """The faults of a plan's ## Trials section; [] with no section."""
+    trials, inside = [], False
+    for line in text.splitlines():
+        if line.startswith("## "):
+            inside = line.strip() == "## Trials"
+            continue
+        if inside and line.startswith("- "):
+            trials.append(line[2:].strip())
+    faults, seen = [], {}
+    for trial in trials:
+        parts = [p.strip() for p in trial.split(" · ")]
+        what = parts[0]
+        if not _field(parts, "measure"):
+            faults.append(f"trial \"{what}\" has no measure:. Write what its measure says, so the trial can be judged.")
+        reads = _field(parts, "reads")
+        if not reads:
+            faults.append(f"trial \"{what}\" has no reads:. Name the one thing its measure counts.")
+            continue
+        key = "".join(reads.lower().split())
+        if key in seen:
+            faults.append(f"trials \"{seen[key]}\" and \"{what}\" both read \"{reads}\". Two trials that count "
+                          "the same thing cannot be told apart when quality moves: give one another measure, "
+                          "or run it in another job (his ruling 4 of 17 Nov).")
+        else:
+            seen[key] = what
+    if len(trials) > MOST_TRIALS:
+        faults.append(f"the plan carries {len(trials)} trials. Five at most ride on one project (his ruling 4 "
+                      "of 17 Nov, call 2): keep five and run the rest in another job.")
     return faults
 
 
@@ -137,7 +230,8 @@ def main(argv):
             print(f"REFUSE: no page at {page}")
             return 1
         with open(page, encoding="utf-8") as f:
-            faults = check(f.read())
+            text = f.read()
+        faults = trial_faults(text) if page.lower().endswith(".md") else check(text)
     except Exception as err:  # a broken check must never read as a pass
         print(f"REFUSE: the check itself failed ({type(err).__name__}: {err})")
         return 1

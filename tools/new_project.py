@@ -24,6 +24,10 @@
 #       from docs/blanks/github-reminder.txt with the project's name filled
 #       in: the steps to make the project's empty private repository on
 #       GitHub's website, which is his own act at every birth (his ruling);
+#     - writes docs/lessons.md, the lessons file, from docs/blanks/lessons.md
+#       with the project's name filled in and no lesson in it. Why: the
+#       review's gate turns on when that file exists, so every project born
+#       on this version is gated from its birth (the upgrade design, 7a);
 #     - runs git init on branch main and makes one first commit of
 #       everything stamped. If git is missing or the commit fails, it says so
 #       in plain words and the stamped copy stands. Where git has no name to
@@ -107,6 +111,42 @@
 #   adopted project, this one among them, would otherwise commit its
 #   master's flag. The dry run lists the lines it would add; a .gitignore
 #   that holds them all is listed under what it would leave alone.
+#   A file in the project's docs/blanks/ that the template does not have (a
+#   house's own docs/blanks/research-orders.md) is left as it is and listed
+#   under what it leaves alone; the template's own blanks are written. Why: a
+#   house that adds a blank of its own must not lose it at an upgrade.
+#   docs/retired.md is carried: a project with none gets the template's, its
+#   name filled in; a project's own keeps every line, and each of the
+#   template's entries it lacks (a "- " line and its "  | " lines) is added
+#   at its end; one holding them all is left alone. Why: tracks.md arrives
+#   with the template's retired rules' stubs, and their undo, upgrade.py
+#   --restore, reads them back from docs/retired.md (0.9.1 left it behind).
+#   docs/lessons.md is written from docs/blanks/lessons.md when the project
+#   has none; a project's own is never written over, only added to at its
+#   end. Into it the adopt carries the backlog, once: every line under
+#   "## Review notes" in each docs/runs/<n>/run.md that starts "- ", is not a
+#   placeholder ("- <") and holds a lesson line (" · the line it should
+#   become:" or "be:") becomes one change lesson, in run order then
+#   note order, in record.py's lesson form, numbered on from the file's
+#   highest L, its from "run <n>", its file "unknown", its what ending in
+#   "(before the upgrade)" with each " · " inside written as " — ", and its
+#   line the one the note gives after that marker. A note with no lesson
+#   line stays in its record and is only counted. Why: 0.9.1 carried two
+#   page notes in as lessons (L049, L050), lessons with no line to change.
+#   Its stamp is the note's first yyyy-mm-dd hh:mm; a note with only hh:mm
+#   takes the day git first holds its line in that run.md (git blame, the
+#   author time on this computer's clock); only when git cannot tell, the
+#   adopt's own time. Why: a record runs over many days (run 7's from 28
+#   Oct to 19 Nov), so no date written in it is the note's own; an adopt
+#   refuses anything uncommitted, so every note has a commit.
+#   Why the backlog: review notes were never put to him
+#   (27 in one house, 14 in another, by 12 Nov 2026), and the first upgrade in each house must start from its whole
+#   backlog (the upgrade design, Part 6). The dry run and --go say how many
+#   lessons each run gives.
+#   Run again, it carries nothing twice: a lesson whose from and what are
+#   already in docs/lessons.md is skipped, and it says how many it skipped.
+#   Why: an adopt is run at every version, and a backlog carried twice would
+#   put every old note to him twice.
 #   It refuses a folder that is not a project (no CLAUDE.md and no docs/),
 #   the template itself, and a project with uncommitted changes, so every
 #   change it makes can be seen with git diff and undone with git checkout.
@@ -153,6 +193,15 @@ SETTINGS = ".claude/settings.json"
 # His reminder to make the repository: the blank it is written from, and where it goes in a new project.
 REMINDER_BLANK = os.path.join(TEMPLATE, "docs", "blanks", "github-reminder.txt")
 REMINDER = "docs/operator-acts/%s-github-repository.txt"
+# The lessons file, which the stamp and the adopt make from its blank, and the backlog the adopt carries into it.
+LESSONS = "docs/lessons.md"
+LESSONS_BLANK = os.path.join(TEMPLATE, "docs", "blanks", "lessons.md")
+FULL_STAMP = re.compile(r"\d{4}-\d{2}-\d{2} \d{1,2}:\d{2}")
+LEADING_STAMP = re.compile(r"^(\d{4}-\d{2}-\d{2} )?\d{1,2}:\d{2}$")
+MARKERS = (" · the line it should become:", " · the line it should be:")
+LESSON = re.compile(r"^- L(\d+) · ")
+# The retired rules, which the adopt carries so each retired rule's undo works in the project.
+RETIRED = "docs/retired.md"
 # Notepad by its full path: a bare notepad opens the wrong program on his laptop.
 NOTEPAD = os.path.join(os.environ.get("SystemRoot", "C:\\Windows"), "System32", "notepad.exe")
 # What opens the reminder. A test puts a stand-in here, so no test opens Notepad.
@@ -217,6 +266,14 @@ def make_copy(plan, card, name, folder, reminder_path):
     os.makedirs(os.path.dirname(reminder), exist_ok=True)
     with open(reminder, "wb") as f:
         f.write(reminder_text(name))
+    with open(os.path.join(folder, *LESSONS.split("/")), "wb") as f:
+        f.write(lessons_blank(name))
+
+
+def lessons_blank(name):
+    """The lessons file's blank, as bytes, with the project's name filled in."""
+    with open(LESSONS_BLANK, "rb") as f:
+        return f.read().replace(PLACEHOLDER, name.encode("utf-8"))
 
 
 def git(folder, *args):
@@ -291,7 +348,7 @@ def adopt_plan():
 
 
 def adopt_leaves(target, plan):
-    """What --adopt leaves alone: the record, every desk but _desk, and the template files it does not write."""
+    """What --adopt leaves alone: the record, every desk but _desk, and the template files it does not write that the project holds."""
     leaves = list(ADOPT_LEAVES)
     desks = os.path.join(target, "desks")
     if os.path.isdir(desks):
@@ -299,9 +356,123 @@ def adopt_leaves(target, plan):
     written = {path for _, path in plan}
     for _, copy_path in plan_copy():
         path = copy_path.replace(os.sep, "/")
-        if path not in written and path not in leaves:
+        if path not in written and path != RETIRED and path not in leaves and os.path.exists(os.path.join(target, path)):
             leaves.append(path)
+    for folder, subfolders, files in os.walk(os.path.join(target, "docs", "blanks")):
+        subfolders.sort()
+        for name in sorted(files):
+            path = os.path.relpath(os.path.join(folder, name), target).replace(os.sep, "/")
+            if path not in written:
+                leaves.append(path)
     return leaves
+
+
+def run_folders(target):
+    """The project's run record folders that hold a run.md, in run order: numbered ones by number, then the rest by name."""
+    runs = os.path.join(target, "docs", "runs")
+    if not os.path.isdir(runs):
+        return []
+    found = [n for n in os.listdir(runs) if os.path.isfile(os.path.join(runs, n, "run.md"))]
+    return sorted(found, key=lambda n: (not n.isdigit(), int(n) if n.isdigit() else 0, n))
+
+
+def first_held(target, run):
+    """The day git first holds each line of a run's run.md, as {line: yyyy-mm-dd}, from git blame's author time on this computer's clock; empty if git cannot tell."""
+    try:
+        result = subprocess.run(["git", "-C", target, "blame", "--line-porcelain", "--", "docs/runs/%s/run.md" % run],
+                                capture_output=True, encoding="utf-8", errors="replace")
+    except OSError:
+        return {}
+    if result.returncode != 0:
+        return {}
+    days, time = {}, None
+    for line in result.stdout.split("\n"):
+        if line.startswith("author-time "):
+            time = int(line.split()[1])
+        elif line.startswith("\t") and time is not None:
+            days.setdefault(line[1:].rstrip("\r"), datetime.datetime.fromtimestamp(time).strftime("%Y-%m-%d"))
+    return days
+
+
+def review_notes(text):
+    """The lines under a run record's ## Review notes that start '- ' and are not a placeholder ('- <')."""
+    notes, inside = [], False
+    for line in text.splitlines():
+        if line.startswith("#"):
+            inside = line.strip() == "## Review notes"
+        elif inside and line.startswith("- ") and not line.startswith("- <"):
+            notes.append(line)
+    return notes
+
+
+def backlog_lesson(note, day, now):
+    """One review note as (stamp, what, the line) for a backlog lesson."""
+    body, line = note[2:].strip(), ""
+    cuts = [(body.find(m), m) for m in MARKERS if m in body]
+    if cuts:
+        at, marker = min(cuts)
+        body, line = body[:at], body[at + len(marker):].strip()
+        if len(line) >= 2 and line.startswith('"') and line.endswith('"'):
+            line = line[1:-1]
+    parts = body.split(" · ")
+    clock = None
+    while len(parts) > 1 and LEADING_STAMP.match(parts[0].strip()):
+        clock = clock or parts[0].strip()
+        parts.pop(0)
+    what = " — ".join(p.strip() for p in parts) + " (before the upgrade)"
+    found = FULL_STAMP.search(note)
+    if found:
+        stamp = found.group(0)
+    elif clock and day:
+        stamp = day + " " + clock
+    else:
+        stamp = now
+    day_part, time_part = stamp.split(" ")
+    return day_part + " " + time_part.zfill(5), what, line
+
+
+def carry_backlog(target, name, now):
+    """docs/lessons.md after carrying the backlog, as (bytes, whether it is new, per run (run, lessons, notes with no lesson line), how many skipped)."""
+    path = os.path.join(target, *LESSONS.split("/"))
+    is_new = not os.path.isfile(path)
+    if is_new:
+        old = lessons_blank(name)
+    else:
+        with open(path, "rb") as f:
+            old = f.read()
+    highest, carried = 0, set()
+    for line in old.decode("utf-8", errors="replace").splitlines():
+        number = LESSON.match(line)
+        if number:
+            highest = max(highest, int(number.group(1)))
+            parts = line.split(" · ")
+            if len(parts) > 4:
+                carried.add((parts[2], parts[4]))
+    lines, per_run, skipped = [], [], 0
+    for run in run_folders(target):
+        with open(os.path.join(target, "docs", "runs", run, "run.md"), encoding="utf-8", errors="replace") as f:
+            text = f.read()
+        count, unlined, days = 0, 0, None
+        for note in review_notes(text):
+            if not any(m in note for m in MARKERS):
+                unlined += 1
+                continue
+            if days is None and not FULL_STAMP.search(note):
+                days = first_held(target, run)
+            stamp, what, line = backlog_lesson(note, (days or {}).get(note), now)
+            # Why: an adopt run again must carry nothing twice, so a lesson already there by its from and what is skipped.
+            if ("run " + run, what) in carried:
+                skipped += 1
+                continue
+            carried.add(("run " + run, what))
+            highest += 1
+            count += 1
+            lines.append('- L%03d · %s · run %s · change · %s · file: unknown · "%s"' % (highest, stamp, run, what, line))
+        per_run.append((run, count, unlined))
+    newline = b"\r\n" if b"\r\n" in old else b"\n"
+    if lines and old and not old.endswith(b"\n"):
+        old += newline
+    return old + b"".join(l.encode("utf-8") + newline for l in lines), is_new, per_run, skipped
 
 
 def project_name(target):
@@ -347,6 +518,40 @@ def adopted_gitignore(target):
     if old and not old.endswith(b"\n"):
         old += newline
     return old + b"".join(line.encode("utf-8") + newline for line in missing), missing
+
+
+def retired_entries(lines):
+    """The retired rules in docs/retired.md's lines: each "- " line with the "  |" lines under it."""
+    entries, current = [], None
+    for line in lines:
+        if line.startswith("- "):
+            current = [line]
+            entries.append(current)
+        elif current is not None and line.startswith("  "):
+            if line.startswith("  |"):
+                current.append(line)
+        else:
+            current = None
+    return entries
+
+
+def adopted_retired(target, name):
+    """docs/retired.md after adopting, as (bytes, what it does): "new", "adds" the template's entries it lacks, or None if it holds them all."""
+    with open(os.path.join(TEMPLATE, *RETIRED.split("/")), "rb") as f:
+        template = f.read().replace(PLACEHOLDER, name.encode("utf-8"))
+    path = os.path.join(target, *RETIRED.split("/"))
+    if not os.path.isfile(path):
+        return template, "new"
+    with open(path, "rb") as f:
+        old = f.read()
+    have = set(old.decode("utf-8", errors="replace").splitlines())
+    lacking = [entry for entry in retired_entries(template.decode("utf-8").splitlines()) if entry[0] not in have]
+    if not lacking:
+        return old, None
+    newline = b"\r\n" if b"\r\n" in old else b"\n"
+    if old and not old.endswith(b"\n"):
+        old += newline
+    return old + b"".join(line.encode("utf-8") + newline for entry in lacking for line in entry), "adds"
 
 
 def join_settings(mine, theirs, path, notes):
@@ -446,9 +651,17 @@ def adopt(argv):
     plan = adopt_plan()
     card, card_change = adopted_card(target, name, version)
     ignore, ignore_adds = adopted_gitignore(target)
+    retired, retired_change = adopted_retired(target, name)
     with open(dict((path, source) for source, path in plan)[SETTINGS], "rb") as f:
         settings, settings_notes, settings_change = adopted_settings(target, f.read().replace(PLACEHOLDER, name.encode("utf-8")))
     settings_report = ["  %s: %s" % (SETTINGS, line) for line in settings_lines(settings_notes, args.go)]
+    lessons, lessons_new, per_run, skipped = carry_backlog(target, name, datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+    carrying = sum(count for _, count, _ in per_run)
+    carry = "carried" if args.go else "would carry"
+    lessons_report = ["    run %s: %s %d lesson%s%s" % (run, carry, count, "" if count == 1 else "s",
+                      " (%d note%s with no lesson line left in the record)" % (unlined, "" if unlined == 1 else "s") if unlined else "")
+                      for run, count, unlined in per_run]
+    lessons_report.append("    skipped %d already in %s" % (skipped, LESSONS))
 
     if args.go:
         try:
@@ -469,6 +682,13 @@ def adopt(argv):
             if ignore_adds:
                 with open(os.path.join(target, ".gitignore"), "wb") as f:
                     f.write(ignore)
+            if retired_change:
+                os.makedirs(os.path.join(target, "docs"), exist_ok=True)
+                with open(os.path.join(target, *RETIRED.split("/")), "wb") as f:
+                    f.write(retired)
+            if lessons_new or carrying:
+                with open(os.path.join(target, *LESSONS.split("/")), "wb") as f:
+                    f.write(lessons)
         except Exception as error:
             print('Failed: the adopt stopped part-way (%s). Every change is in git: "git -C %s status" shows it, "git -C %s checkout -- ." undoes the changed files.' % (error, target, target))
             sys.exit(1)
@@ -486,9 +706,26 @@ def adopt(argv):
     print("  project.yaml (" + card_change + ")")
     if ignore_adds:
         print("  .gitignore (" + ("added" if args.go else "would add") + ": " + ", ".join(ignore_adds) + "; its own lines kept as they are)")
+    if retired_change == "new":
+        print("  %s (new, from the template's: its retired rules, so each undo works here)" % RETIRED)
+    elif retired_change:
+        print("  %s (yours, kept as it is; the template's retired rules you lack added at its end)" % RETIRED)
+    if lessons_new or carrying:
+        if lessons_new:
+            print("  %s (new, from docs/blanks/lessons.md; the runs' review notes as lessons, before the upgrade)" % LESSONS)
+        else:
+            print("  %s (yours, kept as it is; the runs' review notes added at its end, before the upgrade)" % LESSONS)
+        for line in lessons_report:
+            print(line)
     print("Left alone:" if args.go else "Would leave alone:")
     for path in adopt_leaves(target, plan) + ([] if ignore_adds else [".gitignore"]):
         print("  " + path)
+    if not retired_change:
+        print("  %s (yours, holding every rule the template retired)" % RETIRED)
+    if not (lessons_new or carrying):
+        print("  %s (yours, with no review note left to carry)" % LESSONS)
+        for line in lessons_report:
+            print(line)
     if not settings_change:
         print("  %s (yours, with nothing of the template's to add)" % SETTINGS)
         for line in settings_report:
@@ -538,6 +775,7 @@ def main():
         for line in GITIGNORE.splitlines():
             print("    " + line)
         print("  " + reminder_path + ", his reminder to make the empty private repository " + args.name + " on GitHub's website")
+        print("  " + LESSONS + ", the lessons file, from docs/blanks/lessons.md, holding no lesson yet")
         print("Would then run git init on branch main and make one first commit of all of it,")
         print("open his reminder in Notepad (with --no-open: only print its full path), and print the next command, the online step.")
         return
@@ -557,7 +795,7 @@ def main():
         else:
             print("Failed: the copy stopped part-way (%s); it was cleaned up and nothing was made." % error)
         sys.exit(1)
-    print("Made " + target + " (" + str(len(plan) + 3) + " files).")
+    print("Made " + target + " (" + str(len(plan) + 4) + " files).")
 
     reminder = os.path.join(target, *reminder_path.split("/"))
     failed = first_commit(target, args.name)

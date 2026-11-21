@@ -133,6 +133,9 @@ textarea { width: 100%; box-sizing: border-box; min-height: 3.6rem; font: .97rem
 textarea[data-words] { min-height: 6rem; }
 textarea:focus-visible, input:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
+.group { display: grid; gap: 16px; }
+.group[data-group="needs-thought"] { border-left: 4px solid var(--warn); background: var(--sheet); padding: 12px 14px; }
+
 .calls { border: 1px dashed var(--muted); padding: 14px 16px; }
 button { font: 700 1rem var(--body); background: var(--accent); color: var(--sheet); border: 0; padding: 12px 16px; cursor: pointer; }
 .fallback { font-family: var(--mono); font-size: .85rem; min-height: 7rem; }
@@ -157,6 +160,13 @@ button { font: 700 1rem var(--body); background: var(--accent); color: var(--she
       <div><b>Stage</b>&lt;Stage&gt; · &lt;n&gt; of 6 · about &lt;N&gt; minutes · &lt;q&gt; questions</div>
       <div><b>Sheet</b>&lt;n&gt;, its own link</div>
     </div>
+    <!-- Plan and review pages only: the status board, the first thing after the title block. Replace this section
+         with the output of python tools/status.py --html. On a review, the scoreboard's last five rows sit under it:
+         replace the next section with the output of python tools/scoreboard.py --last 5 --html.
+         page_check reads data-status-board and data-scoreboard (pages.md, The plan page; The review page).
+         Otherwise delete both. -->
+    <section class="status-board" data-status-board><p>&lt;the board, from python tools/status.py --html&gt;</p></section>
+    <section data-scoreboard><p>&lt;review only: the last five rows, from python tools/scoreboard.py --last 5 --html&gt;</p></section>
     <h1>&lt;What this sheet is about, in plain words&gt;</h1>
     <p>&lt;One or two lines: what this sheet shows, and what it asks of him.&gt;</p>
   </header>
@@ -243,11 +253,27 @@ button { font: 700 1rem var(--body); background: var(--accent); color: var(--she
     </dl>
   </section>
 
+  <!-- Plan pages only: his acts as one numbered list, "approve all" first, the hand-only ones named apart with
+       their minutes (pages.md, The plan page). Each act is an <li> with three attributes: data-act, its number;
+       data-edits, the names of what it edits, space-separated, or "none"; data-after, the numbers of the pieces
+       that land before it, space-separated, or "go" (at Go, before any piece). A piece names what it creates in
+       its data-creates, with the same words letter for letter. plan_check reads them and refuses an act that
+       edits what a piece creates before that piece lands, or an act that does not say what it edits.
+       Otherwise delete. -->
+  <section class="stack">
+    <h2>Your acts</h2>
+    <ol>
+      <li data-act="&lt;n&gt;" data-edits="&lt;names, space-separated, or none&gt;" data-after="&lt;piece numbers, or go&gt;">Approve all: &lt;what the one approval covers&gt;</li>
+      <li data-act="&lt;n&gt;" data-edits="&lt;names, space-separated, or none&gt;" data-after="&lt;piece numbers, or go&gt;">&lt;An approval&gt;</li>
+      <li data-act="&lt;n&gt;" data-edits="&lt;names, space-separated, or none&gt;" data-after="&lt;piece numbers, or go&gt;"><b>By your hand only:</b> &lt;an act only your hands can do&gt;, about &lt;n&gt; minutes.</li>
+    </ol>
+  </section>
+
   <!-- An item block, holding a letter question: the evidence explained first, then the question right under it.
        Every item has all four parts and its own picture (pages.md rule 31): copy the whole block for the next.
        On a plan page a piece is a plan item, as this one is: its mark, lane and cost. On any other item, delete
        data-piece, data-mark, data-lane and data-touches and the three parts marked mark, lane and cost. -->
-  <section class="item stack" data-piece="&lt;n&gt;" data-mark="&lt;proven | documented | assumed | risk&gt;" data-lane="&lt;light | standard | full&gt;" data-touches="&lt;paths, space-separated&gt;">
+  <section class="item stack" data-piece="&lt;n&gt;" data-mark="&lt;proven | documented | assumed | risk&gt;" data-lane="&lt;light | standard | full&gt;" data-touches="&lt;paths, space-separated&gt;" data-creates="&lt;names of what it creates, space-separated&gt;">
     <h2>&lt;The item: the evidence this question asks about&gt;</h2>
     <p>&lt;What is true now, in plain words.&gt; <span class="fact checked">checked</span> &lt;source: read off the machine today&gt; · <span class="fact guessed">guessed</span> &lt;source: an old note&gt;</p>
     <dl class="parts">
@@ -318,6 +344,289 @@ button { font: 700 1rem var(--body); background: var(--accent); color: var(--she
     </section>
   </section>
 
+  <!-- Review pages only: the upgrade (pages.md, The review page), after the forks and before the two taps.
+       Its list comes from python tools/upgrade.py, never from memory, and each group is named as it names it.
+       Keep the groups in this order. A group with nothing in it keeps its heading and one line saying "none",
+       and no item block. needs-thought, foundations, tracks and trials: one item block per item, each with
+       exactly one question. lines: one item block, the table and one "approve all" question. page_check reads
+       data-upgrade, data-group and the questions. Otherwise delete. -->
+  <section class="stack" data-upgrade>
+    <h2>The upgrade: what we keep, change, make a foundation or reopen</h2>
+    <p>&lt;How many lessons, which L-numbers, from python tools/upgrade.py. The ones that need your thought come first and stay out of approve all.&gt;</p>
+
+    <div class="group" data-group="needs-thought">
+      <h3>Needs thought: &lt;how many&gt;</h3>
+      <section class="item stack">
+        <h2>&lt;L-number. What would take a system or workflow in a very different direction&gt;</h2>
+        <p>&lt;What the lesson says, and why it needs your thought before anything is approved.&gt;</p>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>&lt;the system or workflow it would turn&gt;</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>&lt;what goes wrong without it&gt;</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>&lt;what feeds it&gt; → this → &lt;what it would change&gt;</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>&lt;if taken, then what follows&gt;</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="&lt;This item in one sentence&gt;">
+            <rect class="d-box" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">&lt;The way now&gt;</text><text class="d-s" x="34" y="50">&lt;as it works today&gt;</text>
+            <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">&lt;your word&gt;</text>
+            <rect class="d-his" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">&lt;The new direction&gt;</text><text class="d-s" x="34" y="134">&lt;what it changes&gt;</text>
+          </svg>
+          <figcaption>&lt;How to read it: your hand, in green, decides the turn.&gt;</figcaption>
+        </figure>
+        <section class="q" data-q="3">
+          <fieldset>
+            <legend>3. &lt;The question, on its own&gt;</legend>
+            <label class="opt"><input type="radio" name="q3" value="a"><span><b>a.</b> &lt;Option a&gt;
+              <dl><dt>Gains</dt><dd>&lt;what it gains&gt;</dd><dt>Costs you</dt><dd>&lt;what it costs him&gt;</dd><dt>Risk</dt><dd>&lt;what it risks&gt;</dd></dl></span></label>
+            <label class="opt"><input type="radio" name="q3" value="b"><span><b>b.</b> &lt;Option b&gt;
+              <dl><dt>Gains</dt><dd>&lt;what it gains&gt;</dd><dt>Costs you</dt><dd>&lt;what it costs him&gt;</dd><dt>Risk</dt><dd>&lt;what it risks&gt;</dd></dl></span></label>
+          </fieldset>
+          <div class="rec"><p><b>My recommendation: &lt;one letter&gt;.</b> &lt;Why, with its cause and effect.&gt;</p></div>
+          <label class="box">Note for question 3<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+        </section>
+      </section>
+    </div>
+
+    <div class="group" data-group="lines">
+      <h3>Lines to keep, change or drop: &lt;how many&gt;</h3>
+      <section class="item stack">
+        <h2>&lt;n&gt; lines, each with my lean</h2>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Lesson</th><th>The line, and its file</th><th>My lean</th></tr></thead>
+            <tbody><tr><td>&lt;L-number&gt;</td><td>"&lt;the exact line&gt;" · &lt;its file&gt;</td><td>&lt;keep · change: the new line · drop: why&gt;</td></tr></tbody>
+          </table>
+        </div>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>&lt;the project's own files these lines land in&gt;</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>A lesson nobody writes into a file the next master reads is learnt again.</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>the lessons file → this list → your approve all → the line in its file</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>Approved, each kept line goes into its file word for word, and the close is checked for it.</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="Your approve all sends each kept line into its file.">
+            <rect class="d-his" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">Your approve all</text><text class="d-s" x="34" y="50">and any L-number you name</text>
+            <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">writes</text>
+            <rect class="d-box" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">Each line in its file</text><text class="d-s" x="34" y="134">word for word</text>
+          </svg>
+          <figcaption>How to read it: your hand, in green, sends each kept line into its file.</figcaption>
+        </figure>
+        <section class="q" data-q="4">
+          <fieldset>
+            <legend>4. Approve all my leans on these lines</legend>
+            <label class="opt"><input type="radio" name="q4" value="a"><span><b>a.</b> Approve all my leans</span></label>
+            <label class="opt"><input type="radio" name="q4" value="b"><span><b>b.</b> Approve all but the ones I name in the note, by L-number</span></label>
+          </fieldset>
+          <label class="box">Note for question 4: name an L-number and your answer to override my lean<textarea data-note placeholder="Like: L006 keep"></textarea></label>
+        </section>
+      </section>
+    </div>
+
+    <div class="group" data-group="foundations">
+      <h3>Suggested foundations: &lt;how many&gt;</h3>
+      <section class="item stack">
+        <h2>Foundation: &lt;the way of working&gt;</h2>
+        <p>File: &lt;its workflow file&gt;. Proven by &lt;L-numbers&gt;: &lt;what was seen, each lesson's seen line&gt;.</p>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>&lt;the workflow it belongs to&gt;</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>A way that works is changed again by the next master unless it is a foundation.</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>doing it and testing it → this review → its step tagged foundation → the next run uses it as written</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>A foundation, the next master uses it as written; a better way runs as a trial beside it.</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="Your word makes the way of working a foundation; its workflow file tags it.">
+            <rect class="d-his" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">Your word: a foundation</text><text class="d-s" x="34" y="50">from doing it and testing it</text>
+            <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">tags</text>
+            <rect class="d-box" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">Its step, tagged foundation</text><text class="d-s" x="34" y="134">&lt;its workflow file&gt;</text>
+          </svg>
+          <figcaption>How to read it: a foundation is your word, in green; the numbers inform it and never decide it.</figcaption>
+        </figure>
+        <section class="q" data-q="5">
+          <fieldset>
+            <legend>5. Make &lt;the way of working&gt; a foundation, or not</legend>
+            <label class="opt"><input type="radio" name="q5" value="a"><span><b>a.</b> A foundation, as written in its file</span></label>
+            <label class="opt"><input type="radio" name="q5" value="b"><span><b>b.</b> Not now: raised again with the next lesson on it</span></label>
+          </fieldset>
+          <label class="box">Note for question 5<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+        </section>
+      </section>
+    </div>
+
+    <div class="group" data-group="tracks">
+      <h3>Candidate tracks: &lt;how many&gt;</h3>
+      <section class="item stack">
+        <h2>&lt;L-number. The case that fit no known track&gt;</h2>
+        <p>&lt;What came in, and what was worked out with you.&gt;</p>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>&lt;the workflow step it met&gt;</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>The next case of this kind would be worked out again from nothing.</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>an unknown case → worked out with you → a candidate track → trial → perhaps a foundation</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>Kept as a candidate, the next such case follows it and its lesson says how it went.</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="An unknown case, worked out with you, becomes a candidate track.">
+            <rect class="d-his" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">Worked out with you</text><text class="d-s" x="34" y="50">&lt;what was worked out&gt;</text>
+            <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">becomes</text>
+            <rect class="d-box" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">A candidate track</text><text class="d-s" x="34" y="134">used, then reviewed</text>
+          </svg>
+          <figcaption>How to read it: what you worked out, in green, becomes a way the next case can follow.</figcaption>
+        </figure>
+        <section class="q" data-q="6">
+          <fieldset>
+            <legend>6. &lt;The track&gt;: keep, try or drop</legend>
+            <label class="opt"><input type="radio" name="q6" value="a"><span><b>a.</b> Keep it as a candidate</span></label>
+            <label class="opt"><input type="radio" name="q6" value="b"><span><b>b.</b> Put it on trial in the next run</span></label>
+            <label class="opt"><input type="radio" name="q6" value="c"><span><b>c.</b> Drop it</span></label>
+          </fieldset>
+          <label class="box">Note for question 6<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+        </section>
+      </section>
+    </div>
+
+    <div class="group" data-group="trials">
+      <h3>Foundations to reopen as trials: &lt;how many&gt;, and every foundation</h3>
+      <section class="item stack">
+        <h2>Reopen as a trial: &lt;the foundation&gt;</h2>
+        <p>File: &lt;its workflow file&gt;, a foundation since &lt;yyyy-mm-dd&gt;. &lt;L-number&gt; is a misfire: &lt;what went wrong&gt;.</p>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>&lt;the workflow it belongs to&gt;</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>A foundation that goes wrong stays wrong unless it is reopened.</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>a misfire → this suggestion → your word → a trial beside it</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>Reopened, a better way runs as a trial beside it; kept, it stays as written.</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="A misfire on a foundation comes to you; your word reopens it as a trial.">
+            <rect class="d-box" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">The misfire, &lt;L-number&gt;</text><text class="d-s" x="34" y="50">&lt;what went wrong&gt;</text>
+            <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">your word</text>
+            <rect class="d-his" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">Reopen, or keep it</text><text class="d-s" x="34" y="134">a trial runs beside it</text>
+          </svg>
+          <figcaption>How to read it: the misfire comes to you; your hand, in green, decides.</figcaption>
+        </figure>
+        <section class="q" data-q="7">
+          <fieldset>
+            <legend>7. Reopen &lt;the foundation&gt; as a trial, or keep it</legend>
+            <label class="opt"><input type="radio" name="q7" value="a"><span><b>a.</b> Reopen it: a trial runs beside it</span></label>
+            <label class="opt"><input type="radio" name="q7" value="b"><span><b>b.</b> Keep it as a foundation</span></label>
+          </fieldset>
+          <label class="box">Note for question 7<textarea data-note placeholder="Anything to add or change (optional)"></textarea></label>
+        </section>
+      </section>
+      <section class="item stack">
+        <h2>Every foundation, with a tick to reopen</h2>
+        <p>Each one is used as written until you tick it. "Worth reopening" marks one with a misfire or one that has stood 30 days.</p>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>Every step this project's workflow files tag foundation.</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>A foundation nobody looks at again goes stale.</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>the workflow files' foundation tags → this list → your tick → a trial beside it</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>A tick reopens that step as a trial; no tick leaves it a foundation.</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="Every foundation is listed; your tick reopens one as a trial.">
+            <rect class="d-box" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">Every foundation</text><text class="d-s" x="34" y="50">each with its file</text>
+            <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">your tick</text>
+            <rect class="d-his" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">Reopened as a trial</text><text class="d-s" x="34" y="134">only what you tick</text>
+          </svg>
+          <figcaption>How to read it: only your tick, in green, reopens a foundation.</figcaption>
+        </figure>
+        <section class="q" data-q="8">
+          <fieldset>
+            <legend>8. Tick any foundation to reopen as a trial</legend>
+            <label class="opt"><input type="checkbox" name="q8" value="1"><span><b>1.</b> &lt;The way of working&gt; · &lt;its file&gt; · since &lt;yyyy-mm-dd&gt; · &lt;worth reopening: a misfire, or 30 days, or nothing&gt;</span></label>
+          </fieldset>
+          <label class="box">Note for question 8<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+        </section>
+      </section>
+    </div>
+
+    <div class="group" data-group="template">
+      <h3>For the template: &lt;how many&gt;</h3>
+      <section class="item stack">
+        <h2>&lt;n&gt; lines for the template's master copy</h2>
+        <p>These lines are in files the template owns, so they are never edited here: they go to the template's own desk. Question 4's approve all covers them too; name an L-number in its note to override.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Lesson</th><th>The line, and its file</th><th>My lean</th></tr></thead>
+            <tbody><tr><td>&lt;L-number&gt;</td><td>"&lt;the exact line&gt;" · &lt;its template file&gt;</td><td>&lt;keep · change: the new line · drop: why&gt;</td></tr></tbody>
+          </table>
+        </div>
+        <dl class="parts">
+          <div data-part="area"><dt>Area</dt><dd>The template every project is stamped from.</dd></div>
+          <div data-part="problem"><dt>Problem it solves</dt><dd>A lesson about the template, kept only here, never reaches the other projects.</dd></div>
+          <div data-part="links"><dt>Links in the chain</dt><dd>the lessons file → this list → the template desk's mailbox → the next template version</dd></div>
+          <div data-part="effect"><dt>Cause and effect</dt><dd>Kept, the line goes to the template desk; a new version carries it to every project.</dd></div>
+        </dl>
+        <figure>
+          <svg viewBox="0 0 340 156" role="img" aria-label="A kept template line goes to the template desk, outside this project.">
+            <rect class="d-box" x="20" y="10" width="300" height="52"/>
+            <text class="d-t" x="34" y="32">A kept template line</text><text class="d-s" x="34" y="50">never edited here</text>
+            <line class="d-a" x1="170" y1="62" x2="170" y2="92" marker-end="url(#ar)"/><text class="d-l" x="180" y="82">goes to</text>
+            <rect class="d-out" x="20" y="94" width="300" height="52"/>
+            <text class="d-t" x="34" y="116">The template desk</text><text class="d-s" x="34" y="134">outside this project</text>
+          </svg>
+          <figcaption>How to read it: the dashed box is outside this project; the line travels there.</figcaption>
+        </figure>
+      </section>
+    </div>
+  </section>
+
+  <!-- Review pages only: the two taps, the page's last two questions, in one item block (the run is the item):
+       the thing made, 1 to 5, then the run's enjoyment, 1 to 5 (pages.md, The review page). scoreboard.py writes
+       both into the run's row. Otherwise delete. -->
+  <section class="item stack">
+    <h2>Your two taps for run &lt;n&gt;</h2>
+    <p>Two numbers only you can give: how good the thing made is, and how much you enjoyed the run.</p>
+    <dl class="parts">
+      <div data-part="area"><dt>Area</dt><dd>The run as a whole, and what it made.</dd></div>
+      <div data-part="problem"><dt>Problem it solves</dt><dd>The rest of the scoreboard is counted from the record; your verdict is in no record.</dd></div>
+      <div data-part="links"><dt>Links in the chain</dt><dd>your two taps → the scoreboard's row → the next template version is set beside this one</dd></div>
+      <div data-part="effect"><dt>Cause and effect</dt><dd>A low tap with a line on why becomes a change the next plan puts to you.</dd></div>
+    </dl>
+    <figure>
+      <svg viewBox="0 0 340 156" role="img" aria-label="Your two taps go into the scoreboard's row for this run.">
+        <rect class="d-his" x="20" y="10" width="300" height="52"/>
+        <text class="d-t" x="34" y="32">Your two taps, 1 to 5</text><text class="d-s" x="34" y="50">the thing made, then enjoyment</text>
+        <line class="d-ah" x1="170" y1="62" x2="170" y2="92" marker-end="url(#arh)"/><text class="d-l" x="180" y="82">written to</text>
+        <rect class="d-box" x="20" y="94" width="300" height="52"/>
+        <text class="d-t" x="34" y="116">The scoreboard's row</text><text class="d-s" x="34" y="134">beside the other runs</text>
+      </svg>
+      <figcaption>How to read it: your taps, in green, are the row's first numbers.</figcaption>
+    </figure>
+    <section class="q" data-q="9">
+      <fieldset>
+        <legend>9. The thing made, from 1 to 5</legend>
+        <label class="opt"><input type="radio" name="q9" value="1"><span><b>1.</b> Poor</span></label>
+        <label class="opt"><input type="radio" name="q9" value="2"><span><b>2.</b> Weak</span></label>
+        <label class="opt"><input type="radio" name="q9" value="3"><span><b>3.</b> Fair</span></label>
+        <label class="opt"><input type="radio" name="q9" value="4"><span><b>4.</b> Good</span></label>
+        <label class="opt"><input type="radio" name="q9" value="5"><span><b>5.</b> Very good</span></label>
+      </fieldset>
+      <label class="box">Note for question 9: a line on why<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+    <section class="q" data-q="10">
+      <fieldset>
+        <legend>10. Your enjoyment of the run, from 1 to 5</legend>
+        <label class="opt"><input type="radio" name="q10" value="1"><span><b>1.</b> Not at all</span></label>
+        <label class="opt"><input type="radio" name="q10" value="2"><span><b>2.</b> A little</span></label>
+        <label class="opt"><input type="radio" name="q10" value="3"><span><b>3.</b> Middling</span></label>
+        <label class="opt"><input type="radio" name="q10" value="4"><span><b>4.</b> Mostly</span></label>
+        <label class="opt"><input type="radio" name="q10" value="5"><span><b>5.</b> Very much</span></label>
+      </fieldset>
+      <label class="box">Note for question 10: a line on why<textarea data-note placeholder="Anything to add (optional)"></textarea></label>
+    </section>
+  </section>
+
   <!-- Anything he must send to someone else gets its own copy button. Otherwise delete. -->
   <section class="stack">
     <h2>&lt;What we need from the other person&gt;</h2>
@@ -360,17 +669,19 @@ button { font: 700 1rem var(--body); background: var(--accent); color: var(--she
 // the text is shown in a box already selected, so he can long-press and copy it himself.
 // His letters, words and notes are kept in the browser's localStorage under the page's data-sheet, so a
 // reload loses nothing. Every use of the store is wrapped: a browser that refuses it changes nothing else.
+// A question of ticks (checkboxes) reads back as the ticked values joined by "+", or "none".
 (function () {
   var back = document.querySelector('.readback');
   var qs = Array.prototype.slice.call(document.querySelectorAll('section.q'));
   var key = 'page · ' + back.getAttribute('data-sheet');
 
   function field(q, sel) { return q.querySelector(sel); }
+  function picked(q) { return Array.prototype.map.call(q.querySelectorAll('input:checked'), function (i) { return i.value; }).join('+'); }
   function save() {
     var kept = {};
     qs.forEach(function (q) {
-      var c = field(q, 'input[type=radio]:checked'), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
-      kept[q.getAttribute('data-q')] = { letter: c ? c.value : '', words: w ? w.value : '', note: t ? t.value : '' };
+      var c = picked(q), w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
+      kept[q.getAttribute('data-q')] = { letter: c, words: w ? w.value : '', note: t ? t.value : '' };
     });
     try { window.localStorage.setItem(key, JSON.stringify(kept)); } catch (e) {}
   }
@@ -380,7 +691,7 @@ button { font: 700 1rem var(--body); background: var(--accent); color: var(--she
     qs.forEach(function (q) {
       var k = kept[q.getAttribute('data-q')];
       if (!k) return;
-      q.querySelectorAll('input[type=radio]').forEach(function (r) { if (r.value === k.letter) r.checked = true; });
+      q.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(function (r) { if ((k.letter || '').split('+').indexOf(r.value) >= 0) r.checked = true; });
       var w = field(q, 'textarea[data-words]'), t = field(q, 'textarea[data-note]');
       if (w && k.words) w.value = k.words;
       if (t && k.note) t.value = k.note;
@@ -391,8 +702,8 @@ button { font: 700 1rem var(--body); background: var(--accent); color: var(--she
     var n = q.getAttribute('data-q');
     var words = q.querySelector('textarea[data-words]');
     if (words) return { n: n, short: n + (words.value.trim() ? ' written' : '?'), line: n + ' words: ' + (words.value.trim() || '(none)') };
-    var c = q.querySelector('input[type=radio]:checked');
-    return { n: n, short: n + (c ? c.value : '?'), line: n + ': ' + (c ? c.value : '?') };
+    var c = picked(q) || (q.querySelector('input[type=checkbox]') ? 'none' : '?');
+    return { n: n, short: n + c, line: n + ': ' + c };
   }
   function note(q) {
     var t = q.querySelector('textarea[data-note]');

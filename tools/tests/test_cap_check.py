@@ -22,6 +22,13 @@ ALIVE = os.getpid()
 DEAD = 999999
 
 
+@pytest.fixture(autouse=True)
+def outside_git(tmp_path, monkeypatch):
+    # git looks no higher than the test's own folder, so a temp folder that
+    # happens to sit inside some repository is still no repository here
+    monkeypatch.setenv("GIT_CEILING_DIRECTORIES", str(tmp_path))
+
+
 @pytest.fixture
 def where(tmp_path):
     seats = tmp_path / "seats"
@@ -58,7 +65,8 @@ def test_four_seats_then_the_fifth_is_refused(where, capsys):
 
 
 def test_a_master_takes_a_seat_like_any_other(where, capsys):
-    assert run(where, "claim", "--kind", "master", "--card", "docs/run.md", "--pid", str(ALIVE)) == 0
+    # the master's own process, not this one: a worker from the master's process is refused (rule 32)
+    assert run(where, "claim", "--kind", "master", "--card", "docs/run.md", "--pid", str(os.getppid())) == 0
     assert capsys.readouterr().out.splitlines()[0] == "ALLOW: seat 1 of 4"
     for n in range(2, 5):
         code, out = claim(where, capsys)
@@ -253,6 +261,153 @@ def test_a_light_claim_ignores_the_studio(where, capsys, monkeypatch):
     assert code == 0
 
 
+# ---- the signed number of workers -----------------------------------------
+
+def sign(main, workers, run=7):
+    """A signed plan in main's docs/runs/<run>; workers None leaves the line out."""
+    plan = main / "docs" / "runs" / str(run) / "plan-signed.md"
+    plan.parent.mkdir(parents=True, exist_ok=True)
+    line = "" if workers is None else f"Workers at once: {workers}\n"
+    plan.write_text(f"# Plan for run {run}\n\n## Agents\nThree workers at once, in prose.\n{line}\n"
+                    "## His words\n\"go\"\n", encoding="utf-8")
+
+
+def test_a_signed_plan_of_three_refuses_the_fourth_worker(where, capsys):
+    sign(where[1], 3)
+    for n in range(1, 4):
+        code, out = claim(where, capsys)
+        assert code == 0
+        assert out.splitlines()[0] == f"ALLOW: seat {n} of 4"
+    code, out = claim(where, capsys)
+    assert code == 1
+    assert out.strip() == ("REFUSE: the signed plan (docs/runs/7/plan-signed.md) signs 3 workers at once, "
+                           "and 3 are running")
+    assert len(os.listdir(where[0])) == 3
+
+
+def test_a_signed_plan_of_three_with_two_running_allows_the_third(where, capsys):
+    sign(where[1], 3)
+    for _ in range(2):
+        claim(where, capsys)
+    code, out = claim(where, capsys)
+    assert code == 0
+    assert out.splitlines()[0] == "ALLOW: seat 3 of 4"
+
+
+def test_the_newest_signed_plan_is_the_one_read(where, capsys):
+    sign(where[1], 1, run=6)
+    sign(where[1], 2, run=10)
+    for _ in range(2):
+        assert claim(where, capsys)[0] == 0
+    code, out = claim(where, capsys)
+    assert code == 1
+    assert "(docs/runs/10/plan-signed.md) signs 2 workers" in out
+
+
+def test_a_signed_plan_with_no_line_allows_past_three_as_today(where, capsys):
+    sign(where[1], None)
+    sign(where[1], "<n>", run=8)  # the blank's placeholder, left in
+    for n in range(1, 5):
+        code, out = claim(where, capsys)
+        assert code == 0
+        assert out.splitlines()[0] == f"ALLOW: seat {n} of 4"
+    code, out = claim(where, capsys)
+    assert out.strip() == "REFUSE: the cap of 4 is full (4 seats taken)"
+
+
+def test_a_signed_line_outside_agents_binds_nobody(where, capsys):
+    plan = where[1] / "docs" / "runs" / "7" / "plan-signed.md"
+    plan.parent.mkdir(parents=True)
+    plan.write_text("## The path\nWorkers at once: 1\n\n## Agents\nfour\n", encoding="utf-8")
+    for _ in range(2):
+        assert claim(where, capsys)[0] == 0
+
+
+def test_a_checker_or_a_master_is_not_refused_by_the_signed_line(where, capsys):
+    sign(where[1], 1)
+    assert claim(where, capsys)[0] == 0
+    code, out = claim(where, capsys)
+    assert code == 1 and "signs 1 workers at once, and 1 are running" in out
+    for kind in ("checker", "master", "conductor"):
+        assert run(where, "claim", "--kind", kind, "--card", "x.md", "--pid", str(ALIVE)) == 0
+        assert capsys.readouterr().out.startswith("ALLOW:")
+
+
+def plant_named(where, name, **data):
+    os.makedirs(where[0], exist_ok=True)
+    data = {"card": "docs/cards/old.md", "kind": "worker", "pid": ALIVE,
+            "time": "2026-10-06T09:00:00", **data}
+    with open(os.path.join(where[0], name + ".json"), "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
+
+def test_a_signed_count_matches_an_old_claim_by_its_project_name(where, capsys):
+    sign(where[1], 2)
+    plant_named(where, "old-same", project="project")  # no main checkout in it
+    plant_named(where, "old-other", project="another-project")
+    code, out = claim(where, capsys)
+    assert code == 0
+    assert out.splitlines()[0] == "ALLOW: seat 3 of 4"
+    code, out = claim(where, capsys)
+    assert code == 1
+    assert "signs 2 workers at once, and 2 are running" in out
+
+
+def git(cwd, *args):
+    subprocess.run(["git", *args], cwd=str(cwd), check=True, capture_output=True, text=True)
+
+
+def a_repository(folder):
+    folder.mkdir(parents=True)
+    git(folder, "init", "-q")
+    git(folder, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "start")
+    return folder
+
+
+def test_two_worktrees_of_one_repository_count_together(tmp_path, capsys):
+    seats = str(tmp_path / "seats")
+    main = a_repository(tmp_path / "studio")
+    one, two = tmp_path / "task-studio-one", tmp_path / "task-studio-two"
+    git(main, "worktree", "add", "-q", "-b", "one", str(one))
+    git(main, "worktree", "add", "-q", "-b", "two", str(two))
+    other = a_repository(tmp_path / "other")
+    sign(main, 2)
+    sign(other, 2)
+
+    def claim_in(project):
+        code = cap_check.main(["cap_check.py", "--seats", seats, "--project", str(project), "claim",
+                               "--kind", "worker", "--card", "x.md", "--pid", str(ALIVE)])
+        return code, capsys.readouterr().out
+
+    assert claim_in(other)[0] == 0  # another repository's worker
+    assert claim_in(one)[0] == 0
+    assert claim_in(two)[0] == 0
+    code, out = claim_in(main)
+    assert code == 1
+    assert out.strip() == ("REFUSE: the signed plan (docs/runs/7/plan-signed.md) signs 2 workers at once, "
+                           "and 2 are running")
+    code, out = claim_in(one)
+    assert code == 1
+    mains = set()
+    for name in os.listdir(seats):
+        with open(os.path.join(seats, name), encoding="utf-8") as f:
+            mains.add(os.path.normcase(json.load(f)["main"]))
+    assert len(mains) == 2  # the studio's two worktrees name one main checkout
+    assert os.path.normcase(cap_check.main_checkout(str(two))) == os.path.normcase(cap_check.main_checkout(str(main)))
+    assert claim_in(other)[0] == 0  # the other repository still has a seat of its signed two
+
+
+def test_no_repository_or_no_git_makes_the_project_its_own_worktree_main(where, monkeypatch):
+    project = str(where[1])
+    assert cap_check.main_checkout(project) == project
+
+    def no_git(*args, **kwargs):
+        raise FileNotFoundError("git")
+
+    monkeypatch.setattr(cap_check.subprocess, "run", no_git)
+    assert cap_check.main_checkout(project) == project
+
+
 # ---- the lock and the start time ------------------------------------------
 
 RUNNER = r"""
@@ -436,3 +591,171 @@ def test_a_checker_claims_its_own_claude_and_counts_toward_the_cap(where, capsys
     code, out = own_claim(where, capsys, kind="checker")
     assert code == 1
     assert out.strip() == "REFUSE: the cap of 4 is full (4 seats taken)"
+
+
+# ---- the usage window -----------------------------------------------------
+# The reading is planted in window.py's form beside the test's own seats
+# folder (or where --window names), never in the machine-wide folder.
+
+RESETS = int(time.time()) + 3 * 3600
+
+
+def window(where, word, percent, age=60, resets_at=RESETS, path=None):
+    path = path or os.path.join(os.path.dirname(where[0]), "window.json")
+    read_at = int(time.time()) - age
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"read_at": read_at, "five_hour": {"percent": percent, "resets_at": resets_at},
+                   "seven_day": {"percent": 4, "resets_at": resets_at + 86400},
+                   "word": word, "previous": None}, f)
+    return cap_check.clock(read_at)
+
+
+def claim_kind(where, capsys, kind, *more):
+    code = run(where, *more, "claim", "--kind", kind, "--card", "docs/cards/x.md", "--pid", str(ALIVE))
+    return code, capsys.readouterr().out
+
+
+def claim_id(out):
+    return out.splitlines()[1].split()[1]
+
+
+def test_a_fresh_wrap_now_window_refuses_a_worker_and_a_checker_and_allows_a_master(where, capsys):
+    read = window(where, "wrap now", 96)
+    for kind in ("worker", "checker"):
+        code, out = claim_kind(where, capsys, kind)
+        assert code == 1
+        assert out.strip() == (f"REFUSE: the usage window reads 96% (wrap now, read {read}); it resets at "
+                               f"{cap_check.clock(RESETS)} this computer; no new agent until then")
+    assert not os.path.isdir(where[0]) or not os.listdir(where[0])  # nothing written
+    code, out = claim_kind(where, capsys, "master")
+    assert code == 0
+    assert out.splitlines()[0] == "ALLOW: seat 1 of 4"
+
+
+def test_an_old_wrap_now_window_allows(where, capsys):
+    window(where, "wrap now", 96, age=30 * 60)
+    assert claim_kind(where, capsys, "worker")[0] == 0
+
+
+def test_no_window_file_allows(where, capsys):
+    assert claim_kind(where, capsys, "worker")[0] == 0
+    with open(os.path.join(os.path.dirname(where[0]), "window.json"), "w", encoding="utf-8") as f:
+        f.write('{"word": "wrap now"}')  # not window.py's form
+    assert claim_kind(where, capsys, "worker")[0] == 0
+
+
+def test_a_slow_down_window_marks_three_refuses_a_fourth_allows_one_after_a_release(where, capsys):
+    ids = [claim_id(claim_kind(where, capsys, "worker")[1]) for _ in range(3)]
+    window(where, "slow down", 80)
+    code, out = claim_kind(where, capsys, "worker")
+    assert code == 1
+    assert out.strip() == ("REFUSE: the usage window reads 80% (slow down); this project held 3 agents "
+                           "at 75% and holds 3; one new agent only as one finishes")
+    assert len(os.listdir(where[0])) == 3
+    with open(os.path.join(os.path.dirname(where[0]), "window-marks.json"), encoding="utf-8") as f:
+        assert [m["mark"] for m in json.load(f)] == [3]
+    run(where, "release", ids[0])
+    capsys.readouterr()
+    assert claim_kind(where, capsys, "checker")[0] == 0
+    code, out = claim_kind(where, capsys, "worker")
+    assert code == 1
+    assert "held 3 agents at 75% and holds 3" in out
+    assert claim_kind(where, capsys, "master")[0] == 0  # a master is never refused for the window
+
+
+def test_a_slow_down_window_mark_of_zero_allows_one_claim_and_refuses_a_second(where, tmp_path, capsys):
+    other = tmp_path / "elsewhere"
+    other.mkdir()
+    reading = str(other / "window.json")
+    window(where, "slow down", 75, path=reading)
+    code, out = claim_kind(where, capsys, "worker", "--window", reading)
+    assert code == 0
+    first = claim_id(out)
+    code, out = claim_kind(where, capsys, "worker", "--window", reading)
+    assert code == 1
+    assert "held 0 agents at 75% and holds 1" in out
+    assert os.path.isfile(other / "window-marks.json")  # the mark lives beside the reading it names
+    run(where, "release", first)
+    capsys.readouterr()
+    assert claim_kind(where, capsys, "worker", "--window", reading)[0] == 0
+
+
+def test_another_projects_claims_do_not_count_against_the_window_mark(where, tmp_path, capsys):
+    ids = [claim_id(claim_kind(where, capsys, "worker")[1]) for _ in range(2)]
+    plant_named(where, "other-one", project="another", main=str(tmp_path / "another"))
+    window(where, "slow down", 85)
+    code, out = claim_kind(where, capsys, "worker")
+    assert code == 1
+    assert "held 2 agents at 75% and holds 2" in out
+    os.remove(os.path.join(where[0], "other-one.json"))
+    plant_named(where, "other-two", project="another", main=str(tmp_path / "another"))
+    run(where, "release", ids[0])
+    capsys.readouterr()
+    assert claim_kind(where, capsys, "worker")[0] == 0  # 1 of this project's 2, the other's not counted
+
+
+def test_a_new_resets_at_starts_a_new_window_mark(where, capsys):
+    ids = [claim_id(claim_kind(where, capsys, "worker")[1]) for _ in range(3)]
+    gone = int(time.time()) - 60  # a reset that has just passed
+    window(where, "slow down", 90, resets_at=gone)
+    assert claim_kind(where, capsys, "worker")[0] == 1  # marks 3
+    for cid in ids[:2]:
+        run(where, "release", cid)
+    capsys.readouterr()
+    assert claim_kind(where, capsys, "worker")[0] == 0  # 1 of 3; now 2
+    window(where, "slow down", 76)  # the next five hours
+    code, out = claim_kind(where, capsys, "worker")
+    assert code == 1
+    assert "held 2 agents at 75% and holds 2" in out
+    with open(os.path.join(os.path.dirname(where[0]), "window-marks.json"), encoding="utf-8") as f:
+        assert [(m["resets_at"], m["mark"]) for m in json.load(f)] == [(RESETS, 2)]  # the past one dropped
+
+
+def test_list_prints_the_window_line(where, capsys):
+    claim_kind(where, capsys, "worker")
+    read = window(where, "slow down", 80)
+    assert run(where, "list") == 0
+    out = capsys.readouterr().out.splitlines()
+    assert out[0] == "1 of 4 seats taken"
+    assert out[-1] == f"window: 80% · slow down · read {read}"
+    window(where, "slow down", 80, age=25 * 60)
+    assert run(where, "list") == 0
+    assert capsys.readouterr().out.splitlines()[-1] == "window: no recent reading"
+
+
+# ---- a worker is its own thread (tracks.md rule 32) -----------------------
+
+def master_claim(where, capsys, pid=ALIVE):
+    assert run(where, "claim", "--kind", "master", "--card", "docs/runs/7/run.md", "--pid", str(pid)) == 0
+    return claim_id(capsys.readouterr().out)
+
+
+def test_a_worker_claim_from_the_masters_process_is_refused(where, capsys):
+    held = master_claim(where, capsys)
+    code, out = claim(where, capsys)
+    assert code == 1
+    assert out.strip() == ("REFUSE: a worker is its own thread (tracks.md rule 32); "
+                           f"this claim resolves to the master's own session ({held})")
+    assert os.listdir(where[0]) == [held + ".json"]  # nothing written
+
+
+def test_a_checker_reader_or_conductor_from_the_masters_process_is_allowed(where, capsys):
+    master_claim(where, capsys)
+    for kind in ("checker", "reader", "conductor"):
+        code, out = claim_kind(where, capsys, kind)
+        assert code == 0 and out.startswith("ALLOW:")
+
+
+def test_a_worker_walking_up_to_the_masters_claude_is_refused_and_its_own_thread_allowed(where, capsys, tree):
+    tree({ALIVE: (420, "python.exe", 6), 420: (300, "bash.exe", 5), 300: (100, "claude.exe", 2),
+          301: (100, "claude.exe", 4), 100: (0, "t3.exe", 1)})
+    held = master_claim(where, capsys, pid=300)
+    code, out = own_claim(where, capsys)
+    assert code == 1 and f"master's own session ({held})" in out
+    assert run(where, "claim", "--kind", "worker", "--card", "x.md", "--pid", "301") == 0  # its own thread
+
+
+def test_a_dead_master_claim_does_not_refuse_a_worker(where, capsys):
+    master_claim(where, capsys, pid=DEAD)  # a master that has ended; its id may be taken again
+    code, out = claim(where, capsys, pid=DEAD)
+    assert code == 0 and out.startswith("ALLOW:")

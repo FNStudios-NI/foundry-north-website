@@ -28,7 +28,8 @@ These notes are stamped into every project from the template's master copy — l
 
 - Pages are for build stages (discovery, the plan, the review), not for every decision; small back and forth needs none unless he asks — his ruling, 5 Oct 2026.
 - A page is published before the first question, and each question sits right under the evidence it asks about — he reads on his phone, often away from the laptop.
-- One question at a time, answered with a letter and a note box for his own words (or a text box when the question wants his words) — so each answer is his own, in his words; on 5 Oct he had nowhere to add depth to a letter.
+- In a talked step, put together in one message every question that does not depend on another's answer, each numbered with its letters; one question at a time only where the next question depends on this answer — his note of 15 Oct 2026 on foundry-north-website: about 20 single-question turns of discovery "could have been grouped and reduced the amount of back and forth".
+- A page asks one question per item, under its evidence, answered with a letter and a note box for his own words (or a text box when the question wants his words) — so each answer is his own, in his words; on 5 Oct he had nowhere to add depth to a letter.
 - Every option says what it gains, what it costs him and what it risks, then gives your recommendation with its cause and effect — "This is perfect and should always be done like this."
 - A plan offers paths, each priced in his hours against the result it buys, and so does a blocker — "so we can decide how much human time to put in to get what results."
 - Every page ends with a read-back and a working "Copy my letters and notes" button — he pastes his letters and notes back into the session together; a button that copied letters only left his notes behind.
@@ -39,8 +40,9 @@ These notes are stamped into every project from the template's master copy — l
 
 ## What only his hands do
 
-- Money, passwords, deleting anything for good, opening anything to the internet, and changing what an agent may do are always his — they cannot be undone, or they widen what an agent can reach.
-- Installing software on the always-on machine, and putting a new version in front of the people who use it, are his — his rulings, 5 Oct 2026.
+- An act is his only when it needs his sign-in, a secret, money, or a screen no agent can reach; a logon task for his own user with no admin is the master's, done and told — on the Manager he called acts 1 to 3 "blockers that waste his time".
+- Money, passwords, deleting anything for good, opening anything to the internet, changing what an agent may do, installing software on the always-on machine, and putting a new version in front of the people who use it are always his — they cannot be undone, or they widen what an agent can reach (his rulings, 5 Oct 2026).
+- The act checks (`tools/act_check.py`: a heredoc or echo write, a wildcard delete, a path in `$( )`, and a turn ended with a command still running) warn and count in 0.9.0; his word at a project's review turns one to `refuse`, on its switch line in `project.yaml` (such as `act_check_heredoc_write: warn | refuse | off`) — one project's count of how often each would fire comes before anything is blocked, and what an agent may do is his (his ruling 1 of 17 Nov 2026).
 - Never stop or restart video generation on his machines without his word — slower takes are fine, a crash is not.
 - Plan his acts as his from the start, never as "the agent tries, then falls back to him" — the safety guard refused live writes even with an allow rule in place.
 - Test the first real act of each kind with him watching before a run relies on it — it cut surprises after he left from 41 to 3 and 6.
@@ -67,10 +69,10 @@ These notes are stamped into every project from the template's master copy — l
 - His PowerShell drops the last characters of pasted lines: one command per block, `# end` on each, and compare his paste with what you sent — a trailing `>>` means the paste lost its end, so he presses Ctrl+C.
 - A bare `notepad` opens the wrong program: use the full path to `notepad.exe` — otherwise his act file opens somewhere he does not expect.
 - A `git pull` that has to merge opens Vim: put `--no-edit` on every pull — otherwise he is left inside an editor he does not use.
-- Shell heredocs mangle em dashes and backslashes in records: edit records with the editor tools, and use the shell only for git, tests and appends — the records are the truth and must stay exact.
 - A folder rename fails while any window holds a file inside it: close the windows first; Resource Monitor's Associated Handles names the holder — the house rename on 5 Oct most likely failed this way.
 - Remote control of sessions failed 7 of 8 tries from PowerShell tabs: still an open question, so change one thing at a time and keep the logs — so the cause can be found.
 - Helper servers loaded in every tab pushed memory to 84–90%: load such tools per project, not for every session — a full memory leaves nothing for the work.
-- His clock is six hours ahead of the computer's: use the computer's clock everywhere, read in the same step that writes the line — so every time in the record agrees.
+- The record keeps this computer's clock, read in the same step that writes the line, so every time in the record agrees; every time told to him (a message, a page, a check-in, a timeline) is in his time, read from `where_am_i.py`'s `his time:` line — he moves and the machine does not: a master once gave him a timeline in the machine's clock while he was hours ahead, a wrong plan for his day.
 - No spaces or apostrophes in any folder or file name an agent will touch; lowercase with hyphens — the last house's day-one lesson: spaces break paths in commands.
 - On the work machine, never search or walk `C:\AI`; ask him, or read the one file named — a search there for a user name read the video work's folders for two minutes before it was stopped.
+- Before a Linux path in a docker exec from Git Bash, set MSYS_NO_PATHCONV=1 — Git Bash rewrote `/work/...` as `C:/Program Files/Git/work/...` twice on 17 Oct 2026.

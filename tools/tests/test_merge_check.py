@@ -34,11 +34,17 @@ def repo(tmp_path):
     return folder
 
 
-def commit_receipt(repo, *checker_lines, first="DONE — the work is done", exit_code="0"):
+def commit_receipt(repo, *checker_lines, first="DONE — the work is done", exit_code="0",
+                   clean_copy=True, shown_failing=True):
     checked = git(repo, "rev-parse", "HEAD")
     text = (f"{first}\n\n# Receipt — test — 2026-10-07\n\n## Shipped\nwork.txt\n\n"
             f"## Checker run 2026-10-07 — a checker, own session\n"
-            f"Commit: {checked}\nExit code: {exit_code}\n\n")
+            f"Commit: {checked}\nExit code: {exit_code}\n")
+    if clean_copy:
+        text += "From a clean copy: /tmp/c/clean-0123456789ab · 1 command · exit codes 0\n"
+    if shown_failing:
+        text += "Shown failing: took work.txt away, and the gate failed\n"
+    text += "\n"
     text += "\n".join(checker_lines) + "\n"
     (repo / RECEIPT).write_text(text, encoding="utf-8")
     git(repo, "add", RECEIPT)
@@ -113,6 +119,31 @@ def test_only_the_last_checker_block_counts(repo):
     code, out = run(repo)
     assert code == 0, out
     assert out.startswith("ALLOW"), out
+
+
+def test_clean_copy_and_shown_failing_with_one_pass_is_allowed(repo):
+    commit_receipt(repo, "Scope: nothing unasked.", "Verdict: PASS", "Why: the gate passes.")
+    code, out = run(repo)
+    assert code == 0, out
+    assert out.startswith("ALLOW"), out
+
+
+def test_no_clean_copy_line_is_refused_and_says_run_check_py(repo):
+    commit_receipt(repo, "Verdict: PASS", clean_copy=False)
+    code, out = run(repo)
+    assert code == 1, out
+    assert out.startswith("REFUSE"), out
+    assert "'From a clean copy:'" in out, out
+    assert "run python tools/check.py" in out, out
+
+
+def test_no_shown_failing_line_is_refused_and_says_write_the_ablation(repo):
+    commit_receipt(repo, "Verdict: PASS", shown_failing=False)
+    code, out = run(repo)
+    assert code == 1, out
+    assert out.startswith("REFUSE"), out
+    assert "'Shown failing:'" in out, out
+    assert "write the ablation you ran" in out, out
 
 
 def test_exit_1_with_pass_is_refused(repo):

@@ -14,6 +14,12 @@
 #     2. The main checkout's fence (--main). In the main checkout, any
 #        uncommitted change outside the record is outside the fence. The
 #        record is docs/ and desks/<any desk>/docs/.
+#        With a card (--main --card <card>, as land.py runs it), an
+#        untracked file outside the record is a stray, not a stop, unless
+#        it sits at a path the card's fence names or under a folder it
+#        names. Each stray is printed on its own line as STRAY: <path>.
+#        A change to a tracked file outside the record (modified, deleted
+#        or staged) still stops it.
 #   It prints INSIDE: ... and exits 0, or OUTSIDE: followed by each
 #   offending file on its own line, and exits 1.
 #
@@ -30,11 +36,20 @@
 #   this tool refused both checked merges until their Touches were widened
 #   (run 2's record, docs/runs/2/run.md, lines 81 and 220). A card on
 #   another branch adds nothing.
+#   Strays pass with a card because in run 5 an untracked
+#   specs-for-manager/, left in the main checkout, stopped every landing
+#   until it was dealt with by hand (run 5's record, docs/runs/5/run.md,
+#   Unforeseen key points 15:13), and a folder with two writers meets the
+#   same (run 6 lessons, row 25). A landing commits only what the squash
+#   brings, so a stray the card does not touch is never met; one it does
+#   touch would be, so that still stops it. --main alone still calls every
+#   untracked file outside the record OUTSIDE, for the master to see.
 #
 # How to run it (from inside the working copy you want to check):
 #   python template/tools/fence_check.py --card <card-file>                  (checks against main)
 #   python template/tools/fence_check.py --card <card-file> --base <branch>  (checks against another branch)
 #   python template/tools/fence_check.py --main                              (checks the main checkout)
+#   python template/tools/fence_check.py --main --card <card-file>           (the main checkout, for this card's landing)
 #
 # It only reads: it asks git for the facts and changes nothing.
 # Python 3, standard library only. No network.
@@ -68,13 +83,18 @@ def nul_list(text):
     return [item for item in text.split("\0") if item]
 
 
-def uncommitted_files():
-    """Every file with a change not yet committed: staged, unstaged or new."""
+def uncommitted():
+    """Every file with a change not yet committed, as (path, untracked or not)."""
     out = git("status", "--porcelain=v1", "-z", "--no-renames", "--untracked-files=all")
     if out is None:
         refuse("git could not read the state of this working copy.")
-    # Each entry is two status letters, a space, then the path.
-    return {entry[3:] for entry in nul_list(out)}
+    # Each entry is two status letters, a space, then the path; ?? is untracked.
+    return [(entry[3:], entry[:2] == "??") for entry in nul_list(out)]
+
+
+def uncommitted_files():
+    """Every file with a change not yet committed: staged, unstaged or new."""
+    return {path for path, _ in uncommitted()}
 
 
 def touches_in(lines):
@@ -166,7 +186,8 @@ def say_outside(headline, files):
     sys.exit(1)
 
 
-def check_card(card_path, base):
+def card_fence(card_path):
+    """The card's fence: its Touches and those of the other cards on its branch, and how to name it."""
     touches, branch = read_touches(card_path)
     fence = "the card's Touches"
     if branch:
@@ -174,6 +195,11 @@ def check_card(card_path, base):
         if others:
             touches += more
             fence = "the Touches of this card and %d other card(s) on %s" % (others, branch)
+    return touches, fence
+
+
+def check_card(card_path, base):
+    touches, fence = card_fence(card_path)
     if git("rev-parse", "--verify", "--quiet", base + "^{commit}") is None:
         refuse('there is no branch "%s" here to check against; name one with --base.' % base)
     fork = git("merge-base", base, "HEAD")
@@ -194,7 +220,7 @@ def check_card(card_path, base):
         print("INSIDE: nothing has changed against %s." % base)
 
 
-def check_main():
+def check_main(card_path):
     dirs = git("rev-parse", "--path-format=absolute", "--git-dir", "--git-common-dir")
     if dirs is None:
         refuse("git could not tell which checkout this is.")
@@ -202,10 +228,25 @@ def check_main():
     if git_dir != common_dir:
         print("Not the main checkout: this is a linked worktree, so the main checkout's fence does not apply here.")
         return
-    outside = [path for path in uncommitted_files() if not inside_record(path)]
+    touches, fence = card_fence(card_path) if card_path else (None, None)
+    outside, strays = [], []
+    for path, untracked in uncommitted():
+        if inside_record(path):
+            continue
+        if touches is not None and untracked and not inside_touches(path, touches):
+            strays.append(path)
+        else:
+            outside.append(path)
     if outside:
         say_outside("%d uncommitted change(s) in the main checkout are outside the record (%s):"
                     % (len(outside), RECORD), outside)
+    if strays:
+        print("INSIDE: the main checkout has no change outside the record (%s) that this card's landing "
+              "would meet; %d untracked file(s) outside it are not in %s, left as found:"
+              % (RECORD, len(strays), fence))
+        for path in sorted(strays):
+            print("STRAY: " + path)
+        return
     print("INSIDE: the main checkout has no uncommitted change outside the record (%s)." % RECORD)
 
 
@@ -213,11 +254,12 @@ def main():
     parser = argparse.ArgumentParser(description="Say whether a working copy has stayed inside its fence.")
     parser.add_argument("--card", help="the card whose ## Touches is the fence")
     parser.add_argument("--base", help="the branch to compare against (default: main)")
-    parser.add_argument("--main", action="store_true", help="check the main checkout instead of a card")
+    parser.add_argument("--main", action="store_true",
+                        help="check the main checkout; with --card, for that card's landing")
     args = parser.parse_args()
 
-    if args.main and (args.card or args.base):
-        refuse("--main takes no card and no base; run it on its own.")
+    if args.main and args.base:
+        refuse("--main takes no base; run it alone, or with --card for a landing.")
     if not args.main and not args.card:
         refuse("name a card with --card <card-file>, or check the main checkout with --main.")
     toplevel = git("rev-parse", "--show-toplevel")
@@ -227,7 +269,7 @@ def main():
     # Git names files from the top of the repo, and so does Touches.
     os.chdir(toplevel.strip())
     if args.main:
-        check_main()
+        check_main(card_path)
     else:
         check_card(card_path, args.base or "main")
 

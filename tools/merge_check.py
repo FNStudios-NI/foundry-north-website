@@ -16,6 +16,8 @@
 #      lines in the block, and it is refused: a verdict that cannot be read
 #      is not a pass. The two-line refusal says how to write it: exactly one
 #      line starts with Verdict, and any summary goes under "Why:".
+#      The block also holds a "From a clean copy:" line (written by
+#      tools/check.py) and a "Shown failing:" line (the checker's ablation).
 #   4. That commit is real, and is part of this branch's history.
 #   5. Nothing but the receipt has changed since that commit: not in later
 #      commits, not in files waiting to be committed, not in new files.
@@ -39,6 +41,10 @@
 #   11:28 a checker's ablation put a committed file back byte for byte:
 #   git status still listed it as changed, "git diff --quiet" said it was
 #   the same, and a checked PASS was refused (run 2's record, line 134).
+#   The two new lines because checkers typed "Commit:" and "Exit code:" and
+#   ran gates in a worktree holding files the commit did not, so a pass
+#   could rest on a file nobody committed; and a check never shown failing
+#   proves nothing (the 0.9.0 design, Part 1).
 #
 # How to run it
 #   Inside the branch's working copy (its worktree folder):
@@ -65,6 +71,8 @@ EXIT_LINE = re.compile(r"^\s*(?:[-*]\s*)?Exit code:\s*`?(-?\d+)`?\s*$")
 # closing stars, or a space and more words ("Verdict: FAIL. The gate...").
 VERDICT_LINE = re.compile(r"^\s*(?:[-*]\s+)?\**\s*Verdict\s*:", re.IGNORECASE)
 VERDICT_WORD = re.compile(r"^\s*(?:[-*]\s+)?\**\s*Verdict:\s*\**\s*(PASS|FAIL)(?:[.*\s]|$)")
+CLEAN_COPY_LINE = re.compile(r"^\s*(?:[-*]\s*)?From a clean copy:\s*\S")
+SHOWN_FAILING_LINE = re.compile(r"^\s*(?:[-*]\s*)?\**\s*Shown failing:\s*\**\s*\S")
 
 
 class Refuse(Exception):
@@ -143,6 +151,13 @@ def check(receipt_arg):
         raise Refuse(f"the checker's verdict cannot be read as PASS or FAIL: {verdicts[0].strip()[:60]}")
     if word.group(1) != "PASS":
         raise Refuse("the checker's verdict is FAIL")
+    if not any(CLEAN_COPY_LINE.match(line) for line in block):
+        raise Refuse("the Checker run block has no 'From a clean copy:' line; run python tools/check.py "
+                     "<receipt> --card <card> --who \"<model>, own session\" --scratch <folder>, "
+                     "which writes it with the Commit and Exit code lines")
+    if not any(SHOWN_FAILING_LINE.match(line) for line in block):
+        raise Refuse("the Checker run block has no 'Shown failing:' line; "
+                     "write the ablation you ran, and what failed")
 
     # 4. That commit is real, and part of this branch's history.
     code, full = git("rev-parse", "--verify", "--quiet", f"{named[0]}^{{commit}}")

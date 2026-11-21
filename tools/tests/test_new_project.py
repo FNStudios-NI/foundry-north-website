@@ -13,6 +13,7 @@
 import json
 import ntpath
 import os
+import shutil
 import subprocess
 import sys
 from importlib import util
@@ -96,6 +97,14 @@ def test_dry_run_lists_and_writes_nothing(tmp_path):
     for path in ["CLAUDE.md", "docs/decisions.md", "docs/brief.md", "docs/cards/", "desks/road/"]:
         assert "  " + path + "\n" in leaves
     assert git(project, "status", "--porcelain") == ""
+
+
+def test_adopt_lists_a_template_file_it_does_not_write_only_when_the_project_holds_it(tmp_path):
+    project = make_project(tmp_path)
+    assert "  VERSION\n" not in run("--adopt", project).stdout.split("Would leave alone:")[1]
+    assert "  VERSION\n" not in run("--adopt", project, "--go").stdout.split("Left alone:")[1]
+    held = make_project(tmp_path / "held", files=dict(RECORD, VERSION="0.0.1\n"))
+    assert "  VERSION\n" in run("--adopt", held).stdout.split("Would leave alone:")[1]
 
 
 def test_go_writes_template_files_and_never_the_record(tmp_path):
@@ -266,8 +275,12 @@ def test_adopt_keeps_a_projects_plugins_and_adds_the_template_env(tmp_path):
     assert result.returncode == 0, result.stdout + result.stderr
     assert "  .claude/settings.json: kept enabledPlugins\n" in result.stdout
     assert "  .claude/settings.json: added env\n" in result.stdout
+    assert "  .claude/settings.json: added hooks\n" in result.stdout
+    claude = "dot-claude" if os.path.isdir(os.path.join(TEMPLATE, "dot-claude")) else ".claude"
+    with open(os.path.join(TEMPLATE, claude, "settings.json"), encoding="utf-8") as f:
+        hooks = json.load(f)["hooks"]
     assert settings(project) == {"enabledPlugins": {"superpowers@claude-plugins-official": True},
-                                 "env": {"CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"}}
+                                 "env": {"CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"}, "hooks": hooks}
 
 
 def test_adopt_keeps_a_differing_setting_and_says_so(tmp_path):
@@ -282,7 +295,11 @@ def test_adopt_keeps_a_differing_setting_and_says_so(tmp_path):
 
 
 def test_adopt_leaves_an_unchanged_settings_file_unwritten(tmp_path):
-    own = '{ "enabledPlugins": {"superpowers@claude-plugins-official": true},\n  "env": {"CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"} }\n'
+    claude = "dot-claude" if os.path.isdir(os.path.join(TEMPLATE, "dot-claude")) else ".claude"
+    with open(os.path.join(TEMPLATE, claude, "settings.json"), encoding="utf-8") as f:
+        hooks = json.dumps(json.load(f)["hooks"])
+    own = ('{ "enabledPlugins": {"superpowers@claude-plugins-official": true},\n  "env": {"CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"},\n'
+           '  "hooks": ' + hooks + ' }\n')
     project = make_project(tmp_path, files=dict(RECORD, **{".claude/settings.json": own}))
     writes, leaves = run("--adopt", project).stdout.split("Would leave alone:")
     assert ".claude/settings.json" not in writes
@@ -385,10 +402,14 @@ def test_stamp_lends_the_templates_git_identity_when_the_machine_has_none(tmp_pa
     config = tmp_path / "gitconfig"
     config.write_text("[user]\n\tuseConfigOnly = true\n", encoding="utf-8")
     env = dict(os.environ, GIT_CONFIG_GLOBAL=str(config), GIT_CONFIG_NOSYSTEM="1")
-    lent = subprocess.run(["git", "-C", TEMPLATE, "config", "user.name"], capture_output=True, text=True, env=env).stdout.strip()
-    if not lent:
-        pytest.skip("the template's repository has no name of its own to lend")
-    result = run("probe", "--into", tmp_path, "--go", env=env)
+    # A template copy whose repository has a name of its own, so the test never rests on the clone it runs in.
+    copy = tmp_path / "repo" / "template"
+    shutil.copytree(TEMPLATE, copy, ignore=shutil.ignore_patterns("__pycache__", ".pytest_cache"))
+    git(tmp_path, "init", "-q", str(tmp_path / "repo"))
+    lent = "the template's own"
+    git(copy, "config", "user.name", lent)
+    git(copy, "config", "user.email", "template@example.invalid")
+    result = run("probe", "--into", tmp_path, "--go", tool=copy / "tools" / "new_project.py", env=env)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "the one the template's repository uses: " + lent in result.stdout
     assert git(tmp_path / "probe", "config", "--local", "user.name").strip() == lent
@@ -446,3 +467,190 @@ def test_online_runs_from_a_projects_own_copy_which_still_refuses_to_stamp(tmp_p
     refused = run("another", "--into", tmp_path, "--go", tool=own)
     assert refused.returncode == 1 and "project's copy of the tool" in refused.stdout
     assert not (tmp_path / "another").exists()
+
+
+# Two run records: run 1 with a dated note and a placeholder, run 2 with a note
+# stamped twice and a note with only hh:mm, neither holding a lesson line, so
+# neither is carried. A "- " line under another heading is no note.
+RUNS = {
+    "docs/runs/1/run.md": "# Run 1 — mine\n\n## Go\n- Start: 2026-10-06 09:00\n## Review notes\n"
+                          "One line per lesson, as it happens.\n"
+                          "- 2026-10-06 16:22 · a · the line it should become: \"b\"\n"
+                          "- <yyyy-mm-dd hh:mm> · <what happened> · the line it should become: \"<the line>\"\n"
+                          "## Orders\n- 10:00 · an order, not a note\n",
+    "docs/runs/2/run.md": "# Run 2 — mine\n\n## Go\n- Start: 2026-10-09 10:00\n## Review notes\n"
+                          "- 13:25 · 2026-10-08 13:24 · c · d\n- 12:29 · e\n",
+}
+BACKLOG = [
+    '- L001 · 2026-10-06 16:22 · run 1 · change · a (before the upgrade) · file: unknown · "b"',
+]
+
+
+def lesson_lines(project):
+    return [l for l in (project / "docs/lessons.md").read_bytes().decode("utf-8").splitlines() if l.startswith("- L")]
+
+
+def test_stamp_makes_the_lessons_file_with_the_projects_name_and_no_lesson(tmp_path):
+    assert "  docs/lessons.md, the lessons file" in run("probe", "--into", tmp_path).stdout
+    project, _ = stamp(tmp_path)
+    text = (project / "docs/lessons.md").read_bytes().decode("utf-8")
+    assert text.startswith("# Lessons — probe")
+    assert "<" + "project>" not in text
+    assert lesson_lines(project) == []
+    assert git(project, "ls-files", "docs/lessons.md") == "docs/lessons.md\n"
+
+
+def test_backlog_dry_run_lists_lessons_per_run_and_writes_nothing(tmp_path):
+    project = make_project(tmp_path, files=dict(RECORD, **RUNS))
+    result = run("--adopt", project)
+    assert result.returncode == 0, result.stdout + result.stderr
+    writes = result.stdout.split("Would leave alone:")[0]
+    assert "  docs/lessons.md (new, from docs/blanks/lessons.md" in writes
+    assert "    run 1: would carry 1 lesson\n" in writes
+    assert "    run 2: would carry 0 lessons (2 notes with no lesson line left in the record)\n" in writes
+    assert "    skipped 0 already in docs/lessons.md\n" in writes
+    assert not (project / "docs/lessons.md").exists()
+    assert git(project, "status", "--porcelain") == ""
+
+
+def test_adopt_carries_the_backlog_as_three_lessons_skipping_the_placeholder(tmp_path):
+    project = make_project(tmp_path, files=dict(RECORD, **RUNS))
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert (project / "docs/lessons.md").read_bytes().decode("utf-8").startswith("# Lessons — mine")
+    assert lesson_lines(project) == BACKLOG
+
+
+def test_a_second_adopt_carries_no_backlog_twice(tmp_path):
+    project = make_project(tmp_path, files=dict(RECORD, **RUNS))
+    assert run("--adopt", project, "--go").returncode == 0
+    git(project, "add", "-A")
+    git(project, "commit", "-q", "-m", "adopted")
+    before = (project / "docs/lessons.md").read_bytes()
+    again = run("--adopt", project, "--go")
+    assert again.returncode == 0, again.stdout + again.stderr
+    assert (project / "docs/lessons.md").read_bytes() == before
+    assert "  docs/lessons.md (yours, with no review note left to carry)\n" in again.stdout.split("Left alone:")[1]
+    assert "    skipped 1 already in docs/lessons.md\n" in again.stdout
+    assert lesson_lines(project) == BACKLOG
+
+
+def test_adopt_numbers_the_backlog_on_from_a_projects_own_lessons(tmp_path):
+    own = "# Lessons — mine\n\n- L004 · 2026-11-01 10:00 · session · works · x · file: CLAUDE.md · \"y\" · seen: z\n"
+    project = make_project(tmp_path, files=dict(RECORD, **RUNS, **{"docs/lessons.md": own}))
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "  docs/lessons.md (yours, kept as it is" in result.stdout
+    text = (project / "docs/lessons.md").read_bytes().decode("utf-8")
+    assert text.startswith(own)
+    assert lesson_lines(project)[1:] == [line.replace("L00%d" % n, "L00%d" % (n + 4)) for n, line in enumerate(BACKLOG, 1)]
+
+
+def test_backlog_adopt_keeps_a_projects_own_blank(tmp_path):
+    project = make_project(tmp_path, files=dict(RECORD, **{"docs/blanks/research-orders.md": "# my own blank\n"}))
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert (project / "docs/blanks/research-orders.md").read_bytes() == b"# my own blank\n"
+    writes, leaves = result.stdout.split("Left alone:")
+    assert "  docs/blanks/research-orders.md\n" in leaves
+    assert "  docs/blanks/lessons.md\n" in writes and (project / "docs/blanks/lessons.md").is_file()
+
+
+def template_retired(name="mine"):
+    """The template's docs/retired.md with the name filled in, and its entries: each "- " line with the "  |" lines under it."""
+    with open(os.path.join(TEMPLATE, "docs", "retired.md"), "rb") as f:
+        text = f.read().decode("utf-8").replace("<" + "project>", name)
+    entries = []
+    for line in text.splitlines():
+        if line.startswith("- "):
+            entries.append([line])
+        elif entries and line.startswith("  |"):
+            entries[-1].append(line)
+    return text, entries
+
+
+def test_adopt_writes_retired_md_into_a_project_with_none(tmp_path):
+    project = make_project(tmp_path)
+    writes = run("--adopt", project).stdout.split("Would leave alone:")[0]
+    assert "  docs/retired.md (new, from the template's: its retired rules, so each undo works here)\n" in writes
+    assert not (project / "docs/retired.md").exists()
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "  docs/retired.md (new, from the template's: its retired rules, so each undo works here)\n" in result.stdout
+    text, entries = template_retired()
+    assert (project / "docs/retired.md").read_bytes().decode("utf-8") == text
+    assert text.startswith("# Retired — mine") and len(entries) >= 2
+
+
+def test_adopt_adds_the_templates_retired_rules_a_projects_own_file_lacks(tmp_path):
+    _, entries = template_retired()
+    own = "\r\n".join(["# Retired — mine", "", '- 2026-11-01 · worker-rules.md · "9. mine" · why: x · undo: y'] + entries[0]) + "\r\n"
+    project = make_project(tmp_path, files=dict(RECORD, **{"docs/retired.md": own}))
+    line = "  docs/retired.md (yours, kept as it is; the template's retired rules you lack added at its end)\n"
+    assert line in run("--adopt", project).stdout.split("Would leave alone:")[0]
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert line in result.stdout.split("Left alone:")[0]
+    assert (project / "docs/retired.md").read_bytes().decode("utf-8") == \
+        own + "".join(l + "\r\n" for entry in entries[1:] for l in entry)
+
+
+def test_adopt_lists_a_complete_retired_md_once_under_what_it_leaves_alone(tmp_path):
+    own = template_retired()[0] + '- 2026-11-01 · worker-rules.md · "9. mine" · why: x · undo: y\n'
+    project = make_project(tmp_path, files=dict(RECORD, **{"docs/retired.md": own}))
+    dry = run("--adopt", project).stdout
+    assert [l for l in dry.splitlines() if l.startswith("  docs/retired.md")] == \
+        ["  docs/retired.md (yours, holding every rule the template retired)"]
+    assert "  docs/retired.md (yours, holding every rule the template retired)\n" in dry.split("Would leave alone:")[1]
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "  docs/retired.md (yours, holding every rule the template retired)\n" in result.stdout.split("Left alone:")[1]
+    assert (project / "docs/retired.md").read_bytes() == own.encode("utf-8")
+
+
+def test_a_restore_works_after_the_adopt_carried_retired_md(tmp_path):
+    project = make_project(tmp_path)
+    assert run("--adopt", project, "--go").returncode == 0
+    restored = subprocess.run([sys.executable, "-B", "tools/upgrade.py", "--restore", "tracks.md", "3"],
+                              cwd=str(project), capture_output=True, text=True, encoding="utf-8")
+    assert restored.returncode == 0, restored.stdout + restored.stderr
+    assert restored.stdout.startswith("RESTORED: tracks.md rule 3")
+    assert "3. **A running master keeps one flag,**" in (project / "tracks.md").read_bytes().decode("utf-8")
+
+
+def test_a_note_with_no_lesson_line_is_not_carried_and_is_counted(tmp_path):
+    third = {"docs/runs/3/run.md": "# Run 3 — mine\n\n## Review notes\n"
+                                   "- 2026-10-12 09:00 · g · the line it should be: \"h\"\n"
+                                   "- 2026-10-12 10:00 · a page note, no lesson\n- 11:00 · another page note\n"}
+    project = make_project(tmp_path, files=dict(RECORD, **RUNS, **third))
+    dry = run("--adopt", project).stdout
+    assert "    run 1: would carry 1 lesson\n" in dry
+    assert "    run 3: would carry 1 lesson (2 notes with no lesson line left in the record)\n" in dry
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "    run 3: carried 1 lesson (2 notes with no lesson line left in the record)\n" in result.stdout
+    assert lesson_lines(project) == BACKLOG + ['- L002 · 2026-10-12 09:00 · run 3 · change · g (before the upgrade) · file: unknown · "h"']
+
+
+def test_a_note_with_only_a_clock_is_dated_by_the_day_git_first_holds_it(tmp_path):
+    record = "# Run 4 — mine\n\n## Go\n- Start: 2026-10-06 09:00\n- Closed: 2026-10-09 18:00\n## Review notes\n"
+    project = make_project(tmp_path, files=dict(RECORD, **{"docs/runs/4/run.md": record}))
+    (project / "docs/runs/4/run.md").write_bytes((record + "- 12:29 · e · the line it should become: \"f\"\n").encode("utf-8"))
+    git(project, "add", "-A")
+    # A day later than every date written in the record, so the record's first date would fail this test.
+    subprocess.run(["git", "-C", str(project), "-c", "user.name=test", "-c", "user.email=test@example.invalid",
+                    "commit", "-q", "-m", "the note"], check=True, env=dict(os.environ, GIT_AUTHOR_DATE="2026-10-20T08:00:00"))
+    result = run("--adopt", project, "--go")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert lesson_lines(project) == ['- L001 · 2026-10-20 12:29 · run 4 · change · e (before the upgrade) · file: unknown · "f"']
+
+
+def test_go_writes_the_same_list_the_dry_run_names(tmp_path):
+    project = make_project(tmp_path, files=dict(RECORD, **RUNS))
+    dry = run("--adopt", project)
+    go = run("--adopt", project, "--go")
+    assert go.returncode == 0, go.stdout + go.stderr
+    assert "  operator.md\n" in dry.stdout and "  operator.md\n" in go.stdout
+    named = ["Left alone:" if l == "Would leave alone:" else l.replace("would add", "added", 1).replace("would carry", "carried", 1)
+             for l in dry.stdout.splitlines()[2:]]
+    assert go.stdout.splitlines()[1:] == named

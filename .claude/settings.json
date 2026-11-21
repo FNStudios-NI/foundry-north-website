@@ -1,5 +1,54 @@
 {
   "env": {
     "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3.11 \"$CLAUDE_PROJECT_DIR/tools/act_check.py\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3.11 \"$CLAUDE_PROJECT_DIR/tools/act_check.py\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3.11 \"$CLAUDE_PROJECT_DIR/tools/act_check.py\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3.11 \"$CLAUDE_PROJECT_DIR/tools/act_check.py\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
   }
 }

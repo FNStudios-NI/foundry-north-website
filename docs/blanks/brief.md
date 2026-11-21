@@ -5,6 +5,7 @@ Keep the Held apart line too: on `never`, the folders it names may be public, so
 # Brief — foundry-north-website
 Shared: never | yes — <his words>   <keep one, written from his answer to the sharing question, asked in the chat before the first page>
 Held apart: <folders that may be public, or none>
+Foundations: never written here; `python tools/status.py` reads them from the workflow files' step tags.   <keep this line as it is. Why: a foundation is tagged beside the step it describes, so no line here can be mistaken for one (12 Nov 2026, fault 1)>
 
 ## The problem
 <what happens today, who it hurts, what "fixed" would look like to him, in his words>

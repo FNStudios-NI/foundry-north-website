@@ -1,4 +1,4 @@
-<For the agent: open this for Rhys on the machine where he will type. If the act changes, write a new file and put "REPLACED, DO NOT RUN" as this one's first line. Delete this line.>
+<For the agent: open this for Rhys on the machine where he will type. If the act changes, write a new file and put "REPLACED, DO NOT RUN" as this one's first line. Name only the rows to change; say 'touch no other row' rather than listing the ones to keep. Why: a list of rows to keep missed rows; the zone held more than the five it named. An act that reads the clipboard copies the command first and the secret last, and says so in the step. Why: a step told him to copy the command after the key, so the command overwrote the key. Delete this line.>
 
 <WHAT THIS IS>  -  your act, about <N> minutes, on <which machine>
 ==========================================================================

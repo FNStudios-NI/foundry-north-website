@@ -30,12 +30,50 @@
 #      No file means 4, take or not.
 #   3. Heavy work waits for an idle studio. A claim marked --heavy is
 #      refused while the studio is on a take.
+#   4. The signed number of workers. A worker claim reads the newest
+#      docs/runs/<n>/plan-signed.md (the highest n) of the project's main
+#      checkout; when its ## Agents section holds a line
+#      "Workers at once: <n>" and n live workers of the same project
+#      already stand, the claim is refused, naming the number. Every
+#      worktree of one repository is one project: a claim records the
+#      main checkout (the folder above git's common folder, or the project
+#      folder itself when it is no git repository), and a claim written
+#      before that is matched by its project name against the main
+#      checkout's folder name. Other kinds are never refused by the line,
+#      and a plan without it reads as before. Why: a master started a
+#      fourth worker against the signed three and called it "the master's
+#      call" (engine-motion-graphics run 3, fault 3); a signed number is
+#      his, so the tool refuses past it.
+#   5. The usage window. A claim reads the machine's one reading of the
+#      five-hour window (window.json beside the seats folder, as window.py
+#      writes it); no file, a file not in that form, or a reading 25 minutes
+#      old or more leaves the claim as before (the watch reads every 20
+#      minutes, so a watched machine always has a fresher one). At "wrap now"
+#      no new agent starts: every claim but a master's is refused until the
+#      reset. At "slow down" the first claim to meet it marks, for its project
+#      and that reset, how many of the project's agents other than masters
+#      stand then (window-marks.json beside window.json); until the reset a
+#      claim other than a master's is allowed only while the project holds
+#      fewer than that mark, never fewer than one. A master is never refused
+#      for the window: at a take-over it must claim to write its handover
+#      (rule 38). Why: one window serves every project on this machine, each
+#      master read it only for its own run, and engine-motion-graphics ran to
+#      its limit with no handover (decisions, 28 Oct 14:12); his rule as
+#      corrected at 15:42: "75% to 95% keep working, starting fewer agents
+#      (one new as one finishes)", so from 75% a run gets fewer, never zero.
+#   6. A worker is its own thread. A worker claim whose process already
+#      holds a live master claim is refused (tracks.md rule 32): a handover
+#      once moved workers into the master's own thread, and words could not
+#      hold it (design 0.9.0, Part 1). Other kinds are never refused by it.
+#      The order of refusals: the worker's own thread, the cap, his lift and
+#      the take, then the signed number, then the window; the first met is
+#      the one printed.
 #
 # Where the seats are
 #   One machine-wide folder, %LOCALAPPDATA%\agentic-meta\seats\, so two
 #   projects on one machine share the one cap. Each claim is one small
-#   JSON file: the project, the card, the kind, the process id, the
-#   process's start time, the time.
+#   JSON file: the project, its main checkout, the card, the kind, the
+#   process id, the process's start time, the time.
 #   A claim is alive only while a process with its id is running and
 #   started at the time the claim recorded. Windows reuses process ids, so
 #   an id alone could make a dead claim, whose id a new process has taken,
@@ -67,6 +105,8 @@
 #   above the process that ran this tool, found by walking up its parents.
 #   No claude.exe above it is a REFUSE that says to pass --pid. --seats <folder> and --project <folder> point it elsewhere
 #   (tests use --seats so they never touch the machine-wide folder).
+#   --window <file> names the window's reading (default: window.json beside
+#   the seats folder, so a test's --seats brings its own).
 #   claim prints ALLOW (exit 0) or REFUSE (exit 1). It never stops,
 #   starts or signals any process.
 #
@@ -296,6 +336,144 @@ def read_cap(project):
     return int(found.group()) if found else CAP
 
 
+# ---- the signed number of workers -----------------------------------------
+
+def main_checkout(project):
+    """The project's main checkout: the folder above git's common folder, so
+    every worktree of one repository names the same one; the project folder
+    itself when it is no git repository or git cannot be run."""
+    try:
+        done = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                              cwd=project, capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return project
+    common = done.stdout.strip()
+    if done.returncode != 0 or not common:
+        return project
+    return os.path.dirname(os.path.normpath(common))
+
+
+def signed_workers(main):
+    """(the plan's path, the workers it signs at once) from the newest
+    docs/runs/<n>/plan-signed.md of the main checkout, or None when there is
+    no plan or its ## Agents section holds no "Workers at once: <n>" line."""
+    runs = os.path.join(main, "docs", "runs")
+    numbers = [(int(name), name) for name in (os.listdir(runs) if os.path.isdir(runs) else [])
+               if name.isdigit() and os.path.isfile(os.path.join(runs, name, "plan-signed.md"))]
+    if not numbers:
+        return None
+    run = max(numbers)[1]
+    with open(os.path.join(runs, run, "plan-signed.md"), encoding="utf-8", errors="replace") as f:
+        lines = f.read().splitlines()
+    in_agents = False
+    for line in lines:
+        if line.startswith("## "):
+            in_agents = line[3:].strip() == "Agents"
+            continue
+        found = in_agents and re.fullmatch(r"Workers at once:\s*(\d+)", line.strip())
+        if found:
+            return f"docs/runs/{run}/plan-signed.md", int(found.group(1))
+    return None
+
+
+def same_project(data, main):
+    if data.get("main"):
+        return os.path.normcase(data["main"]) == os.path.normcase(main)
+    return data.get("project") == os.path.basename(main)  # written before main was kept
+
+
+def signed_refusal(live, main, signed):
+    """The refusal when the signed number of this project's workers already
+    stands, or None."""
+    if signed is None:
+        return None
+    plan, n = signed
+    running = sum(1 for _, data in live
+                  if data is not None and data.get("kind") == "worker" and same_project(data, main))
+    if running >= n:
+        return f"REFUSE: the signed plan ({plan}) signs {n} workers at once, and {running} are running"
+    return None
+
+
+# ---- the usage window -----------------------------------------------------
+
+WINDOW_WORDS = ("full pace", "slow down", "wrap now")
+WINDOW_FRESH = 25 * 60  # seconds; the watch reads every 20 minutes
+
+
+def window_file(args):
+    """window.json beside the seats folder, or the file --window names."""
+    if args.window:
+        return args.window
+    return os.path.join(os.path.dirname(os.path.abspath(args.seats)), "window.json")
+
+
+def is_number(value):
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def read_window(path):
+    """The machine's reading as window.py writes it, or None when there is no
+    file, it is not in that form, or it was read 25 minutes ago or more."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        five = data["five_hour"]
+        fields = (data["read_at"], five["percent"], five["resets_at"])
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+    if not all(is_number(x) for x in fields) or data.get("word") not in WINDOW_WORDS:
+        return None
+    if time.time() - data["read_at"] >= WINDOW_FRESH:
+        return None
+    return data
+
+
+def clock(seconds):
+    return datetime.datetime.fromtimestamp(seconds).strftime("%H:%M")
+
+
+def window_mark(path, main, resets_at, held):
+    """This project's mark for this five-hour reset; when there is none yet,
+    what it holds now, written down (run only while holding the lock)."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            marks = [m for m in json.load(f) if isinstance(m, dict)]
+    except (OSError, ValueError, TypeError):
+        marks = []  # none or unreadable: the mark starts from what stands now
+    for m in marks:
+        if m.get("resets_at") == resets_at and same_project(m, main) and is_number(m.get("mark")):
+            return m["mark"]
+    now = time.time()
+    marks = [m for m in marks if is_number(m.get("resets_at")) and m["resets_at"] > now
+             and not (m["resets_at"] == resets_at and same_project(m, main))]
+    marks.append({"main": main, "resets_at": resets_at, "mark": held})
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(marks, f, indent=2)
+    return held
+
+
+def window_refusal(kind, live, main, reading, marks):
+    """The refusal the machine's reading makes, or None. A master is never
+    refused for the window."""
+    if reading is None or reading["word"] == "full pace":
+        return None
+    five = reading["five_hour"]
+    if reading["word"] == "wrap now":
+        if kind == "master":
+            return None
+        return (f"REFUSE: the usage window reads {five['percent']:g}% (wrap now, read "
+                f"{clock(reading['read_at'])}); it resets at {clock(five['resets_at'])} this computer; "
+                "no new agent until then")
+    held = sum(1 for _, data in live
+               if data is not None and data.get("kind") != "master" and same_project(data, main))
+    mark = window_mark(marks, main, five["resets_at"], held)
+    if kind == "master" or held < max(mark, 1):  # never zero: a mark of 0 counts as 1
+        return None
+    return (f"REFUSE: the usage window reads {five['percent']:g}% (slow down); this project held "
+            f"{mark} agents at 75% and holds {held}; one new agent only as one finishes")
+
+
 # ---- is the studio on a take ----------------------------------------------
 
 def gpu_loads():
@@ -369,6 +547,9 @@ def claim(args):
         if why:
             print(f"REFUSE: heavy work waits; the studio is on a take ({why})")
             return 1
+    main = main_checkout(project)  # read before the lock: git is a process
+    signed = signed_workers(main) if args.kind == "worker" else None
+    reading = read_window(window_file(args))  # read before the lock: a file read
     os.makedirs(seats, exist_ok=True)
     token = take_lock(seats)
     if token is None:
@@ -376,12 +557,12 @@ def claim(args):
               f"({os.path.join(seats, LOCK_NAME)})")
         return 1
     try:
-        return claim_a_seat(args, pid, seats, project, cap, why, broken)
+        return claim_a_seat(args, pid, seats, project, cap, why, broken, main, signed, reading)
     finally:
         drop_lock(seats, token)
 
 
-def claim_a_seat(args, pid, seats, project, cap, why, broken):
+def claim_a_seat(args, pid, seats, project, cap, why, broken, main, signed, reading):
     """The count and the write, run only while holding the lock."""
     live, dead = split_live(read_claims(seats))
     for cid, _ in dead:
@@ -389,6 +570,13 @@ def claim_a_seat(args, pid, seats, project, cap, why, broken):
             os.remove(os.path.join(seats, cid + ".json"))
         except FileNotFoundError:
             pass
+    if args.kind == "worker":
+        held = next((cid for cid, data in live if data is not None and data.get("kind") == "master"
+                     and int(data["pid"]) == pid), None)
+        if held:
+            print("REFUSE: a worker is its own thread (tracks.md rule 32); "
+                  f"this claim resolves to the master's own session ({held})")
+            return 1
     if cap > CAP and len(live) >= CAP:  # his lift holds only on an idle studio
         if broken is not None:
             print(f"REFUSE: could not tell whether the studio is on a take ({broken})")
@@ -400,10 +588,16 @@ def claim_a_seat(args, pid, seats, project, cap, why, broken):
     if len(live) >= cap:
         print(f"REFUSE: the cap of {cap} is full ({len(live)} seats taken)")
         return 1
+    marks = os.path.join(os.path.dirname(os.path.abspath(window_file(args))), "window-marks.json")
+    refusal = signed_refusal(live, main, signed) or window_refusal(args.kind, live, main, reading, marks)
+    if refusal:
+        print(refusal)
+        return 1
     now = datetime.datetime.now()
     cid = f"{now:%Y%m%d-%H%M%S}-{args.kind}-{pid}-{secrets.token_hex(2)}"
     data = {
         "project": os.path.basename(project),
+        "main": main,
         "card": args.card,
         "kind": args.kind,
         "pid": pid,
@@ -439,6 +633,11 @@ def list_seats(args):
                   f"{data.get('card')}  pid {data['pid']}  since {data.get('time')}")
     if dead:
         print(f"({len(dead)} dead claim(s) not counted; the next claim deletes them)")
+    reading = read_window(window_file(args))
+    if reading is None:
+        print("window: no recent reading")
+    else:
+        print(f"window: {reading['five_hour']['percent']:g}% · {reading['word']} · read {clock(reading['read_at'])}")
     return 0
 
 
@@ -446,6 +645,7 @@ def main(argv):
     parser = argparse.ArgumentParser(prog="cap_check.py", description="May one more agent start now?")
     parser.add_argument("--seats", default=default_seats(), help="the seats folder")
     parser.add_argument("--project", default=os.getcwd(), help="the project folder (default: here)")
+    parser.add_argument("--window", default=None, help="the window's reading (default: beside the seats folder)")
     sub = parser.add_subparsers(dest="command", required=True)
     c = sub.add_parser("claim")
     c.add_argument("--kind", required=True, choices=KINDS)
@@ -458,6 +658,7 @@ def main(argv):
     for p in (c, r, sub.choices["list"]):
         p.add_argument("--seats", default=argparse.SUPPRESS)
         p.add_argument("--project", default=argparse.SUPPRESS)
+        p.add_argument("--window", default=argparse.SUPPRESS)
     try:
         args = parser.parse_args(argv[1:])
     except SystemExit as stop:

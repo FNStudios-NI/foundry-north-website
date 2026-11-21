@@ -4,7 +4,7 @@ The skills say *when* a page is made; this file says *what is on it*. Read it be
 Start every page from the blank, `docs/blanks/page.html`: copy it, fill the `<like this>` places, delete what the page does not need.
 Why: the first trial's master was able, but it had no page rules, so its pages came out with no pictures and nowhere for his words. Told the rules once, it made the best page of the day. A form holds a shape better than prose.
 
-There are three kinds of page: the **discovery page** (the Design page and the look; Problem, Scope, Facts and the Team are talked through in the chat and written down), the **plan page** and the **review page**.
+There are three kinds of page: the **discovery page** (the Design page and the look; Problem, Scope, Facts and the Team are talked through in the chat and written down), the **plan page** and the **review page**. Two more are checked for their read-back (rule 20) only: a page sent to someone else (`<body data-page-kind="sent">`) and a board of options he marks (`<body data-page-kind="board">`).
 Pages are for build stages, not every decision; small back and forth has no page unless he asks (his ruling, 5 Oct 2026).
 
 ## Every page
@@ -78,6 +78,8 @@ Pages are for build stages, not every decision; small back and forth has no page
 
 22. Discovery asks once, early, whether the project will ever be shared, copied to someone else or made public. If yes, a third person appears on a page and in the record by role ("the user"), never by name, health, employer or history, with their details outside the project and a pointer in `docs/register.md`.
     Why: the trial put a third person's private details in git and on a hosted page; his ruling was that it depends on whether the project stays private (a private project may keep them), so it is his question.
+    It is asked in the chat, before the first page, and the brief's `Shared:` line, read by `tools/people_check.py`, is written from his answer in the blank's words; only a yes switches this rule on.
+    Why: with no Shared line the people check refuses a new project's first page, as it refused the job scout's nine minutes before he answered.
 
 **Stage, prices, words and size** (from the roast of the trial's sheet 4, 6 Oct 2026: its parts were right, its sequencing and pricing were not)
 
@@ -112,6 +114,8 @@ Pages are for build stages, not every decision; small back and forth has no page
 Discovery has six stages, in order: Problem · 1 of 6, Scope · 2 of 6, Facts · 3 of 6, Design · 4 of 6, Team · 5 of 6, Plan · 6 of 6 (the plan page, below). Problem, Scope and Facts are talked through in the chat and written down, each as one decisions entry and its own section of `docs/brief.md` (`## The problem`, `## Scope`, `## Facts`) with words of its own under it; the Team is talked the same way. Pages are made for Design and Plan only, and each names its place.
 Why: his words, "lets not worry about html's for the brainstorm, we can just chat. the html's are more for direction once you have enough" (his ruling 2 of "Run 4 closed", 13 Oct 2026). On the job scout two of five pages were never answered as pages, and a facts sheet with no questions was made only because the page check demanded one.
 Before a Design, Team or Plan page, the page check (rule 30) looks for each of Problem, Scope and Facts in the record: its section in `docs/brief.md`, with words of its own under it.
+In a talked step, put together in one message every question that does not depend on another's answer, each numbered with its letters; one question at a time only where the next question depends on this answer.
+Why: his note of 15 Oct 2026 on foundry-north-website: about 20 single-question turns of discovery 'could have been grouped and reduced the amount of back and forth'.
 
 What each stage holds, talked or on a page:
 
@@ -125,6 +129,8 @@ What each stage holds, talked or on a page:
   Why: he is a film-maker, and a picture is read in a minute; the picture is what the review is held against.
 - **The look** ends the Design stage of any project with a screen: a clickable look on his phone, with made-up information, in two or three styles, before anything is built to it. He chooses one, and the plan is built to it.
   Why: his ruling 3 of "Run 4 closed" (13 Oct 2026). Fifteen pieces of the job scout landed before he saw how it looked; his words then: "lets build the look first and show me it to my phone, it needs to be clickable with fake information". The look took 27 minutes to make, and he chose ten minutes later.
+  The look is made by one helper, started by the planning master when he says "make the look" in the chat; it builds only the look, in its own scratch copy, and nothing of it is kept in the project until the plan says so.
+  Why: his ruling 5 of "Run 5 closed" (14 Oct 2026): the master never builds, and no desk or worker exists before his signature.
 - **Team** (talked) names each desk: what it owns, and what it hands the others. A desk earns its folder by having a job no other desk has; one desk is a fine answer. When a page is made for it, each desk is a box and each arrow is named as rule 26 says.
   Why: he wants to see why a desk earns its folder before he rules it.
 
@@ -136,11 +142,17 @@ Why: the page check refused an adopted project's plan page for want of a facts s
 
 ## The plan page — Plan · 6 of 6
 
+- **The status board first,** right after the title block: the output of `python tools/status.py --html`, one element marked `data-status-board`. The page check refuses a plan or review page without it there. Why: he sees which step is an idea, on trial or a foundation before he signs what leans on it (design 0.9.0, Part 3).
+  **The workflow question.** In a project with a closed run and no workflow file, a plan or review page puts that to him as its own needs-thought question, naming the kind of work with no file: one question marked `data-needs-thought="workflow"` and `data-work="<the kind of work, in plain words>"`, those same words in the question's own text; the board's line `workflows: none` alone is refused by the page check. Why: at the review of runs 6 and 7 the board said `workflows: none` in one line and he had to ask where the workflow section was (his ruling 1 of "Run 8 asked for", 19 Nov 2026; L040).
 - **Paths,** each priced in his hours against the result it buys, drawn as a timeline: all of it, a first slice, the small version first; what he gets for one hour of his time, for three, for none, and the same at any blocker.
   Every path is priced the same way whichever is recommended (rule 24), and its calendar time is worked out from the same agents and the same cap (rule 25).
   Why: his words, "so we can decide how much human time to put in to get what results."
 - **A mark on every item:** ✅ **proven**, seen working on his machines, with where; 📄 **documented**, the tool's own docs, linked; ❓ **assumed**, nobody has checked. Every ❓ is spiked before he signs, as the conductor skill's § 3 says, and the signed plan holds none. A spike that needs his hands (his screen, an install) is priced in his minutes like any act, or, by his word, he signs the item as a **known risk** (⚠, his ruling 9 of 8 Oct 2026), shown with what happens if it fails.
   Why: run 2 took two roads on untested guesses; he can judge a plan only when he sees which parts are known (his ruling 7 of 8 Oct 2026). A gamble he takes knowingly is his call; one dressed as a fact is not.
+  A spike is a 5 to 15 minute throwaway test on Sonnet, started by the master the moment its ❓ is spotted, in the background while the talk goes on, side by side inside the cap; it writes one line back: what was tried, what was seen, ✅ or ❌. A pass costs him nothing; a fail, one question: which road instead.
+  Why: started at once, spikes hold the plan up 15 to 20 minutes at most, usually not at all (his question, 8 Oct 2026: the time added against the time unblocked).
+  Anything that touches another house first gets one letter: "are you building this?"
+  Why: that house may be building it already, and one letter costs less than the same thing built twice.
 - **A lane for each piece,** light, standard or full, with the checks it climbs (the card blank's Lane line), proposed for his signature; never light on a tool, a skill or `template/`.
   Why: the lane decides who builds and who checks, so how much checking a piece gets is his to sign (his ruling 4 of 8 Oct 2026).
 - **The size table:** each piece small, medium or large, its build days, his hours, a total, and the biggest unknown named.
@@ -158,27 +170,38 @@ Why: the page check refused an adopted project's plan page for want of a facts s
 - **The two starts,** `Start: tracks` or `Start: now`, each with its one line of meaning from the plan blank.
 - **The acts tried beforehand:** the permission probe's answers (`tracks.md` rule 19) and the dry run of every command in his acts, or the refusal that was looked for. An act that has not been tried is marked ❓ like any other piece. They sit in the page's element marked `data-acts-tried`; the plan check (`python tools/plan_check.py <page>`) refuses a plan page without it.
   Why: the page the job scout's plan was signed on held no probe answers, and its install command had never been tried: the wall was found with him at the keyboard.
+  An act file of many commands is built and checked as a piece, never written by the master.
+  Why: the job scout's held about twelve untried commands, and its handover had the master write it; the master never builds.
+- **The plan check:** before the plan page is published, `python tools/plan_check.py <page>` must say ALLOW, beside the page and people checks (rule 30). A REFUSE is a stop: spike the ❓, add the lane, fill the numbers; never publish around it.
+  Why: the plan is all the build gets, and the check reads whether it holds what the build needs.
 - **His acts** as one numbered list, "approve all" first, the hand-only ones named apart with their minutes.
   Why: work once sat for hours waiting on his hand.
 
 ## The review page
 
-It lives at `docs/runs/<n>/review.html`, not in `docs/pages/`: that is where the where-am-I check looks for it.
-The review is one pass over the forks the master made that could affect him later in the design, not a keep-or-undo of every piece: the pieces are the master's decisions (his ruling, 6 Oct 2026).
+It lives at `docs/runs/<n>/review.html`, not in `docs/pages/`: that is where the where-am-I check looks for it. The review is one pass over the forks the master made that could affect him later in the design, not a keep-or-undo of every piece: the pieces are the master's decisions (his ruling, 6 Oct 2026).
 Why: he cannot judge technical pieces; he can judge forks that shape his later work. Run 1's first review put 17 pieces in a row for keep or undo, and he stopped answering part-way.
 
+- **The status board first,** as on the plan page, and under it **the scoreboard's last five rows** (every row, when fewer): the output of `python tools/scoreboard.py --last 5 --html`, one section marked `data-scoreboard`. The page check refuses a review without either, or with other rows.
+  Why: nothing set one template version beside the next, so a change that made things worse could not be seen (his ruling 1 of 17 Nov 2026).
 - **"It works" first:** the page's first item block (rule 31), headed "It works": each done-when line of the signed plan, tried, pass or fail, with how it was tried (the run record's `## It works`). The page check refuses a review whose first item block is not it.
   Why: his ruling 8 of 8 Oct 2026; a run can land every piece while the thing itself does not work.
-- **Above everything else, the measures,** worked out from the run record, never estimated:
-  - usage per piece (the usage each finished piece took, from the run record); his time is not measured (his ruling, 8 Oct 2026);
-  - surprises after he left (unforeseen key points, refusals and blockers after go);
-  - share of the plan finished (tasks kept, out of the tasks in `docs/runs/<n>/plan-signed.md`);
-  - enjoyment, 1 to 5, asked of him at the end: the enjoyment tap, the page's last numbered question, five letters, 1 to 5, in its own item block (the run is the item). The page check refuses a review whose last question is not it.
-  Why: one stretch scored eight merges while nothing worked; these measure what he actually wants. Enjoyment is one tap, not a text box (his ruling 8 of 8 Oct 2026); a line on why goes in its note box.
+- **The measures,** worked out from the run record, never estimated: usage per finished piece (his time is not measured, his ruling of 8 Oct 2026); surprises after he left (unforeseen key points, refusals and blockers after go); share of the plan finished (pieces landed, out of those in `docs/runs/<n>/plan-signed.md`).
+- **The two taps, last:** the page's last two numbered questions, five letters each, 1 to 5, in one item block (the run is the item): the thing made, then the run's enjoyment. `python tools/scoreboard.py --run <n> --made <1-5> --enjoyment <1-5>` writes both into the run's row at the close. The page check refuses a review whose last two questions are not they.
+  Why: his verdict on what is made comes first, then his time (his ruling 1 of 17 Nov 2026); one stretch scored eight merges while nothing worked. A tap, not a text box (his ruling 8 of 8 Oct 2026); a line on why goes in its note box.
 - **One section per fork,** each an item block (rule 31) with its own diagram: what the master chose, and the options it turned down, each priced (rule 12) with what it would set in motion later; his letters, and a note box. Each key point nobody saw coming is a fork.
   Why: his condition for letting the master decide is that each choice is laid out against the options turned down.
+- **The upgrade,** every review, after the forks and before the two taps: one section marked `data-upgrade`, as the blank has it. Its list comes from `python tools/upgrade.py`, never from memory. Its groups, in this order, each marked `data-group` with the name `upgrade.py` gives it; a group with nothing in it says "none" in one line:
+  - **needs thought** (`needs-thought`): highlighted and first; anything that would take a system or workflow in a very different direction, each its own question, kept out of approve all;
+  - **lines to keep, change or drop** (`lines`): one item block, a table of the lines with the master's lean on each, one "approve all my leans" question and its note box; he overrides a lean by naming its L-number in the note;
+  - **suggested foundations** (`foundations`): each its own item block and question. A foundation is his word, decided in the review conversation from doing the work and testing it; the numbers inform it and never judge it;
+  - **candidate tracks** (`tracks`): each its own question: keep as a candidate, put on trial, or drop;
+  - **foundations to reopen as trials** (`trials`): each its own question; and every foundation (`foundation`) listed with a tick to reopen it as a trial;
+  - **for the template** (`template`): the lines whose file the template owns, listed and answered with the rest, never edited in the project.
+  The closing entry's `### The upgrade` table (`| L-numbers | his answer | the line as kept | where it is |`) is written from his answers, and `python tools/upgrade.py --check` passes before the run is closed. In a project that has `docs/lessons.md`, the page check refuses a review without the section, with it after the taps, with a group named otherwise than `upgrade.py` names it, with needs thought not first, with a lines group that is not one "approve all" question, with a needs-thought, foundations, tracks or trials item that is not one question, or with a group holding neither an item nor "none".
+  Why: a step he is never shown never runs; nobody ever proposed a foundation while the review was counted and remembered (his ruling 1 of 12 Nov 2026: every review, held by tools). Approve all saves his time for what only he can judge, and the needs-thought group keeps a change of direction out of it (his ruling 2). A foundation is his, from the work (his ruling 9). An unknown case worked out with him becomes a track the next case can follow (his ruling 8). The close's table is what `--check` reads, so a close without the upgrade is not a close.
 - **The pieces, as a short list:** each merged piece in one line, with its undo. No question is asked of them; he may name any to undo.
-- **The read-back,** copying his answers, his notes and his score together.
+- **The read-back,** copying his answers, his notes and his two taps together.
   Why: the review is where his pass replaces the wait he no longer spends before each merge.
 
 ## How a page is built

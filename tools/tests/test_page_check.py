@@ -24,6 +24,9 @@ SAMPLE_REVIEW_PATH = os.path.join(PAGES, "sample-review.html")
 spec = importlib.util.spec_from_file_location("page_check", os.path.join(HERE, "..", "page_check.py"))
 page_check = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(page_check)
+spec = importlib.util.spec_from_file_location("scoreboard_for_test", os.path.join(HERE, "..", "scoreboard.py"))
+scoreboard = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(scoreboard)
 
 
 def read(path):
@@ -332,18 +335,309 @@ def test_n_review_whose_first_item_is_not_it_works():
     assert len(faults) == 1 and "the first item block is not \"It works\"" in faults[0], faults
 
 
+TWO_TAPS = "the last two questions are not the two taps"
+
+
+def tap_q(n, html=REVIEW):
+    return re.search(r'<section class="q" data-q="%d">.*?</section>' % n, html, flags=re.S).group(0)
+
+
 def test_n_review_whose_last_question_is_not_the_tap():
-    tap = re.search(r'<section class="q" data-q="4">.*?</section>', REVIEW, flags=re.S).group(0)
-    words = ('<section class="q" data-q="4"><h3>4. Enjoyment, and why?</h3>'
+    words = ('<section class="q" data-q="5"><h3>5. Enjoyment, and why?</h3>'
              '<label class="box">Your words<textarea data-words></textarea></label></section>')
-    faults = page_check.check(REVIEW.replace(tap, words), EMPTY)
-    assert len(faults) == 1 and "the last question is not the enjoyment tap" in faults[0], faults
+    faults = page_check.check(REVIEW.replace(tap_q(5), words), EMPTY)
+    assert len(faults) == 1 and TWO_TAPS in faults[0], faults
 
 
 def test_n_a_tap_short_of_five_letters_is_refused():
     html = REVIEW.replace('<label class="opt"><input type="radio" name="q4" value="5">', '<label class="opt"><input type="radio" name="q4" value="x">', 1)
     faults = page_check.check(html, EMPTY)
-    assert len(faults) == 1 and "enjoyment tap" in faults[0], faults
+    assert len(faults) == 1 and TWO_TAPS in faults[0], faults
+
+
+def test_n_review_with_the_enjoyment_tap_alone_is_refused():
+    # The 0.8.0 review: one tap. The thing made comes first now (his ruling 1 of 17 Nov 2026).
+    faults = page_check.check(REVIEW.replace(tap_q(4), ""), EMPTY)
+    assert len(faults) == 1 and TWO_TAPS in faults[0] and "made" in faults[0], faults
+
+
+def test_n_review_with_the_taps_the_wrong_way_round_is_refused():
+    made, enjoyment = tap_q(4), tap_q(5)
+    html = REVIEW.replace(made + "\n    " + enjoyment, enjoyment + "\n    " + made)
+    assert html != REVIEW
+    faults = page_check.check(html, EMPTY)
+    assert len(faults) == 1 and TWO_TAPS in faults[0], faults
+
+
+# p. the status board first on a plan or review page, and the scoreboard on a review
+BOARD = re.search(r'    <section class="status-board" data-status-board>.*?</section>\n', GOOD, flags=re.S).group(0)
+NOT_FIRST = "the first element after the title block is not the status board"
+
+
+def test_p_plan_page_with_no_board_is_refused():
+    fault = only_fault(GOOD.replace(BOARD, ""))
+    assert fault.startswith("pages.md, The plan page") and NOT_FIRST in fault and "status.py --html" in fault
+
+
+def test_p_plan_page_with_the_board_under_its_heading_is_refused():
+    h1 = "<h1>The plan: what gets built, in what order, and your part in it</h1>"
+    html = GOOD.replace(BOARD, "").replace(h1, h1 + "\n" + BOARD)
+    assert "data-status-board" in html
+    assert NOT_FIRST in only_fault(html)
+
+
+def test_p_only_a_plan_or_review_page_needs_the_board():
+    assert page_check.check(GOOD.replace(BOARD, "").replace("Plan · 6 of 6", "Design · 4 of 6"), FACTS) == []
+
+
+def test_p_review_with_no_board_is_refused():
+    review_board = re.search(r'    <section class="status-board" data-status-board>.*?</section>\n', REVIEW, flags=re.S).group(0)
+    faults = page_check.check(REVIEW.replace(review_board, ""), EMPTY)
+    assert len(faults) == 1 and faults[0].startswith("pages.md, The review page") and NOT_FIRST in faults[0], faults
+
+
+SCOREBOARD_SECTION = re.search(r"    <section data-scoreboard>.*?</section>\n", REVIEW, flags=re.S).group(0)
+
+
+def test_p_review_with_no_scoreboard_is_refused():
+    faults = page_check.check(REVIEW.replace(SCOREBOARD_SECTION, ""), EMPTY)
+    assert len(faults) == 1 and "no scoreboard" in faults[0] and "--last 5 --html" in faults[0], faults
+
+
+def scored_project(tmp_path, n=7):
+    """A project whose docs/scoreboard.md holds n rows, runs 1 to n."""
+    (tmp_path / "docs").mkdir()
+    rows = [[str(i), f"2026-11-{i:02d} 18:00", "0.9.0", "4", "5", "3", "—", "2/2", "1", "none", "0", "0", "—"]
+            for i in range(1, n + 1)]
+    (tmp_path / "docs" / "scoreboard.md").write_text(scoreboard.as_table(rows) + "\n", encoding="utf-8")
+    return str(tmp_path), rows
+
+
+def test_p_review_holding_the_last_five_of_seven_rows_is_allowed(tmp_path):
+    project, rows = scored_project(tmp_path)
+    html = REVIEW.replace(SCOREBOARD_SECTION, scoreboard.as_html(rows[-5:]) + "\n")
+    assert page_check.check(html, project) == []
+
+
+def test_p_review_holding_the_wrong_rows_is_refused(tmp_path):
+    project, rows = scored_project(tmp_path)
+    for shown in (rows, rows[:5], rows[-4:]):
+        faults = page_check.check(REVIEW.replace(SCOREBOARD_SECTION, scoreboard.as_html(shown) + "\n"), project)
+        assert len(faults) == 1 and "not the last 5 of docs/scoreboard.md" in faults[0], faults
+
+
+def test_p_review_with_fewer_rows_shows_every_row(tmp_path):
+    project, rows = scored_project(tmp_path, 3)
+    assert page_check.check(REVIEW.replace(SCOREBOARD_SECTION, scoreboard.as_html(rows) + "\n"), project) == []
+    faults = page_check.check(REVIEW, project)
+    assert len(faults) == 1 and "shows 0 row(s), not the last 3" in faults[0], faults
+
+
+def test_p_the_blank_carries_the_board_the_scoreboard_and_the_two_taps():
+    as_review = BLANK.replace("&lt;Stage&gt; · &lt;n&gt; of 6", "Review", 1)
+    faults = page_check.check(as_review, EMPTY)
+    assert not [f for f in faults if NOT_FIRST in f or "scoreboard" in f or TWO_TAPS in f], faults
+
+
+# q. a page sent to someone else, or a board of options he marks: the read-back only
+SENT = ('<meta charset="utf-8">\n<title>For the builder</title>\n<body data-page-kind="%s">\n'
+        '<h2>Which day suits you?</h2><p>Monday 2026-11-23, or Tuesday.</p>\n'
+        '<label>Your note<textarea></textarea></label>\n'
+        '<button type="button">Copy my letters and notes</button>\n</body>\n')
+
+
+@pytest.mark.parametrize("kind", ["sent", "board"])
+def test_q_a_sent_page_or_a_board_is_checked_for_its_read_back_only(kind):
+    # No title block, no picture, a question in a heading, a box outside a question: all skipped.
+    assert page_check.check(SENT % kind, EMPTY) == []
+    faults = page_check.check((SENT % kind).replace("Copy my letters and notes", "Send"), EMPTY)
+    assert len(faults) == 1 and faults[0].startswith("rule 20"), faults
+
+
+def test_q_any_other_kind_is_checked_whole():
+    faults = page_check.check(SENT % "notes", EMPTY)
+    assert any(f.startswith("rule 4") for f in faults) and any(f.startswith("rule 7") for f in faults), faults
+
+
+# r. a closed run and no workflow file: his own needs-thought question, naming the work (L040)
+CLOSED_RUN = "# Decisions\n\n## 2026-11-19 01:51 — Run 7 closed (master)\nKept.\n"
+WORKFLOW_FILE = ("# Grading — v1.0\n\nVersion: v1.0\nTag: `idea`\n\n## Steps\n"
+                 "1. **Grade** · `idea` · the master — in: the cut — out: the grade — because.\n")
+NOT_ASKED = "pages.md, The workflow question: this project has closed a run and has no workflow file"
+NO_WORK = "pages.md, The workflow question: the question marked data-needs-thought=\"workflow\" does not name"
+MARKED = 'data-needs-thought="workflow" data-work="colour grading"'
+
+
+def closed_project(tmp_path, source=FACTS, decisions=CLOSED_RUN):
+    root = tmp_path / os.path.basename(source)
+    shutil.copytree(source, root)
+    if decisions:
+        (root / "docs").mkdir(exist_ok=True)
+        (root / "docs" / "decisions.md").write_text(decisions, encoding="utf-8")
+    return str(root)
+
+
+def asked(attrs=MARKED, words="colour grading"):
+    """The good plan page with its second question put as the workflow question."""
+    return broken('<section class="q" data-q="2">', f'<section class="q" data-q="2" {attrs}>').replace(
+        "2. What would count as success?", f"2. Should {words} get a workflow file of its own?")
+
+
+def test_a_closed_run_with_no_workflow_and_no_question_is_refused(tmp_path):
+    assert only_fault(GOOD, closed_project(tmp_path)).startswith(NOT_ASKED)
+    review = closed_project(tmp_path, EMPTY)
+    assert only_fault(REVIEW, review).startswith(NOT_ASKED)
+    # A page sent to someone else, or a board he marks, is still read for its read-back alone.
+    assert page_check.check(SENT % "sent", review) == [] and page_check.check(SENT % "board", review) == []
+
+
+def test_the_board_line_alone_is_refused(tmp_path):
+    board = '    <section class="status-board" data-status-board>\n<h2>status board</h2>\n<p>workflows: none</p>\n</section>\n'
+    assert only_fault(broken(BOARD, board), closed_project(tmp_path)).startswith(NOT_ASKED)
+
+
+def test_the_workflow_question_naming_the_work_passes(tmp_path):
+    root = closed_project(tmp_path)
+    assert page_check.check(asked(), root) == []
+    assert page_check.check(asked(words="Colour  grading"), root) == []  # his sentence's capitals and spacing
+
+
+def test_a_workflow_question_naming_no_work_is_refused(tmp_path):
+    root = closed_project(tmp_path)
+    for page in (asked('data-needs-thought="workflow"'),                                  # no data-work
+                 asked('data-needs-thought="workflow" data-work="  "'),                   # data-work with no words
+                 asked(words="this kind of work"),                                        # other words in its text
+                 asked(words="colour gradings"),                                          # not those same words
+                 asked(words="this work").replace('scanned and marked"></textarea>',
+                                                  'scanned and marked">colour grading</textarea>')):  # only in his box
+        assert only_fault(page, root).startswith(NO_WORK)
+    # The mark on anything but a question is no question.
+    page = broken('<section class="q" data-q="2">', f'<section class="q" data-q="2"><p {MARKED}>colour grading</p>')
+    assert only_fault(page, root).startswith(NOT_ASKED)
+
+
+def test_a_project_with_a_workflow_file_is_not_asked(tmp_path):
+    root = closed_project(tmp_path)
+    with open(os.path.join(root, "docs", "grading.md"), "w", encoding="utf-8") as f:
+        f.write(WORKFLOW_FILE)
+    assert page_check.check(GOOD, root) == []
+
+
+def test_a_project_with_no_closed_run_is_not_asked(tmp_path):
+    (tmp_path / "none").mkdir()
+    assert page_check.check(GOOD, closed_project(tmp_path / "none", decisions=None)) == []
+    (tmp_path / "open").mkdir()
+    still_open = "# Decisions\n\n## 2026-11-19 01:51 — Run 8 asked for\nRun 7 closed last week, in a sentence.\n"
+    assert page_check.check(GOOD, closed_project(tmp_path / "open", decisions=still_open)) == []
+
+
+# o. a review page of a project with docs/lessons.md holds the upgrade
+LESSONS = os.path.join(PAGES, "lessons-project")
+UPGRADE_PATH = os.path.join(PAGES, "sample-review-upgrade.html")
+UPGRADE = read(UPGRADE_PATH)
+
+
+def upgrade_faults(html, project=LESSONS):
+    return [f for f in page_check.check(html, project) if "upgrade" in f]
+
+
+def only_upgrade_fault(html):
+    faults = page_check.check(html, LESSONS)
+    assert len(faults) == 1 and "upgrade" in faults[0], faults
+    return faults[0]
+
+
+def group(kind):
+    """The sample's group of this kind, whole, as it stands in the page."""
+    return re.search(r'    <div class="group" data-group="%s">.*?\n    </div>\n' % kind, UPGRADE, flags=re.S).group(0)
+
+
+def test_upgrade_filled_sample_is_allowed_with_a_lessons_file(capsys):
+    assert os.path.isfile(os.path.join(LESSONS, "docs", "lessons.md"))
+    assert page_check.main(["page_check.py", UPGRADE_PATH, "--project", LESSONS]) == 0
+    assert capsys.readouterr().out.strip() == "ALLOW"
+
+
+def test_upgrade_old_sample_is_refused_with_a_lessons_file():
+    fault = only_upgrade_fault(REVIEW)
+    assert fault.startswith("pages.md, The review page: no upgrade section")
+
+
+def test_upgrade_old_sample_is_allowed_without_a_lessons_file():
+    assert not os.path.exists(os.path.join(EMPTY, "docs", "lessons.md"))
+    assert page_check.check(REVIEW, EMPTY) == []
+
+
+def test_upgrade_section_after_the_tap_is_refused():
+    start = UPGRADE.index("  <!-- The upgrade:")
+    end = UPGRADE.index("  <!-- The pieces:")
+    section = UPGRADE[start:end]
+    html = UPGRADE[:start] + UPGRADE[end:]
+    at = html.index('  <section class="calls stack">')
+    html = html[:at] + section + html[at:]
+    # Its questions now follow the tap, so check n refuses too; check o names the upgrade's place.
+    faults = upgrade_faults(html)
+    assert len(faults) == 1 and "not before the two taps" in faults[0], faults
+
+
+def test_upgrade_needs_thought_not_first_is_refused():
+    thought, lines = group("needs-thought"), group("lines")
+    html = UPGRADE.replace(thought + "\n" + lines, lines + "\n" + thought)
+    assert html != UPGRADE
+    assert "needs-thought group is not first" in only_upgrade_fault(html)
+
+
+def test_upgrade_lines_group_with_two_questions_is_refused():
+    lines = group("lines")
+    q = re.search(r'<section class="q" data-q="5">.*?</section>', lines, flags=re.S).group(0)
+    html = UPGRADE.replace(lines, lines.replace(q, q + q.replace('data-q="5"', 'data-q="5b"')))
+    assert "lines group holds 2 questions" in only_upgrade_fault(html)
+
+
+def test_upgrade_lines_question_without_approve_all_is_refused():
+    html = UPGRADE.replace("<legend>5. Approve all my leans on these lines</legend>",
+                           "<legend>5. My leans on these lines</legend>")
+    html = html.replace("<b>a.</b> Approve all my leans", "<b>a.</b> Take my leans")
+    html = html.replace("<b>b.</b> Approve all but", "<b>b.</b> Take all but")
+    assert "does not say \"approve all\"" in only_upgrade_fault(html)
+
+
+def test_upgrade_foundations_block_with_no_question_is_refused():
+    found = group("foundations")
+    q = re.search(r'<section class="q" data-q="6">.*?</section>', found, flags=re.S).group(0)
+    fault = only_upgrade_fault(UPGRADE.replace(found, found.replace(q, "")))
+    assert "foundations item" in fault and "holds 0 questions" in fault
+
+
+def test_upgrade_empty_group_without_none_is_refused():
+    track = group("tracks")
+    empty = '    <div class="group" data-group="tracks">\n      <h3>Candidate tracks</h3>\n    </div>\n'
+    fault = only_upgrade_fault(UPGRADE.replace(track, empty))
+    assert "tracks group holds nothing" in fault
+    said_none = empty.replace("<h3>Candidate tracks</h3>", "<h3>Candidate tracks</h3><p>None.</p>")
+    assert page_check.check(UPGRADE.replace(track, said_none), LESSONS) == []
+
+
+@pytest.mark.parametrize("old,new", [("foundations", "lock"), ("trials", "unlock"), ("tracks", "track")])
+def test_upgrade_a_group_named_by_the_old_words_is_refused(old, new):
+    html = UPGRADE.replace(f'data-group="{old}"', f'data-group="{new}"')
+    fault = only_upgrade_fault(html)
+    assert f"group name(s) {new} are not the upgrade's groups" in fault and "foundations" in fault
+
+
+def test_upgrade_the_locked_group_is_refused_and_foundation_is_read():
+    every = '    <div class="group" data-group="%s">\n      <h3>Foundations</h3><p>None.</p>\n    </div>\n'
+    at = UPGRADE.index('    <div class="group" data-group="template">')
+    assert "group name(s) locked are not" in only_upgrade_fault(UPGRADE[:at] + every % "locked" + UPGRADE[at:])
+    assert page_check.check(UPGRADE[:at] + every % "foundation" + UPGRADE[at:], LESSONS) == []
+
+
+def test_upgrade_the_blank_holds_the_section_in_order():
+    up = BLANK.index("data-upgrade")
+    kinds = re.findall(r'data-group="([a-z-]+)"', BLANK[up:])
+    assert kinds == ["needs-thought", "lines", "foundations", "tracks", "trials", "template"]
+    as_review = BLANK.replace("&lt;Stage&gt; · &lt;n&gt; of 6", "Review", 1)
+    assert upgrade_faults(as_review) == []
 
 
 def test_the_tool_writes_nothing(capsys):

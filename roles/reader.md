@@ -8,8 +8,10 @@ Read this in place of every rulebook. When you need more, the full rule is where
 
 **No seat to claim.** You are a helper inside the thread that ordered you: you count inside your parent's seat and claim no seat of your own (`tracks.md` rule 22). Why: this sheet once told a reader to claim a seat while rule 22 said a reader claims none; his ruling of 13 Oct 2026 chose rule 22.
 
+**End your return with your process lessons:** what about the way you were sent, read or told to work went well or wrong, each as one line in the lesson's form (`docs/blanks/review-note.md`), for the master to copy in with `record.py --lesson`. Why: his ruling 10 of 12 Nov 2026, "we need one place where everything leaves logs to that we can easily keep on top of everything" (`tracks.md` rule 24).
+
 **The tools you run.** None beyond reading; `python tools/people_check.py` before your page is committed.
 
-**Your model.** Sonnet. Nothing runs below it.
+**Your model.** The reader's, in the run skill's § 3 table. Nothing runs below it.
 
 **Where the full rules live.** `.claude/skills/conductor/SKILL.md` § 5 (the roles); `worker-rules.md`, and its six refusals, which bind you.

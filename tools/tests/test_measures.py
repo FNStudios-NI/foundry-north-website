@@ -297,6 +297,96 @@ def test_share_finished_counts_run_4s_numbered_bullets_once_each(tmp_path):
     assert "3 of 5 pieces landed (3 cards): 60%" in share
 
 
+# The path in each of the three forms a plan is written in, by run 6's,
+# run 5's and the Manager's shapes, with made-up words.
+DASHED_PATH = """## The path
+All six pieces go to the template desk.
+
+- 1 How the kettle boils · template · full · Touches `kettle.py`
+  Holds: lessons 3 to 10, and 12: the lid stays on
+  Done when: 7 of the cups are poured
+- 2 The tea is strong · road · full
+  Holds: lesson 11
+- 3 The biscuits · template · light
+- 4 The saucers · proving · light
+- 5 The tray · template · full
+- 6 Version 9.9.9 · template · standard
+"""
+
+LIST_PATH = """## The path
+All six pieces go to the template desk, which cuts its own cards.
+
+1. **The kettle, in the boiling skill** · template · full
+   Touches: `kettle.py` `tests/test_kettle.py`
+   Holds: after pieces 1 to 9 land: 12 cups, and 14
+   Done when: the kettle sings
+2. **The tea is strong** · road · full
+   Touches: `tea.py`
+3. **The biscuits** · template · light
+   Touches: `tin.md`
+4. **The saucers** · proving · light
+   Touches: `cupboard.md`
+5. **The tray** · template · full
+   Touches: `tray.py`
+6. **Version 9.9.9** · template · standard
+   Touches: `VERSION`
+
+Not in this run: the teapot.
+"""
+
+TABLE_PATH = """## The path
+All of it. Waves (at most two at once): 1, 3, 6, 7 first; then 2 and 5; then 4 and 8.
+
+| # | Piece | Desk | Mark | Lane | Touches | Done when |
+|---|---|---|---|---|---|---|
+| 1 | The kettle | template | ✅ proven | full | `kettle.py` | it sings |
+| 2 | The tea | road | ✅ proven | full | `tea.py` | 12 cups |
+| 3 | The biscuits | template | 📄 documented | light | `tin.md` | the tin is full |
+| 4 | The saucers | proving | ✅ proven | light | `cupboard.md` | 3 saucers |
+| 5 | The tray | (master's helper) | ✅ proven | light | `tray.py` | it carries |
+| 6 | The milk | (master) | ✅ proven | light | `fridge.md` | 2 jugs |
+| 7 | The sugar | template | ✅ proven | full | `bowl.py` | a spoon |
+| 8 | Version 9.9.9 | template | ✅ proven | standard | `VERSION` | the tag is there |
+"""
+
+MIXED_PATH = """## The path
+1. **The kettle** · template · full
+   Touches: `kettle.py`
+- 2 The tea · road · full
+| 3 | The biscuits | template |
+| 1 | The kettle again, read once | template |
+- 4 The saucers · proving · light
+"""
+
+
+def test_share_finished_reads_a_dashed_path_and_not_its_indented_lines(tmp_path):
+    run, logs = make_run(tmp_path)
+    (run / "plan-signed.md").write_text("# Plan for run 9 — demo-project\n\n" + DASHED_PATH, encoding="utf-8")
+    share = section(run_tool(run, logs), "Share finished")
+    assert "3 of 6 pieces landed (3 cards): 50%" in share
+
+
+def test_share_finished_reads_a_numbered_list_and_not_its_indented_lines(tmp_path):
+    run, logs = make_run(tmp_path)
+    (run / "plan-signed.md").write_text("# Plan for run 9 — demo-project\n\n" + LIST_PATH, encoding="utf-8")
+    share = section(run_tool(run, logs), "Share finished")
+    assert "3 of 6 pieces landed (3 cards): 50%" in share
+
+
+def test_share_finished_reads_a_table_and_not_its_header_rows(tmp_path):
+    run, logs = make_run(tmp_path)
+    (run / "plan-signed.md").write_text("# Plan for run 9 — demo-project\n\n" + TABLE_PATH, encoding="utf-8")
+    share = section(run_tool(run, logs), "Share finished")
+    assert "3 of 8 pieces landed (3 cards): 38%" in share
+
+
+def test_share_finished_reads_each_form_in_a_mixed_path_and_each_number_once(tmp_path):
+    run, logs = make_run(tmp_path)
+    (run / "plan-signed.md").write_text("# Plan for run 9 — demo-project\n\n" + MIXED_PATH, encoding="utf-8")
+    share = section(run_tool(run, logs), "Share finished")
+    assert "3 of 4 pieces landed (3 cards): 75%" in share
+
+
 def logs_line(out):
     return next(line for line in out.splitlines() if line.startswith("Logs: "))
 
@@ -374,3 +464,101 @@ def test_a_landed_card_that_names_no_piece_is_named_and_not_counted(tmp_path):
     os.remove(tmp_path / "project" / "desks" / "road" / "docs" / "cards" / "2026-10-07-road-beta.md")
     share = section(run_tool(run, logs), "Share finished")
     assert "1 of 4 pieces landed (3 cards; 2 name no piece: road road-beta, template gamma): 25%" in share
+
+
+# ---- 0.9.0: the Run lines, a run with no plan, the blank's example lines ----
+
+def test_the_run_lines_of_each_landed_cards_own_receipt_are_read(tmp_path):
+    run, logs = make_run(tmp_path)
+    top = tmp_path / "project" / "desks" / "template" / "docs" / "cards"
+    with open(top / "2026-10-07-alpha.md", "a", encoding="utf-8") as f:
+        f.write("\n## Touches\n`work.txt` · `desks/template/docs/cards/receipts/2026-10-07-alpha-close.md`\n")
+    (top / "receipts").mkdir()
+    (top / "receipts" / "2026-10-07-alpha-close.md").write_text(
+        "DONE — alpha\n\n# Receipt — alpha — 2026-10-07\n\nCard: `x` · Branch: `y`\n"
+        "Run: claude-opus-5-5 · high · 2026-10-07 05:02 · 2026-10-07 05:40 · 3 turns\n"
+        "Run: claude-fable-5-2 · effort unknown · 2026-10-07 05:45 · 2026-10-07 05:50 · 1 turns\n\n"
+        "## Shipped\nRun: a line in the body is not a stamp\n", encoding="utf-8")
+    usage = section(run_tool(run, logs), "Usage per finished piece")
+    assert ("- template alpha · claude-opus-5-5 · high · 2026-10-07 05:02 · 2026-10-07 05:40 · 3 turns\n"
+            "- template alpha · claude-fable-5-2 · effort unknown · 2026-10-07 05:45 · 2026-10-07 05:50 · 1 turns\n"
+            "- road road-beta · no Run line\n") in usage
+    assert "not a stamp" not in usage
+
+
+def test_a_run_with_no_plan_says_plan_none_and_measures_the_rest(tmp_path):
+    run, logs = make_run(tmp_path)
+    os.remove(run / "plan-signed.md")
+    the_usual_sessions(logs)
+    out = run_tool(run, logs)
+    share = section(out, "Share finished")
+    assert share.startswith("plan: none\n"), share
+    assert "0 of 0 pieces landed (3 cards" in share
+    assert "- template alpha · pass" in section(out, "It works")
+    assert "- total · " in section(out, "Usage per finished piece")
+    assert "3: 1 unforeseen key points, 2 blockers" in section(out, "Surprises")
+
+
+def test_the_blanks_example_lines_are_not_counted(tmp_path):
+    run, logs = make_run(tmp_path)
+    text = (run / "run.md").read_text(encoding="utf-8")
+    for heading, example in [
+        ("## Unforeseen key points", "- <hh:mm> · <the key point> · chose: <…> · turned down: <each option> · why: <one line>"),
+        ("## Blockers", "- <hh:mm> · <the blocker> · ways through: <each, with its cost to him> · my recommendation: <one>"),
+        ("## Merges", "- <hh:mm> · <card> · squash <commit> · undo: `git revert <commit>`"),
+        ("## It works", "- <hh:mm> · <card> · pass | fail · <who looked> · <how>"),
+    ]:
+        start = text.index(heading)
+        cut = text.index("\n", text.index("\n", start) + 1) + 1  # after the heading's note line
+        text = text[:cut] + example + "\n" + text[cut:]
+    (run / "run.md").write_text(text, encoding="utf-8")
+    out = run_tool(run, logs)
+    assert "3: 1 unforeseen key points, 2 blockers" in section(out, "Surprises")
+    assert "<" not in section(out, "Surprises")
+    assert "(3 cards)" in section(out, "Share finished") and "merge lines name no card" in section(out, "Share finished")
+    assert "<card>" not in section(out, "It works")
+
+
+def commit(repo, day):
+    """Commit all of the sample project, dated <day> on this machine's clock."""
+    when = f"{day}T05:01:00"
+    env = dict(os.environ, GIT_AUTHOR_DATE=when, GIT_COMMITTER_DATE=when)
+    for args in (["add", "."], ["commit", "-q", "-m", f"the record on {day}"]):
+        done = subprocess.run(["git", *args], cwd=repo, env=env, capture_output=True, text=True)
+        assert done.returncode == 0, done.stderr
+
+
+def test_a_record_written_only_by_record_py_is_measured(tmp_path):
+    run, logs = make_run(tmp_path)
+    record = run / "run.md"
+    only_stamped = record.read_text(encoding="utf-8").replace(
+        "- Start: 2026-10-07 05:00\n- Planned end: 2026-10-07 09:00\n",
+        "- 05:00 · Start (Go): this master, on his signature\n"
+        "- 06:40 · Resumed (Go for the added pieces): this master\n")
+    record.write_text(only_stamped, encoding="utf-8")
+
+    # Not yet in git, the stamped line has no date: said, never guessed.
+    done = subprocess.run([sys.executable, TOOL, str(run), "--logs", str(logs), "--until", "2026-10-07 09:00"],
+                          capture_output=True, encoding="utf-8")
+    assert done.returncode == 1 and "no start under ## Go" in done.stdout, done.stdout
+
+    repo = tmp_path / "project"
+    for args in (["init", "-q", "-b", "main"], ["config", "user.name", "Test"],
+                 ["config", "user.email", "test@example.invalid"], ["config", "commit.gpgsign", "false"]):
+        subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True)
+    commit(repo, "2026-10-07")
+    record.write_text(only_stamped + "\n", encoding="utf-8")
+    commit(repo, "2026-10-09")  # a later commit of the record does not move its day
+    assert "2026-10-07 05:00 to 2026-10-07 09:00" in run_tool(run, logs).splitlines()[1]
+
+    # The older line still reads, and wins when both are there.
+    record.write_text(only_stamped.replace("## Go\n", "## Go\n- Start: 2026-10-07 06:00\n"), encoding="utf-8")
+    assert "2026-10-07 06:00 to 2026-10-07 09:00" in run_tool(run, logs).splitlines()[1]
+
+
+def test_an_it_works_line_with_who_looked_shows_who_and_how(tmp_path):
+    run, logs = make_run(tmp_path)
+    with open(run / "run.md", "a", encoding="utf-8") as f:
+        f.write("- 08:10 · road-beta · pass · his watch · the film played through\n")
+    works = section(run_tool(run, logs), "It works")
+    assert "- road road-beta · pass · his watch · the film played through" in works

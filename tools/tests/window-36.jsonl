@@ -1,0 +1,4 @@
+{"type":"system","subtype":"init","model":"claude-sonnet-5-5","session_id":"saved-reading"}
+{"type":"rate_limit_event","rate_limit_info":{"status":"allowed","resetsAt":1794483600,"rateLimitType":"five_hour","isUsingOverage":false,"unifiedWindows":{"five_hour":{"utilization":0.36,"resetsAt":1794483600,"status":"allowed"},"seven_day":{"utilization":0.04,"resetsAt":1794862800,"status":"allowed"}}},"session_id":"saved-reading"}
+{"type":"assistant","message":{"type":"message","role":"assistant","content":[{"type":"text","text":"ok"}]},"session_id":"saved-reading"}
+{"type":"result","subtype":"success","is_error":false,"result":"ok","session_id":"saved-reading"}
