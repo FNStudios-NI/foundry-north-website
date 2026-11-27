@@ -13,3 +13,12 @@ Lanes as signed: 1 standard, 3 light, 2 standard, 4 standard, 5 standard, 6 stan
 ## 2026-10-15 07:04 · master → site · ORDER
 Tasks: 7, 8 of run 1 (added by his ruling of 07:04 in `docs/decisions.md`) · aim: 7, a two-layer moving logo banner with a parallax motion in the trust section, built now with stand-in marks; 8, his film dropped into the film frame, once he sends it · by: 2026-10-15 09:18 · heavy: no
 Lanes: 7 standard, 8 standard. Cards cut by the master, as before.
+
+## 2026-11-27 10:31 · creator-edit-studio master → site · ORDER
+Tasks: creator-edit-studio run 1, task 6 · aim: a one-page sample section on your site, for the creators our first messages go to · by: before our first message is sent (from about Mon 7 Dec 2026) · heavy: no
+- The ask: a tweak to the Foundry North website, adding a one-page sample section.
+- Why us, in Rhys's words: the section carries the line below word for word. Any change to his words is his to approve before it is made.
+  "we are English speaking with a track record of explaining complex ideas visually to audiences at all different levels. we will increase there output while keeping there costs low. our goal in business is that everyone wins in good business."
+- Your voice rules: the site's own voice rules (your `docs/research/2026-10-13-foundry-north-digest.md` § 7) are yours to keep.
+- Question 1, open and not decided: which examples does the page show? Three to six example re-cuts are to be ready before the first send, and a creator's free sample (a re-cut of their own public video) is shared privately and never posted.
+- Question 2, open and not decided: is the page listed on the site, or reached only by its link?
